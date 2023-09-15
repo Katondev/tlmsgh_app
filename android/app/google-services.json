@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1056559758543",
+    "project_id": "katondev-cf09d",
+    "storage_bucket": "katondev-cf09d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056559758543:android:cd23fb891eea366d698bba",
+        "android_client_info": {
+          "package_name": "com.katon.student"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1056559758543-a1slpvujpg07ak2cnbnb9nppf8ibp5lf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuEU7mRLtcFybj8llnfZR7JzRmUf-DfX8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1056559758543-a1slpvujpg07ak2cnbnb9nppf8ibp5lf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

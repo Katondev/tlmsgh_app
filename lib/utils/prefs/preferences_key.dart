@@ -1,0 +1,41 @@
+class PreferencesKey {
+  static String token = "token";
+  static String uType = "uType";
+  static String uName = "uName";
+  static String profilePic = "profilePic";
+  static String uId = "uId";
+  static String isLoggedIn = "isLoggedIn";
+  static String isTeacherLoggedIn = "isTeacherLoggedIn";
+  // static String isFirstTime = "isFirstTime";
+  static String isLoggedInFirstTimeSt = "studentLoggedIn";
+  static String isLoggedInFirstTimeT = "teacherLoggedIn";
+  static String introPage = "introPage";
+  static String studentData = "studentData";
+  static String studentSignupData = "studentSignupData";
+  static String teacherData = "teacherData";
+  static String teacherSignupData = "teacherSignupData";
+  static String myLibraryData = "myLibraryData";
+  static String categories = "categories";
+  static String topic = "topic";
+  static String mainCategory = "mainCategory";
+  static String subject = "subject";
+  static String subCategory = "subCategory";
+  static String notificationData = "notification";
+  static String language = "language";
+  static String student_Id = "stId";
+  static String student_class_Id = "stclassId";
+  static String student_school_Id = "stschoolId";
+  static String student_class = "stclass";
+  static String student_level = "stlevel";
+  static String downloaded_ebooks = "downloadedEbooks";
+  static String offline_subjects = "offlineSubjects";
+  //
+  static String tpId = "tpId";
+  static String region = "region";
+  static String district = "district";
+  static String level = "level";
+  static String staffId = "staffId";
+  static String schoolId = "schoolId";
+  static String trainingStatus = "trainingStatus";
+  static String isPortrait = "isPortrait";
+}
