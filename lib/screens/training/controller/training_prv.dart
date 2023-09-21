@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:dio/dio.dart' as formData;
+import 'package:file_picker/file_picker.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,6 +27,7 @@ import '../../../utils/Routes/teacher_route_arguments.dart';
 import '../../../widgets/custom_dialog.dart';
 import '../../../widgets/download_file.dart';
 import '../../practice/assignment/model/answer_submit_model.dart';
+import 'package:http/http.dart' as http;
 
 class TrainingProvider extends ChangeNotifier {
   TrainingModel? trainingModel;
@@ -721,6 +723,77 @@ class TrainingProvider extends ChangeNotifier {
       _setLoading(false);
     }
   }
+   PlatformFile? selectedFile;
+
+  void pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+        selectedFile = result.files.first;
+        notifyListeners();
+      
+    }
+  }
+  
+
+
+   Future<void> uploadFile(BuildContext context) async {
+     CustomLoadingIndicator.instance.show();
+    String url =  "${ApiRoutes.updateSignedForm}${tpsId}";
+
+    var headers = {
+      'Authorization': 'Bearer ${AppPreference().getString(PreferencesKey.token)}',
+      'Content-Type': 'application/json',
+    };
+
+    var request = http.MultipartRequest('PUT', Uri.parse(url));
+    request.headers.addAll(headers);
+    request.fields['tps_signFontFamily'] =signatureFontfamily[selectedSign];
+    request.fields['tps_signText'] = signatureCnt.value.text.trim();
+    request.fields['tps_attentionFormDate'] = DateTime.now().toString();
+    request.fields['tps_trainingStatus'] = '3';
+
+    if (selectedFile != null) {
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          'tps_signedForm',
+          selectedFile!.path!,
+        ),
+      );
+    } else {
+      print('No file selected');
+      return;
+    }
+
+    try {
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+         CustomLoadingIndicator.instance.hide();
+         if (trainingStatus == 2 && isStatus) {
+        Navigator.of(context)
+          ..pop()
+          ..pop()
+          ..pop();
+        getTrainingDetails();
+        notifyListeners();
+      } else {
+        // Navigator.of(context)
+        //   ..pop()
+        //   ..pop();
+        getTrainingDetails();
+        notifyListeners();
+      }
+
+
+      } else {
+        print('Failed to upload file. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error uploading file: $e');
+    }
+  }
+
+  
 
   Future<void> getAllschoolData(
       {required String region, required String district}) async {

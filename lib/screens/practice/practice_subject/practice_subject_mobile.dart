@@ -126,9 +126,26 @@ class _PracticeSubjectPagePhoneState extends State<PracticeSubjectPagePhone> {
                                                         "Teacher") {
                                                       if (ePrv.selectedPractice ==
                                                           0) {
+                                                             navigatorKey
+                                                            .currentState
+                                                            ?.pushNamed(
+                                                          RoutesConst
+                                                              .practiceAssignment,
+                                                          arguments: data,
+                                                        );
+
                                                       } else if (ePrv
                                                               .selectedPractice ==
-                                                          1) {}
+                                                          1) {
+                                                           navigatorKey
+                                                            .currentState
+                                                            ?.pushNamed(
+                                                          RoutesConst
+                                                              .pastQuestions,
+                                                          arguments: data,
+                                                        );
+
+                                                          }
                                                     }
                                                   },
                                                   child: ExpansionWidget(

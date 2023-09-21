@@ -230,6 +230,59 @@ class PracticePrv extends ChangeNotifier {
       }
       _setLoading(false);
     }
+  } 
+   Future<void> getAssessmentSubject() async {
+   
+    try {
+      practiceSubjectList.clear();
+      connections = false;
+      _setLoading(true);
+      log("-------------");
+      // int id = await AppPreference().getInt(PreferencesKey.uId);
+      await ApiService.instance
+          .get(ApiRoutes.assignment, queryParameters: {
+        "mainCategory": AppPreference().getString(PreferencesKey.level),
+      }).then((value) {
+        print("model-----1-$value");
+        var data = PracticeSubjectModel.fromJson(value.data);
+
+        practiceSubjectList = data.data!;
+        print("model-----2-$assignmentModel");
+      });
+      _setLoading(false);
+    } on Exception catch (e) {
+      if (e.toString() == "No Internet") {
+        connections = true;
+      }
+      _setLoading(false);
+    }
+  }
+
+    Future<void> getpastAssessmentSubject() async {
+   
+    try {
+      practiceSubjectList.clear();
+      connections = false;
+      _setLoading(true);
+      log("-------------");
+      // int id = await AppPreference().getInt(PreferencesKey.uId);
+      await ApiService.instance
+          .get(ApiRoutes.pastAssessmentSubject, queryParameters: {
+        "mainCategory": AppPreference().getString(PreferencesKey.level),
+      }).then((value) {
+        print("model-----1-$value");
+        var data = PracticeSubjectModel.fromJson(value.data);
+
+        practiceSubjectList = data.data!;
+        print("model-----2-$assignmentModel");
+      });
+      _setLoading(false);
+    } on Exception catch (e) {
+      if (e.toString() == "No Internet") {
+        connections = true;
+      }
+      _setLoading(false);
+    }
   }
 
   Future<void> getAllAssignmentresult(context) async {
