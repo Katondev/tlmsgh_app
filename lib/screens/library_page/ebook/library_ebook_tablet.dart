@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,17 +7,10 @@ import 'package:katon/screens/library_page/book_detail/widget/library_ebook_widg
 import 'package:katon/screens/library_page/widget/share_ebook_dialog.dart';
 import 'package:katon/utils/app_colors.dart';
 import 'package:katon/widgets/common_appbar.dart';
-import 'package:katon/widgets/common_container.dart';
 import 'package:provider/provider.dart';
-import '../../../../components/app_text_style.dart';
 import '../../../../utils/constants.dart';
-import '../../../models/book_info_model.dart';
-import '../../../utils/global_singlton.dart';
-import '../../../utils/prefs/app_preference.dart';
-import '../../../utils/prefs/preferences_key.dart';
 import '../../../widgets/loader.dart';
 import '../../../widgets/no_data_found.dart';
-import '../../../widgets/no_internet.dart';
 import '../controller/cnt_prv.dart';
 
 class LibraryEbookTablet extends StatefulWidget {

@@ -1,25 +1,25 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:katon/components/app_text_style.dart';
-import 'package:katon/models/book_info_model.dart';
 import 'package:katon/res.dart';
-import 'package:katon/screens/home_page.dart';
 import 'package:katon/screens/my_library/widgets/video_player.dart';
 import 'package:katon/utils/config.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 import '../../../../components/image/image_widget.dart';
 import '../../../../models/video_books_model.dart';
 import '../../../../network/api_constants.dart';
 import '../../../../utils/global_singlton.dart';
+import '../../controller/cnt_prv.dart';
 import '../../controller/elearning_cnt.dart';
 
 class LibraryVideoWidget extends StatefulWidget {
   // final GestureTapCallback onTapDownload;
-  final GestureTapCallback onTapShare;
+  final GestureTapCallback onTap;
+  final GestureTapCallback onTapDownload;
   final VideoBooksData? book;
   final List<VideoBooksData>? booksList;
   // final String title;
@@ -27,9 +27,10 @@ class LibraryVideoWidget extends StatefulWidget {
   const LibraryVideoWidget({
     super.key,
     // required this.onTapDownload,
-    required this.onTapShare,
+    required this.onTap,
     this.book,
     this.booksList,
+    required this.onTapDownload,
   });
 
   @override
@@ -40,6 +41,7 @@ class _LibraryVideoWidgetState extends State<LibraryVideoWidget> {
   var image;
   var imagePath;
   final cnt = Get.put(ELearningCnt());
+  ELearningProvider? eLearningPrv;
 
   bool loading = true;
 
@@ -47,6 +49,8 @@ class _LibraryVideoWidgetState extends State<LibraryVideoWidget> {
 
   Future initDir() async {
     loading = true;
+    // print(
+    //     "data-----------12-------------${GlobalSingleton().globalVideoData[widget.index].isDownloadedVideo.value.toString()}-------${widget.index}");
     // setState(() {});
     dir = await getApplicationDocumentsDirectory();
     imagePath = '${widget.book!.bkPreview}';
@@ -65,7 +69,7 @@ class _LibraryVideoWidgetState extends State<LibraryVideoWidget> {
           .existsSync()) {
         // cnt.isDownloaded.value = true;'
         widget.book!.isDownloadedVideo.value = true;
-        widget.book!.isDownloadingVideo.value = false;
+        // widget.book!.isDownloadingVideo.value = false;
       }
     }
     loading = false;
@@ -78,6 +82,9 @@ class _LibraryVideoWidgetState extends State<LibraryVideoWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      eLearningPrv = Provider.of<ELearningProvider>(context, listen: false);
+    });
     initDir();
     log("video------book-----${widget.book!.bkTitle}");
   }
@@ -85,21 +92,12 @@ class _LibraryVideoWidgetState extends State<LibraryVideoWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:
-          (File("${GlobalSingleton().Dirpath}/${widget.book?.bkVideo?.split("/").last}")
-                  .existsSync())
-              ? () {
-                  log("message");
-                  Get.to(Video(
-                    title: widget.book?.bkVideo,
-                  ));
-                }
-              : () {},
+      onTap: widget.onTap,
       child: Container(
         width: 220,
         // height: 150,
-        margin: EdgeInsets.only(right: 14),
-        decoration: BoxDecoration(),
+        margin: const EdgeInsets.only(right: 14),
+        decoration: const BoxDecoration(),
         child: Column(
           children: [
             Stack(
@@ -115,47 +113,28 @@ class _LibraryVideoWidgetState extends State<LibraryVideoWidget> {
                   right: 10,
                   top: 10,
                   child: GestureDetector(
-                    onTap: (widget.book!.isDownloadedVideo.value)
-                        ? () {
-                            log("message");
-                            Get.to(Video(
-                              title: widget.book?.bkVideo,
-                            ));
-                          }
-                        : () {
-                            log("message---1");
-
-                            cnt.onPressedDownload(
-                              id: widget.book!.bkId!,
-                              context: context,
-                              bookItem: widget.book!.bkVideo ?? "",
-                              bookItem1: cnt.video.value,
-                              bookItemExist: cnt.videoExisted.value,
-                              screenName: "Video",
-                              videobook: widget.book!,
-                              videoBookList: widget.booksList,
-                            );
-                          },
+                    onTap: widget.onTapDownload,
                     child: Obx(
                       () => Container(
                         height: 28,
                         width: 28,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: AppColors.primaryWhite,
                         ),
                         padding: EdgeInsets.all(
                             (File("${GlobalSingleton().Dirpath}/${widget.book?.bkVideo?.split("/").last}")
-                                        .existsSync() &&
-                                    !widget.book!.isDownloadingVideo.value)
+                                    .existsSync())
                                 ? 8
                                 : 5),
                         child:
                             // (widget.book!.isDownloadingVideo.value &&
                             //         cnt.video.value &&
                             //         cnt.isDownloading)
-                            (widget.book!.isDownloadingVideo.value)
-                                ? CircularProgressIndicator()
+                            (GlobalSingleton()
+                                    .videobookIdList
+                                    .any((e) => e == widget.book!.bkId))
+                                ? const CircularProgressIndicator()
                                 : (File("${GlobalSingleton().Dirpath}/${widget.book?.bkVideo?.split("/").last}")
                                         .existsSync())
                                     ? Image.asset(
@@ -173,10 +152,9 @@ class _LibraryVideoWidgetState extends State<LibraryVideoWidget> {
                     ),
                   ),
                 ),
-
                 // Positioned(
-                //     child:
-                //         Text(widget.book!.isDownloadingVideo!.value.toString())),
+                //     child: Text(
+                //         "${GlobalSingleton().bookIdList.any((e) => e == widget.book!.bkId)}\n${widget.book!.isDownloadingVideo.value}")),
                 Positioned(
                   bottom: 0,
                   left: 0,
@@ -185,8 +163,8 @@ class _LibraryVideoWidgetState extends State<LibraryVideoWidget> {
                   child: Container(
                     width: Get.width,
                     height: 20,
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    decoration: const BoxDecoration(
                       color: AppColors.black,
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(10),
@@ -199,7 +177,7 @@ class _LibraryVideoWidgetState extends State<LibraryVideoWidget> {
                           AppAssets.ic_play_outline,
                           height: 12,
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Text(
                           "5:00",
                           style: AppTextStyle.normalRegular12.copyWith(

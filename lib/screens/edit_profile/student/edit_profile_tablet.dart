@@ -48,11 +48,11 @@ class _EditProfileTabletPageState extends State<EditProfileTabletPage> {
           // endDrawer: endDrawer(),
           body: Obx(
             () => Container(
-              padding: EdgeInsets.fromLTRB(35, 30, 80, 30),
+              padding: const EdgeInsets.fromLTRB(35, 30, 80, 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CommonAppBar2(
+                  const CommonAppBar2(
                     title: "Profile",
                   ),
                   customHeight(35),
@@ -65,7 +65,7 @@ class _EditProfileTabletPageState extends State<EditProfileTabletPage> {
                       padding: EdgeInsets.fromLTRB(
                           60, 48, 60, MediaQuery.of(context).viewInsets.bottom),
                       child: SingleChildScrollView(
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         child: Column(
                           children: [
                             Form(
@@ -93,7 +93,7 @@ class _EditProfileTabletPageState extends State<EditProfileTabletPage> {
                                         ),
                                       ),
                                     ),
-                                    Divider(
+                                    const Divider(
                                       color: AppColors.dividerColor,
                                       thickness: 2,
                                       height: 0,
@@ -131,7 +131,8 @@ class _EditProfileTabletPageState extends State<EditProfileTabletPage> {
                                                       height: 27,
                                                       width: 27,
                                                       padding:
-                                                          EdgeInsets.all(7),
+                                                          const EdgeInsets.all(
+                                                              7),
                                                       decoration: BoxDecoration(
                                                         shape: BoxShape.circle,
                                                         color: AppColors
@@ -272,6 +273,11 @@ class _EditProfileTabletPageState extends State<EditProfileTabletPage> {
                                                       onChange: (value) {
                                                         cnt.classValue.value =
                                                             value!;
+                                                        if (!cnt.textChanged
+                                                            .value) {
+                                                          cnt.textChanged
+                                                              .value = true;
+                                                        }
                                                         cnt.checkColor();
                                                       },
                                                       validator: (value) {

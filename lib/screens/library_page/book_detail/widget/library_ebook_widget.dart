@@ -232,18 +232,23 @@ class _LibraryEbookWidgetState extends State<LibraryEbookWidget> {
                               color: AppColors.primaryWhite,
                             ),
                             padding: const EdgeInsets.all(5),
-                            child: (widget.book!.isDownloading!.value)
-                                ? const CircularProgressIndicator()
-                                : Image.asset(
-                                    (File("${GlobalSingleton().Dirpath}/${widget.book?.bkPdf?.split("/").last}")
-                                                .existsSync() ||
-                                            File("${GlobalSingleton().Dirpath}/${widget.book?.bkEpub?.split("/").last}")
-                                                .existsSync())
-                                        ? AppAssets.ic_download_finish
-                                        : AppAssets.ic_download,
+                            child:
+                                // (widget.book!.isDownloading!.value &&
+                                //         !cnt.isDownloaded.value)
+                                (GlobalSingleton().ebookbookIdList.any(
+                                        (element) =>
+                                            element == widget.book!.bkId))
+                                    ? const CircularProgressIndicator()
+                                    : Image.asset(
+                                        (File("${GlobalSingleton().Dirpath}/${widget.book?.bkPdf?.split("/").last}")
+                                                    .existsSync() ||
+                                                File("${GlobalSingleton().Dirpath}/${widget.book?.bkEpub?.split("/").last}")
+                                                    .existsSync())
+                                            ? AppAssets.ic_download_finish
+                                            : AppAssets.ic_download,
 
-                                    // height: 18,
-                                  ),
+                                        // height: 18,
+                                      ),
                           ),
                         ),
                       ),
@@ -440,7 +445,8 @@ class _LibraryEbookWidgetState extends State<LibraryEbookWidget> {
                               color: AppColors.primaryWhite,
                             ),
                             padding: const EdgeInsets.all(5),
-                            child: (widget.book!.isDownloading!.value)
+                            child: (GlobalSingleton().ebookbookIdList.any(
+                                    (element) => element == widget.book!.bkId))
                                 ? const CircularProgressIndicator()
                                 : Image.asset(
                                     (File("${GlobalSingleton().Dirpath}/${widget.book?.bkPdf?.split("/").last}")

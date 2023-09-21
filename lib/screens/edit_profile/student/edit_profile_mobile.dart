@@ -257,6 +257,10 @@ class _EditProfileMobilePageState extends State<EditProfileMobilePage> {
                                               DropDownCustom<DropdownClasses>(
                                                 onChange: (value) {
                                                   cnt.classValue.value = value!;
+                                                  if (!cnt.textChanged.value) {
+                                                    cnt.textChanged.value =
+                                                        true;
+                                                  }
                                                   cnt.checkColor();
                                                 },
                                                 validator: (value) {

@@ -1,10 +1,12 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:katon/models/argument_model.dart';
-import 'package:katon/screens/library_page/book_detail/book_details_provider.dart';
+import 'package:katon/screens/library_page/controller/elearning_cnt.dart';
+import 'package:katon/screens/my_library/widgets/video_player.dart';
 import 'package:katon/utils/app_colors.dart';
-import 'package:katon/widgets/common_container.dart';
+import 'package:katon/utils/global_singlton.dart';
 import 'package:provider/provider.dart';
 import '../../../../components/app_text_style.dart';
 import '../../../../utils/constants.dart';
@@ -25,7 +27,7 @@ class LibraryVideoMobile extends StatefulWidget {
 
 class _LibraryVideoMobileState extends State<LibraryVideoMobile> {
   ELearningProvider? eLearningPrv;
-
+  final cnt = Get.put(ELearningCnt());
   ScrollController scrollController = ScrollController();
 
   @override
@@ -84,7 +86,7 @@ class _LibraryVideoMobileState extends State<LibraryVideoMobile> {
       body: SafeArea(
         child: Consumer<ELearningProvider>(builder: (context, ePrv, child) {
           return Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -101,7 +103,7 @@ class _LibraryVideoMobileState extends State<LibraryVideoMobile> {
                           ? (ePrv.offlinevideobooks.isEmpty)
                               ? NoDataFound(message: "no_book_found".tr)
                               : ListView.builder(
-                                  physics: BouncingScrollPhysics(),
+                                  physics: const BouncingScrollPhysics(),
                                   itemBuilder: (context, i) {
                                     var dd = ePrv.offlinevideobooks[i];
                                     return Column(
@@ -125,7 +127,7 @@ class _LibraryVideoMobileState extends State<LibraryVideoMobile> {
                                                 child: ListView.builder(
                                                   key: ValueKey(i.toString()),
                                                   physics:
-                                                      BouncingScrollPhysics(),
+                                                      const BouncingScrollPhysics(),
                                                   scrollDirection:
                                                       Axis.horizontal,
                                                   itemCount: dd.data?.length,
@@ -134,7 +136,31 @@ class _LibraryVideoMobileState extends State<LibraryVideoMobile> {
                                                     var data = dd
                                                         .data?[horizontalIndex];
                                                     return LibraryVideoWidget(
-                                                      onTapShare: () {},
+                                                      onTap:
+                                                          (File("${GlobalSingleton().Dirpath}/${data?.bkVideo?.split("/").last}")
+                                                                  .existsSync())
+                                                              ? () {
+                                                                  log("message");
+                                                                  Get.to(Video(
+                                                                    title: data
+                                                                        ?.bkVideo,
+                                                                  ));
+                                                                }
+                                                              : () {
+                                                                  eLearningPrv
+                                                                      ?.currentlabelIndex = i;
+                                                                  eLearningPrv
+                                                                          ?.currentVideoIndex =
+                                                                      horizontalIndex;
+                                                                  print(
+                                                                      "index--------------------------------${eLearningPrv?.currentlabelIndex}");
+                                                                },
+                                                      onTapDownload: () {
+                                                        log("message");
+                                                        Get.to(Video(
+                                                          title: data?.bkVideo,
+                                                        ));
+                                                      },
                                                       book: data,
                                                       booksList: dd.data,
                                                     );
@@ -156,11 +182,11 @@ class _LibraryVideoMobileState extends State<LibraryVideoMobile> {
                                   ePrv.videobookData1.isEmpty)
                               ? NoDataFound(message: "no_book_found".tr)
                               : ListView.builder(
-                                  physics: BouncingScrollPhysics(),
+                                  physics: const BouncingScrollPhysics(),
                                   itemBuilder: (context, i) {
                                     var dd = ePrv.videobooks[i];
                                     return (dd.data!.isEmpty)
-                                        ? SizedBox()
+                                        ? const SizedBox()
                                         : Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -183,7 +209,7 @@ class _LibraryVideoMobileState extends State<LibraryVideoMobile> {
                                                         key: ValueKey(
                                                             i.toString()),
                                                         physics:
-                                                            BouncingScrollPhysics(),
+                                                            const BouncingScrollPhysics(),
                                                         scrollDirection:
                                                             Axis.horizontal,
                                                         itemCount:
@@ -193,10 +219,86 @@ class _LibraryVideoMobileState extends State<LibraryVideoMobile> {
                                                           var data = dd.data?[
                                                               horizontalIndex];
                                                           return LibraryVideoWidget(
-                                                            onTapShare: () {},
+                                                            onTap: (File(
+                                                                        "${GlobalSingleton().Dirpath}/${data?.bkVideo?.split("/").last}")
+                                                                    .existsSync())
+                                                                ? () {
+                                                                    log("message");
+                                                                    Get.to(
+                                                                        Video(
+                                                                      title: data
+                                                                          ?.bkVideo,
+                                                                    ));
+                                                                  }
+                                                                : () {
+                                                                    eLearningPrv
+                                                                        ?.currentlabelIndex = i;
+                                                                    eLearningPrv
+                                                                            ?.currentVideoIndex =
+                                                                        horizontalIndex;
+                                                                    print(
+                                                                        "index--------------------------------${eLearningPrv?.currentlabelIndex}-----------${eLearningPrv?.currentVideoIndex}");
+                                                                  },
+                                                            onTapDownload: (data!
+                                                                    .isDownloadedVideo
+                                                                    .value)
+                                                                ? () {
+                                                                    log("message");
+                                                                    Get.to(
+                                                                        Video(
+                                                                      title: data
+                                                                          .bkVideo,
+                                                                    ));
+                                                                  }
+                                                                : () {
+                                                                    log("message---1");
+
+                                                                    eLearningPrv
+                                                                        ?.currentlabelIndex = i;
+                                                                    eLearningPrv
+                                                                            ?.currentVideoIndex =
+                                                                        horizontalIndex;
+
+                                                                    cnt.onPressedDownload(
+                                                                      id: data
+                                                                          .bkId!,
+                                                                      context:
+                                                                          context,
+                                                                      bookItem:
+                                                                          data.bkVideo ??
+                                                                              "",
+                                                                      bookItem1: cnt
+                                                                          .video
+                                                                          .value,
+                                                                      bookItemExist: cnt
+                                                                          .videoExisted
+                                                                          .value,
+                                                                      screenName:
+                                                                          "Video",
+                                                                      videobook:
+                                                                          data,
+                                                                      videoBookList:
+                                                                          dd.data,
+                                                                      labelindex:
+                                                                          eLearningPrv
+                                                                              ?.currentlabelIndex,
+                                                                      videoindex:
+                                                                          eLearningPrv
+                                                                              ?.currentVideoIndex,
+                                                                    );
+                                                                  },
                                                             book: data,
                                                             booksList: dd.data!,
                                                           );
+                                                          // return Container(
+                                                          //   height: 100,
+                                                          //   width: Get.width,
+                                                          //   margin:
+                                                          //       EdgeInsets.only(
+                                                          //           right: 10),
+                                                          //   color: AppColors
+                                                          //       .appbarRed,
+                                                          // );
                                                         },
                                                       ),
                                                     ),
