@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
@@ -76,6 +78,8 @@ class ELearningProvider extends ChangeNotifier {
 
   int booksMCount = 0;
   BooksM? booksFilter;
+  int currentlabelIndex = 0;
+  int currentVideoIndex = 0;
   TeacherSignInModel teachersignInM = TeacherSignInModel();
   SignInModel signInM = SignInModel();
   final cnt = Get.put(ELearningCnt());
@@ -113,11 +117,13 @@ class ELearningProvider extends ChangeNotifier {
     "Video",
     "ePub"
   ];
-  List<BookDetailsM> _bookData = [];
-  List<VideoDatum> _videobookData = [];
+  final List<BookDetailsM> _bookData = [];
+  final List<VideoDatum> _videobookData = [];
   List<VideoBooksData> videobookData1 = [];
   List<VideoDatum> offlinevideobooks = [];
-  List<VideoDatum> _videobooklabel = [];
+  final List<VideoDatum> _videobooklabel = [];
+
+  int selectedIndex = 0;
 
   List<BookDetailsM> get books => _bookData;
   List<VideoDatum> get videobooks => _videobookData;
@@ -275,17 +281,15 @@ class ELearningProvider extends ChangeNotifier {
     try {
       notifyListeners();
       VideoBooksModel? bookData;
-      if (page == 1) {
-        _videobookData.clear();
-        _videobooklabel.clear();
-        videobookData1.clear();
-        videobooksM.clear();
-        _isLoading = true;
-        notifyListeners();
-      } else {
-        isLoadingStarted = true;
-        notifyListeners();
-      }
+      // if (page == 1) {
+      _videobookData.clear();
+      _videobooklabel.clear();
+      videobookData1.clear();
+      videobooksM.clear();
+      _isLoading = true;
+      isLoadingStarted = true;
+      notifyListeners();
+
       connections = false;
       VideoBooksModel? booksM;
 
@@ -299,15 +303,28 @@ class ELearningProvider extends ChangeNotifier {
         },
       );
       booksM = VideoBooksModel.fromJson(res.data);
+      print("---resdata---${res.data}");
 
       if (res.statusCode == 200) {
         bookData = booksM;
         videobooksM.add(booksM);
         _videobooklabel.addAll(booksM.data!.videoData!);
-        log("video book label length----${res.data}");
+        if (GlobalSingleton().globalVideolabelData.isEmpty) {
+          GlobalSingleton()
+              .globalVideolabelData
+              .addAll(booksM.data!.videoData!);
+        }
+        print("video book label length----${_videobooklabel.length}");
         for (var i in booksM.data!.videoData!) {
           _videobookData.addAll(booksM.data!.videoData!);
+          print("video book data length----${_videobookData.length}");
           videobookData1.addAll(i.data!);
+          if (GlobalSingleton().globalVideoData.isEmpty) {
+            GlobalSingleton().globalVideoData.addAll(booksM.data!.videoData!);
+          }
+
+          print(
+              "global video data---------------${GlobalSingleton().globalVideolabelData.length}");
           print(
               "video books-----${_videobookData.map((e) => e.data!.length)}-------$videobookData1");
         }
@@ -408,7 +425,7 @@ class ELearningProvider extends ChangeNotifier {
         "bk_subCategory": bkSubCategory,
         "page": page,
         "limit": limit,
-        "userType": "${AppPreference().uType}"
+        "userType": AppPreference().uType
       }).then((book) {
         log("--------------------HH------------------------");
         bookData = BooksM.fromJson(book.data);
@@ -499,10 +516,11 @@ class ELearningProvider extends ChangeNotifier {
       notifyListeners();
 
       connections = false;
-      var book = await ApiService.instance
-          .get(ApiRoutes.subjectList, queryParameters: {
-        "subject": "${AppPreference().uType}",
-      });
+      var book = await ApiService.instance.get(
+          "${ApiRoutes.subjectList}?subject=${AppPreference().getString(PreferencesKey.level)}",
+          queryParameters: {
+            "subject": AppPreference().uType,
+          });
       subjectData = SubjectModel.fromJson(book.data);
 
       if (book.statusCode == 200) {
@@ -579,7 +597,7 @@ class ELearningProvider extends ChangeNotifier {
         "bk_subCategory": subCategoryName,
         "page": pages,
         "limit": 50,
-        "userType": "${AppPreference().uType}"
+        "userType": AppPreference().uType
       }).then((book) {
         print("--------------------HH------------------------${book.data}");
         bookData = BooksM.fromJson(book.data);

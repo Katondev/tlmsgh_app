@@ -97,7 +97,7 @@ class ApiRoutes {
   static String getStaticdata = '${baseURL}auth/static-data';
   static String getAllschooldata = '${baseURL}manage-student/filterSchool';
   static String deleteAccount = '${baseURL}auth/deleteAccount';
-  static String subjectList = '${baseURL}book/all-book-subjects?subject=JHS';
+  static String subjectList = '${baseURL}book/all-book-subjects';
 
   // String liveClassUrl(String? lsRoomURL) =>
   //     "https://katondev.in/live-class-room/${lsRoomURL}?uType=${AppPreference().uType}&uId=${AppPreference().uId}&uName=${AppPreference().uName}";

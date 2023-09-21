@@ -366,10 +366,10 @@ class _TeacherEditProfileTabletState extends State<TeacherEditProfileTablet> {
                                             keyboardType: TextInputType.text,
                                             controller: cnt.knownasCnt.value,
                                             onChanged: (value) {
-                                              cnt.checkColor();
                                               if (!cnt.textChanged.value) {
                                                 cnt.textChanged.value = true;
                                               }
+                                              cnt.checkColor();
                                             },
                                           ),
                                           h12,
@@ -419,12 +419,12 @@ class _TeacherEditProfileTabletState extends State<TeacherEditProfileTablet> {
                                                       onChange: (value) async {
                                                         cnt.selectedCertificateVal
                                                             .value = value!;
-                                                        cnt.checkColor();
                                                         if (!cnt.textChanged
                                                             .value) {
                                                           cnt.textChanged
                                                               .value = true;
                                                         }
+                                                        cnt.checkColor();
                                                       },
                                                       selectedValue: cnt
                                                                   .selectedCertificateVal
@@ -493,12 +493,12 @@ class _TeacherEditProfileTabletState extends State<TeacherEditProfileTablet> {
                                                       onChange: (value) async {
                                                         cnt.yearsofExpVal
                                                             .value = value!;
-                                                        cnt.checkColor();
                                                         if (!cnt.textChanged
                                                             .value) {
                                                           cnt.textChanged
                                                               .value = true;
                                                         }
+                                                        cnt.checkColor();
                                                       },
                                                       selectedValue: cnt
                                                                   .yearsofExpVal
@@ -555,12 +555,12 @@ class _TeacherEditProfileTabletState extends State<TeacherEditProfileTablet> {
                                                         return null;
                                                       },
                                                       onChanged: (value) {
-                                                        cnt.checkColor();
                                                         if (!cnt.textChanged
                                                             .value) {
                                                           cnt.textChanged
                                                               .value = true;
                                                         }
+                                                        cnt.checkColor();
                                                       },
                                                     ),
                                                   ],
@@ -609,12 +609,12 @@ class _TeacherEditProfileTabletState extends State<TeacherEditProfileTablet> {
                                                       onChange: (value) async {
                                                         cnt.selectedLevelVal
                                                             .value = value!;
-                                                        cnt.checkColor();
                                                         if (!cnt.textChanged
                                                             .value) {
                                                           cnt.textChanged
                                                               .value = true;
                                                         }
+                                                        cnt.checkColor();
                                                       },
                                                       selectedValue: cnt
                                                                   .selectedLevelVal
@@ -700,10 +700,11 @@ class _TeacherEditProfileTabletState extends State<TeacherEditProfileTablet> {
                                             },
                                             onChange: (value) async {
                                               cnt.regionValue.value = value!;
-                                              cnt.checkColor();
+
                                               if (!cnt.textChanged.value) {
                                                 cnt.textChanged.value = true;
                                               }
+                                              cnt.checkColor();
                                               log("message");
                                               cnt.selectedSchoolValue.value =
                                                   DropdownSchoolTeacher();
@@ -769,10 +770,11 @@ class _TeacherEditProfileTabletState extends State<TeacherEditProfileTablet> {
                                             onChange: (value) async {
                                               cnt.selectedSchoolValue.value =
                                                   value!;
-                                              cnt.checkColor();
+
                                               if (!cnt.textChanged.value) {
                                                 cnt.textChanged.value = true;
                                               }
+                                              cnt.checkColor();
                                             },
                                           ),
                                           h12,
@@ -827,10 +829,11 @@ class _TeacherEditProfileTabletState extends State<TeacherEditProfileTablet> {
                                             onChange: (value) async {
                                               cnt.selectedlanguageVal.value =
                                                   value!;
-                                              cnt.checkColor();
+
                                               if (!cnt.textChanged.value) {
                                                 cnt.textChanged.value = true;
                                               }
+                                              cnt.checkColor();
                                             },
                                           ),
                                           //!
@@ -852,10 +855,10 @@ class _TeacherEditProfileTabletState extends State<TeacherEditProfileTablet> {
                                               return null;
                                             },
                                             onChanged: (value) {
-                                              cnt.checkColor();
                                               if (!cnt.textChanged.value) {
                                                 cnt.textChanged.value = true;
                                               }
+                                              cnt.checkColor();
                                             },
                                           ),
                                           h16,
