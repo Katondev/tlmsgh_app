@@ -46,7 +46,7 @@ class _PracticeSubjectPagePhoneState extends State<PracticeSubjectPagePhone> {
           drawer: AppPreference().isTeacherLogin
               ? TeacherDrawerBox(navKey: navigatorKey)
               : DrawerBox(navKey: navigatorKey),
-              floatingActionButton: FloatingActionButton(
+              floatingActionButton:AppPreference().isTeacherLogin? null :FloatingActionButton(
             onPressed: () {
               Get.to(() => GeneratePaper());
             },
