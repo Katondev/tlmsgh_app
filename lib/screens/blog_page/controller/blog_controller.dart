@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -25,6 +26,8 @@ class BlogController extends GetxController {
   RxInt blogId = 0.obs;
   RxInt selectedComment = 1000.obs;
   bool connections = false;
+    String? fileName;
+
   RxInt blogPage = 1.obs;
   Rx<BlogModel> blogData = BlogModel().obs;
   RxList<BlogRow> blogdataList = <BlogRow>[].obs;
@@ -71,7 +74,31 @@ class BlogController extends GetxController {
     if (path != null) {
       log(path.toString());
     }
+  } 
+Future<void> pickFiles(filename) async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+    type: FileType.custom,
+    allowedExtensions: ['jpg', 'png', 'pdf'],
+  );
+
+  if (result != null) {
+    List<File> files = result.paths.map((path) => File(path!)).toList();
+    List<String?> fileNames = result.names;
+
+    // Display the names of the selected files
+    for (int i = 0; i < files.length; i++) {
+      filename = fileNames[i];
+      print('Selected File: ${fileNames[i]}');
+      // You can use the file names as needed (e.g., display them in your UI)
+    }
+
+    // Handle the selected files, you can upload or process them here
+  } else {
+    // User canceled the file picker
   }
+}
+
+
 
   Future<void> getBlogList() async {
     try {
@@ -232,6 +259,7 @@ class BlogController extends GetxController {
       isLoadingComments.value = false;
     }
   }
+  
 
   Future<void> addBlog() async {
     try {
@@ -280,4 +308,50 @@ class BlogController extends GetxController {
       isLoading.value = false;
     }
   }
-}
+
+  Future<void> UploadAttestation() async {
+    try {
+      isLoading.value = true;
+      mp.FormData formData = mp.FormData.fromMap({
+        // "bl_title": blogTitle.value.text.trim(),
+        "tps_signFontFamily": "Reinatha",
+        "tps_signText":AppPreference().getString(PreferencesKey.uType),
+        "tps_attentionFormDate":"${DateTime.now().year.toString()}-${DateTime.now().month.toString()}-${DateTime.now().day.toString()}",
+        "tps_signedForm": AppPreference().getInt(PreferencesKey.uId),
+      });
+      await ApiService.instance
+          .postHTTP(
+        url: ApiRoutes.addBlog,
+        queryParameters: {
+          "from": "studentApp",
+          "key": "xsv321sa2ds4235reuy354FE4rsd"
+        },
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': "application/json"
+        },
+        body: formData,
+      )
+          .then((value) async {
+        blogdataList.clear();
+        await getBlogListwithpagination();
+        blogTitle.value.clear();
+        blogDesc.value.clear();
+        path = null;
+        Get.back();
+        connections = false;
+      });
+      isLoading.value = false;
+    } on Exception catch (e) {
+      if (e.toString() == "No Internet") {
+        connections = true;
+      }
+      isLoading.value = false;
+    }
+  }
+
+  
+} 
+
+
+

@@ -94,6 +94,7 @@ class _PracticeAssignmentMobileState extends State<PracticeAssignmentMobile> {
                                       itemBuilder: (context, i) {
                                         var data = ePrv.assignmentModel?.data
                                             ?.assignment?[i];
+                                          
                                         return Container(
                                           // height: 200,
                                           decoration: BoxDecoration(

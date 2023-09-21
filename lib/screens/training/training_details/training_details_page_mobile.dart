@@ -18,6 +18,8 @@ import '../../../widgets/loader.dart';
 import '../../../widgets/no_data_found.dart';
 import '../../../widgets/no_internet.dart';
 import '../../../widgets/pdf_view/pdf_view_page.dart';
+import '../../blog_page/controller/blog_controller.dart';
+import '../../connect/widgets/create_blog_dialog.dart';
 import '../../home_page.dart';
 import '../controller/training_prv.dart';
 import '../widgets/content_widget.dart';
@@ -34,6 +36,7 @@ class TrainingDetailsMobile extends StatefulWidget {
 class _TrainingDetailsMobileState extends State<TrainingDetailsMobile> {
   var args;
   TrainingPrograms? data;
+  final blgCnt = Get.put(BlogController());
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +187,14 @@ class _TrainingDetailsMobileState extends State<TrainingDetailsMobile> {
                                                   ),
                                                   h10,
                                                   LargeButton(
-                                                    onPressed: () {},
+                                                    onPressed: () async{
+                                                        primaryFocus
+                                                                  ?.unfocus();
+                                                              await uploadAddBlogDialog(
+                                                                  context);
+                                                                  blgCnt;
+                                                                  
+                                                    },
                                                     height: 40,
                                                     width: Get.width,
                                                     borderRadius:
@@ -225,10 +235,10 @@ class _TrainingDetailsMobileState extends State<TrainingDetailsMobile> {
                                                   h10,
                                                   GestureDetector(
                                                     onTap: () async {
-                                                      // await value
-                                                      //     .downloadCertificate(
-                                                      //         path: value
-                                                      //             .certificatePath);
+                                                      await value
+                                                          .downloadCertificate(
+                                                              path: value
+                                                                  .certificatePath);
                                                       Get.to(
                                                         PdfViewerScreen(
                                                           filename: value

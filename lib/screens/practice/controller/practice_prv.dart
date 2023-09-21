@@ -177,20 +177,24 @@ class PracticePrv extends ChangeNotifier {
   // }
 
   Future<void> getAllAssignment(
+    
       {String? bkCategory,
       String? bkSubCategory,
       int? page,
       int? limit}) async {
     try {
+     await subCategoryName;
       connections = false;
       _setLoading(true);
       log("-------------");
-      int id = await AppPreference().getInt(PreferencesKey.uId);
-      await ApiService.instance.get(ApiRoutes.assignment, queryParameters: {
-        // "st_id": id,
-        "asn_subCategory": subCategoryName
+      String id = await subCategoryName;;
+      await ApiService.instance.get(ApiRoutes.Subassignment, queryParameters: {
+      "tc_id":AppPreference().getString(PreferencesKey.tpId),
+      "userType":AppPreference().getString(PreferencesKey.uType),
+      "asn_category":AppPreference().getString(PreferencesKey.level),
+       "asn_subCategory": id
       }).then((value) {
-        print("model-----1-$value");
+        print("model-----1-${subCategoryName.toString()}");
         assignmentModel = AssignmentModel.fromJson(value.data);
         print("model-----2-$assignmentModel");
       });
@@ -207,6 +211,7 @@ class PracticePrv extends ChangeNotifier {
   int selectedPractice = 0;
 
   Future<void> getSelfAssessmentSubject() async {
+    int id = await AppPreference().getInt(PreferencesKey.student_Id);
     try {
       practiceSubjectList.clear();
       connections = false;
@@ -215,6 +220,63 @@ class PracticePrv extends ChangeNotifier {
       // int id = await AppPreference().getInt(PreferencesKey.uId);
       await ApiService.instance
           .get(ApiRoutes.selfAssessmentSubject, queryParameters: {
+        "st_id": id,
+      }).then((value) {
+        print("model-----1-$value");
+        var data = PracticeSubjectModel.fromJson(value.data);
+
+        practiceSubjectList = data.data!;
+        print("model-----2-$assignmentModel");
+      });
+      _setLoading(false);
+    } on Exception catch (e) {
+      if (e.toString() == "No Internet") {
+        connections = true;
+      }
+      _setLoading(false);
+    }
+  } 
+   Future<void> getAssessmentSubject() async {
+   
+    try {
+      practiceSubjectList.clear();
+      connections = false;
+      _setLoading(true);
+      log("-------------");
+      // int id = await AppPreference().getInt(PreferencesKey.uId);
+      await ApiService.instance
+          .get(ApiRoutes.assignment, queryParameters: {
+            "tc_id=":AppPreference().getString(PreferencesKey.tpId),
+             "userType=":AppPreference().getString(PreferencesKey.uType),
+        "asn_category": AppPreference().getString(PreferencesKey.level),
+      }).then((value) {
+        
+        print("model-----1-$value");
+        var data = PracticeSubjectModel.fromJson(value.data);
+        
+
+        practiceSubjectList = data.data!;
+        print("model-----2-$assignmentModel");
+      });
+      _setLoading(false);
+    } on Exception catch (e) {
+      if (e.toString() == "No Internet") {
+        connections = true;
+      }
+      _setLoading(false);
+    }
+  }
+
+    Future<void> getpastAssessmentSubject() async {
+   
+    try {
+      practiceSubjectList.clear();
+      connections = false;
+      _setLoading(true);
+      log("-------------");
+      // int id = await AppPreference().getInt(PreferencesKey.uId);
+      await ApiService.instance
+          .get(ApiRoutes.pastAssessmentSubject, queryParameters: {
         "mainCategory": AppPreference().getString(PreferencesKey.level),
       }).then((value) {
         print("model-----1-$value");
@@ -233,6 +295,7 @@ class PracticePrv extends ChangeNotifier {
   }
 
   Future<void> getAllAssignmentresult(context) async {
+    
     try {
       connections = false;
       _setLoading(true);

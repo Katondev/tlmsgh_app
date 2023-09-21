@@ -45,6 +45,7 @@ class _PracticeAssignmentScreenState extends State<PracticeAssignmentScreen>
   }
 
   init() async {
+  
     await assignmentPrv?.getAllAssignment();
   }
 

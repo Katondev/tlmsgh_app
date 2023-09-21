@@ -34,18 +34,24 @@ class PracticeSubjectPageState extends State<PracticeSubjectPage> {
   init() async {
     if (AppPreference().getString(PreferencesKey.uType) == "Student") {
       if (practicePrv?.selectedPractice == 0) {
-        practicePrv?.practiceSubjectList.clear();
+      practicePrv?.getAssessmentSubject();
+       practicePrv?.practiceSubjectList.clear();
       } else if (practicePrv?.selectedPractice == 1) {
+        practicePrv?.getpastAssessmentSubject();
         practicePrv?.practiceSubjectList.clear();
       } else if (practicePrv?.selectedPractice == 2) {
         practicePrv?.getSelfAssessmentSubject();
+           practicePrv?.practiceSubjectList.clear();
       }
       practicePrv?.notifyListeners();
     } else {
       if (practicePrv?.selectedPractice == 0) {
-        practicePrv?.practiceSubjectList.clear();
+       practicePrv?.getAssessmentSubject();
+           practicePrv?.practiceSubjectList.clear();
+      
       } else if (practicePrv?.selectedPractice == 1) {
-        practicePrv?.practiceSubjectList.clear();
+       practicePrv?.getpastAssessmentSubject();
+         practicePrv?.practiceSubjectList.clear();
       }
       practicePrv?.notifyListeners();
     }
