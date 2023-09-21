@@ -40,7 +40,8 @@ class ApiRoutes {
       '${baseURL}liveSession/getAllScheduledSession';
   static String historyliveClass =
       '${baseURL}liveSession/getAllRecordedSession';
-  static String assignment = '${baseURL}assignment/getAllSubjects';
+  static String assignment = '${baseURL}assignment/getAllSubjects?';
+   static String Subassignment = '${baseURL}assignment/getAll?';
   static String selfAssessmentSubject =
       '${baseURL}selfAssessment/getAllSubjects';
       static String pastAssessmentSubject =

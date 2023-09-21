@@ -280,12 +280,12 @@ class SelfAssessmentController extends ChangeNotifier {
   SelfAssessMentList? selfAssessmentList;
 
   Future<void> getAllSelfAssessmentList() async {
+   int id = await AppPreference().getInt(PreferencesKey.student_Id);
     try {
       connections = false;
       _setLoading(true);
       await ApiService.instance
-          .get(
-        ApiRoutes.getSelfAssessmentList,
+          .get(ApiRoutes.getSelfAssessmentList + "st_id=${id}",queryParameters: {"sa_subCategory": "Social Studies"}
       )
           .then((value) {
         selfAssessmentList = SelfAssessMentList.fromJson(value.data);

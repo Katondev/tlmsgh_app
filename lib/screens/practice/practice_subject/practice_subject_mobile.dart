@@ -9,6 +9,7 @@ import 'package:katon/res.dart';
 import 'package:katon/screens/library_page/widget/expansion_widget.dart';
 import 'package:katon/screens/practice/past_questions/past_questions_screen.dart';
 import 'package:katon/screens/practice/self_assessment/self_assessment_screen.dart';
+import 'package:katon/screens/self_assessment/self_assessment_paper.dart';
 import 'package:katon/utils/config.dart';
 import 'package:katon/widgets/common_container.dart';
 import 'package:katon/widgets/loader.dart';
@@ -45,6 +46,17 @@ class _PracticeSubjectPagePhoneState extends State<PracticeSubjectPagePhone> {
           drawer: AppPreference().isTeacherLogin
               ? TeacherDrawerBox(navKey: navigatorKey)
               : DrawerBox(navKey: navigatorKey),
+              floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Get.to(() => GeneratePaper());
+            },
+            backgroundColor: AppColors.primaryYellow,
+            tooltip: 'Generate Paper',
+            child: Icon(
+              Icons.my_library_books_outlined,
+              color: Colors.white,
+            ),
+          ),
           // endDrawer: endDrawer(),
           // appBar: CommonAppbarMobile(title: widget.arguments.title),
           body: Consumer<PracticePrv>(
@@ -78,6 +90,7 @@ class _PracticeSubjectPagePhoneState extends State<PracticeSubjectPagePhone> {
                                               (index) {
                                             var data =
                                                 ePrv.practiceSubjectList[index];
+                                               ePrv.subCategoryName = data;
                                             return Column(
                                               children: [
                                                 GestureDetector(
