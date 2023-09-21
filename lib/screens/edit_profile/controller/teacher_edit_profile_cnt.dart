@@ -203,7 +203,7 @@ class TeacherEditProfileCnt extends GetxController {
 
   Future teacherUpdateProfile() async {
     try {
-      CustomLoadingIndicator.instance.show();
+      // CustomLoadingIndicator.instance.show();
       loading.value = true;
       connection.value = true;
       // log("id---" + int.parse(mobileNumber.toString()).toString());
@@ -267,7 +267,7 @@ class TeacherEditProfileCnt extends GetxController {
       await AppPreference().setString(PreferencesKey.teacherData, teacherData);
       init("teacher_profile".tr);
       log("Edit success----${teacher}");
-      CustomLoadingIndicator.instance.hide();
+      // CustomLoadingIndicator.instance.hide();
       loading.value = false;
       SnackBarService().showSnackBar(
           message: "teacher_updated_successfully".tr,
@@ -277,7 +277,7 @@ class TeacherEditProfileCnt extends GetxController {
       if (e == "No Internet") {
         connection.value = false;
       }
-      CustomLoadingIndicator.instance.hide();
+      // CustomLoadingIndicator.instance.hide();
       loading.value = false;
     }
   }

@@ -29,8 +29,7 @@ class ELearningCnt extends GetxController {
   RxBool isLoading = false.obs;
   bool isLoadings = false;
   bool isDownloading = false;
-  RxBool isDownloaded = false.obs;
-  RxBool isDownloadedvideo = false.obs;
+  // RxBool isDownloaded = false.obs;
   RxInt downloadBookId = 0.obs;
   RxBool isDownloadingBook = false.obs;
   BooksM? booksM;
@@ -247,51 +246,6 @@ class ELearningCnt extends GetxController {
             book: book,
             videobook: videobook,
             fileType: fileType,
-            uploadprogress: (prg) {
-              // var progress = double.parse(prg.toString());
-              // log(progress.toString());
-            });
-      } else {
-        SnackBarService()
-            .showSnackBar(message: 'no_internet'.tr, type: SnackBarType.error);
-      }
-      isDownloading = false;
-      bookItem1 = false;
-    } else {
-      SnackBarService()
-          .showSnackBar(message: 'no_data_found'.tr, type: SnackBarType.error);
-      isDownloading = false;
-      bookItem1 = false;
-      update();
-    }
-  }
-
-  Future internetCheckforDownload({
-    required String url,
-    required String filename,
-    required String fileType,
-    required bool bookItem1,
-    required int bookId,
-    String errorMessage = "",
-    String path = "",
-    BookDetailsM? book,
-    VideoBooksData? videobook,
-    int? labelindex,
-    int? videoindex,
-  }) async {
-    if (path != "") {
-      RxBool connection = false.obs;
-      connection.value = await InternetConnectionChecker().hasConnection;
-      if (connection.value) {
-        log("${url}---${filename}---${book}");
-        await DownloadGeoJsonFile().downloadVideosandFiles(
-            url: url,
-            filename: filename,
-            book: book,
-            videobook: videobook,
-            fileType: fileType,
-            currentlabelIndex: labelindex,
-            currentVideoIndex: videoindex,
             uploadprogress: (prg) {
               // var progress = double.parse(prg.toString());
               // log(progress.toString());
@@ -559,8 +513,6 @@ class ELearningCnt extends GetxController {
     BookDetailsM? book,
     List<VideoBooksData>? videoBookList,
     VideoBooksData? videobook,
-    int? labelindex,
-    int? videoindex,
   }) async {
     // log("message----->>>--${book?.bkId}---${booksList!.map((element) => element.bkId)}----${books.length}");
     if (screenName == "PDF" || screenName == "Epub") {
@@ -599,7 +551,7 @@ class ELearningCnt extends GetxController {
             pdf.value = true;
             video.value = false;
             update();
-            await internetCheckforDownload(
+            await internetConnectionCheck(
                 bookId: id,
                 bookItem1: bookItem1,
                 errorMessage: "no_video_found".tr,
@@ -607,8 +559,6 @@ class ELearningCnt extends GetxController {
                 url: "${ApiRoutes.imageURL}$bookItem",
                 filename: bookItem,
                 book: book,
-                labelindex: labelindex,
-                videoindex: videoindex,
                 fileType: "Pdf");
             print("Download Complete");
             isDownloading = false;
@@ -658,7 +608,7 @@ class ELearningCnt extends GetxController {
               downloadId.value = id.toString();
               log("EPUB download id---$downloadId");
               update();
-              await internetCheckforDownload(
+              await internetConnectionCheck(
                   bookId: id,
                   bookItem1: bookItem1,
                   errorMessage: "no_video_found".tr,
@@ -666,8 +616,6 @@ class ELearningCnt extends GetxController {
                   url: "${ApiRoutes.imageURL}$bookItem",
                   filename: bookItem,
                   book: book,
-                  labelindex: labelindex,
-                  videoindex: videoindex,
                   fileType: "Epub");
               print("Download Complete");
               isDownloading = false;
@@ -706,7 +654,7 @@ class ELearningCnt extends GetxController {
             video.value = true;
             // pdfId.isEmpty;
             update();
-            await internetCheckforDownload(
+            await internetConnectionCheck(
                 bookId: id,
                 bookItem1: bookItem1,
                 errorMessage: "no_video_found".tr,
@@ -714,8 +662,6 @@ class ELearningCnt extends GetxController {
                 url: "${ApiRoutes.imageURL}$bookItem",
                 filename: bookItem,
                 videobook: videobook,
-                labelindex: labelindex,
-                videoindex: videoindex,
                 fileType: "Video");
             print("Download Complete");
             isDownloading = false;

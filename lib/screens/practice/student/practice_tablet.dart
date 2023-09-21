@@ -6,7 +6,6 @@ import 'package:katon/components/app_text_style.dart';
 import 'package:katon/models/argument_model.dart';
 import 'package:katon/screens/home_page.dart';
 import 'package:katon/utils/config.dart';
-import 'package:katon/utils/global_singlton.dart';
 import 'package:provider/provider.dart';
 import '../../../widgets/common_appbar.dart';
 import '../../../widgets/no_data_found.dart';
@@ -24,13 +23,6 @@ class PracticePageTablet extends StatefulWidget {
 }
 
 class _PracticePageTabletState extends State<PracticePageTablet> {
-  @override
-  void initState() {
-    super.initState();
-    print(
-        "ll---------${GlobalSingleton().globalVideolabelData.map((element) => element.toJson())}");
-  }
-
   @override
   Widget build(BuildContext context) {
     return Material(

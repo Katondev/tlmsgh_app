@@ -471,8 +471,6 @@ class EditProfileCnt extends GetxController {
         regionValue.value.district != student.value.stDistrict ||
         selectedSchoolValue.value.scSchoolId !=
             student.value.stSchoolId.toString()) {
-      print(
-          "dsd-----${classValue.value.label}----${student.value.stClass}------${classValue.value.label != student.value.stClass.toString()}");
       log("--...${stIdCnt.value.text != student.value.stId}");
       buttonColor?.value = AppColors.primaryYellow;
       return true;

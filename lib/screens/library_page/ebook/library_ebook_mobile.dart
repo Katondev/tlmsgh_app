@@ -104,7 +104,7 @@ class _LibraryEbookMobileState extends State<LibraryEbookMobile> {
                       ? Loader(message: "loading_wait".tr)
                       : ePrv.connection
                           ? (ePrv.listOfBookDetails.isEmpty ||
-                                  ePrv.listOfBookDetails.isEmpty)
+                                  ePrv.listOfBookDetails.length == 0)
                               ? NoDataFound(message: "no_book_found".tr)
                               : GridView.builder(
                                   controller: scrollController,
