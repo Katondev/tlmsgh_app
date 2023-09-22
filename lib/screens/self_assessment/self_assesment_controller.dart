@@ -26,6 +26,7 @@ class SelfAssessmentController extends ChangeNotifier {
   int paperId = 0;
   SelfAssessMentQueModel? selfAssessMentQueModel;
   SelfAssessment? _selfAssessMentModel;
+  String selfAssessmntcat = "";
 
   bool get value => _isLoading;
 
@@ -280,13 +281,14 @@ class SelfAssessmentController extends ChangeNotifier {
   SelfAssessMentList? selfAssessmentList;
 
   Future<void> getAllSelfAssessmentList() async {
+    
    int id = await AppPreference().getInt(PreferencesKey.student_Id);
+   print("khkhkdhfdhfd${id}");
     try {
       connections = false;
       _setLoading(true);
       await ApiService.instance
-          .get(ApiRoutes.getSelfAssessmentList + "st_id=${id}",queryParameters: {"sa_subCategory": "Social Studies"}
-      )
+          .get("https://user.api.tlmsghdev.in/api/v1/student/selfAssessment/getAll?st_id=$id&sa_subCategory=Social Studies")
           .then((value) {
         selfAssessmentList = SelfAssessMentList.fromJson(value.data);
         log("self--------${value}");

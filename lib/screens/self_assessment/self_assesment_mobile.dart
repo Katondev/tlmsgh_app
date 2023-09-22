@@ -96,6 +96,8 @@ class SelfAssessmentMobile extends StatelessWidget {
                                   itemBuilder: (context, index) {
                                     var data = ePrv.selfAssessmentList!.data!
                                         .selfAssessment![index];
+
+                                      
                                     return SelfAssessmentItem(
                                       selfassesment_item: ePrv
                                           .selfAssessmentList!
