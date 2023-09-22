@@ -9,11 +9,14 @@ import 'package:katon/screens/library_page/controller/cnt_prv.dart';
 import 'package:katon/screens/library_page/library_mobile.dart';
 import 'package:katon/screens/library_page/library_tablet.dart';
 import 'package:katon/screens/message/message_cnt.dart';
+import 'package:katon/utils/global_singlton.dart';
 import 'package:katon/utils/prefs/app_preference.dart';
 import 'package:katon/utils/prefs/preferences_key.dart';
 import 'package:katon/widgets/common_appbar.dart';
 import 'package:katon/widgets/responsive.dart';
 import 'package:provider/provider.dart';
+
+import '../../models/encode_decode/encode_decode.dart';
 
 class LibraryPage extends StatefulWidget {
   final Arguments arguments;
@@ -35,6 +38,16 @@ class _LibraryPageState extends State<LibraryPage> with WidgetsBindingObserver {
     // TODO: implement initState
     super.initState();
     // eLearningPrv?.pages = 1;
+    if (AppPreference()
+        .getString(PreferencesKey.downloadedvideobookIdList)
+        .isNotEmpty) {
+      var dd =
+          AppPreference().getString(PreferencesKey.downloadedvideobookIdList);
+      GlobalSingleton().downloadedvideobookIdList.value =
+          EncodeDecode.decode(dd);
+      print(
+          "-------------------------------->>>>>>${GlobalSingleton().downloadedvideobookIdList}");
+    }
     eLearningPrv = Provider.of<ELearningProvider>(context, listen: false);
     init();
     // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {

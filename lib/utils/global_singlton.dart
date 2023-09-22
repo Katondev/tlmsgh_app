@@ -18,6 +18,7 @@ class GlobalSingleton {
   RxList<VideoDatum> globalVideolabelData = <VideoDatum>[].obs;
   RxList<VideoDatum> globalVideoData = <VideoDatum>[].obs;
   RxList<int> videobookIdList = <int>[].obs;
+  RxList<int> downloadedvideobookIdList = <int>[].obs;
   RxList<int> ebookbookIdList = <int>[].obs;
 
   Future<String> getApppath() async {

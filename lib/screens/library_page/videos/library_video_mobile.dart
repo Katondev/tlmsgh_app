@@ -218,77 +218,83 @@ class _LibraryVideoMobileState extends State<LibraryVideoMobile> {
                                                             horizontalIndex) {
                                                           var data = dd.data?[
                                                               horizontalIndex];
-                                                          return LibraryVideoWidget(
-                                                            onTap: (File(
-                                                                        "${GlobalSingleton().Dirpath}/${data?.bkVideo?.split("/").last}")
-                                                                    .existsSync())
-                                                                ? () {
-                                                                    log("message");
-                                                                    Get.to(
-                                                                        Video(
-                                                                      title: data
-                                                                          ?.bkVideo,
-                                                                    ));
-                                                                  }
-                                                                : () {
-                                                                    eLearningPrv
-                                                                        ?.currentlabelIndex = i;
-                                                                    eLearningPrv
-                                                                            ?.currentVideoIndex =
-                                                                        horizontalIndex;
-                                                                    print(
-                                                                        "index--------------------------------${eLearningPrv?.currentlabelIndex}-----------${eLearningPrv?.currentVideoIndex}");
-                                                                  },
-                                                            onTapDownload: (data!
-                                                                    .isDownloadedVideo
-                                                                    .value)
-                                                                ? () {
-                                                                    log("message");
-                                                                    Get.to(
-                                                                        Video(
-                                                                      title: data
-                                                                          .bkVideo,
-                                                                    ));
-                                                                  }
-                                                                : () {
-                                                                    log("message---1");
+                                                          return Obx(
+                                                            () =>
+                                                                LibraryVideoWidget(
+                                                              onTap: (GlobalSingleton()
+                                                                      .downloadedvideobookIdList
+                                                                      .any((e) =>
+                                                                          e ==
+                                                                          data?.bkId))
+                                                                  ? () {
+                                                                      log("message");
+                                                                      Get.to(
+                                                                          Video(
+                                                                        title: data
+                                                                            ?.bkVideo,
+                                                                      ));
+                                                                    }
+                                                                  : () {
+                                                                      eLearningPrv
+                                                                          ?.currentlabelIndex = i;
+                                                                      eLearningPrv
+                                                                              ?.currentVideoIndex =
+                                                                          horizontalIndex;
+                                                                      print(
+                                                                          "index--------------------------------${GlobalSingleton().downloadedvideobookIdList}");
+                                                                    },
+                                                              onTapDownload: (GlobalSingleton()
+                                                                      .downloadedvideobookIdList
+                                                                      .any((e) =>
+                                                                          e ==
+                                                                          data?.bkId))
+                                                                  ? () {
+                                                                      log("message");
+                                                                      Get.to(
+                                                                          Video(
+                                                                        title: data
+                                                                            ?.bkVideo,
+                                                                      ));
+                                                                    }
+                                                                  : () {
+                                                                      log("message---1");
 
-                                                                    eLearningPrv
-                                                                        ?.currentlabelIndex = i;
-                                                                    eLearningPrv
-                                                                            ?.currentVideoIndex =
-                                                                        horizontalIndex;
+                                                                      eLearningPrv
+                                                                          ?.currentlabelIndex = i;
+                                                                      eLearningPrv
+                                                                              ?.currentVideoIndex =
+                                                                          horizontalIndex;
 
-                                                                    cnt.onPressedDownload(
-                                                                      id: data
-                                                                          .bkId!,
-                                                                      context:
-                                                                          context,
-                                                                      bookItem:
-                                                                          data.bkVideo ??
-                                                                              "",
-                                                                      bookItem1: cnt
-                                                                          .video
-                                                                          .value,
-                                                                      bookItemExist: cnt
-                                                                          .videoExisted
-                                                                          .value,
-                                                                      screenName:
-                                                                          "Video",
-                                                                      videobook:
-                                                                          data,
-                                                                      videoBookList:
-                                                                          dd.data,
-                                                                      labelindex:
-                                                                          eLearningPrv
-                                                                              ?.currentlabelIndex,
-                                                                      videoindex:
-                                                                          eLearningPrv
-                                                                              ?.currentVideoIndex,
-                                                                    );
-                                                                  },
-                                                            book: data,
-                                                            booksList: dd.data!,
+                                                                      cnt.onPressedDownload(
+                                                                        id: data!
+                                                                            .bkId!,
+                                                                        context:
+                                                                            context,
+                                                                        bookItem:
+                                                                            data.bkVideo ??
+                                                                                "",
+                                                                        bookItem1: cnt
+                                                                            .video
+                                                                            .value,
+                                                                        bookItemExist: cnt
+                                                                            .videoExisted
+                                                                            .value,
+                                                                        screenName:
+                                                                            "Video",
+                                                                        videobook:
+                                                                            data,
+                                                                        videoBookList:
+                                                                            dd.data,
+                                                                        labelindex:
+                                                                            eLearningPrv?.currentlabelIndex,
+                                                                        videoindex:
+                                                                            eLearningPrv?.currentVideoIndex,
+                                                                      );
+                                                                    },
+                                                              book: data,
+                                                              booksList:
+                                                                  dd.data!,
+                                                            ),
                                                           );
                                                           // return Container(
                                                           //   height: 100,

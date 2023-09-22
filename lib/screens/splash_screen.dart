@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:katon/res.dart';
 import 'package:katon/utils/config.dart';
+import 'package:katon/widgets/responsive.dart';
 
 import '../components/app_text_style.dart';
 import '../widgets/custom_dialog.dart';
@@ -37,6 +38,7 @@ class SplashScreenState extends State<AnimatedSplashScreen> {
             // onSecButtonTap: () => Navigator.of(context).pop(),
             onFirstButtonTap: () async {
               await SystemChrome.setPreferredOrientations(
+                
                 // [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
                 [
                   DeviceOrientation.landscapeLeft,
@@ -75,7 +77,7 @@ class SplashScreenState extends State<AnimatedSplashScreen> {
     log("dsdsdsds-----tablet---");
     Future.delayed(Duration(seconds: 3), () {
       // AppPreference().setBool("isPortrait", true);
-      if (Device.get().isTablet) {
+      if (Responsive.isTablet(context)) {
         if (AppPreference().getBool("isPortrait")) {
           Future.delayed(Duration(milliseconds: 10), () {
             showModeDialog(context);
