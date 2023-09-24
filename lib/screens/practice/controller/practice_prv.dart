@@ -184,10 +184,11 @@ class PracticePrv extends ChangeNotifier {
       int? limit}) async {
     try {
      await subCategoryName;
+     notifyListeners();
       connections = false;
       _setLoading(true);
       log("-------------");
-      String id = await subCategoryName;;
+      String id = await subCategoryName;
       await ApiService.instance.get(ApiRoutes.Subassignment, queryParameters: {
       "tc_id":AppPreference().getString(PreferencesKey.tpId),
       "userType":AppPreference().getString(PreferencesKey.uType),

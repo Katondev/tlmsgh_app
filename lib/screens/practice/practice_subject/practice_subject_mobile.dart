@@ -20,6 +20,7 @@ import '../../../teacher/drawer.dart';
 import '../../../widgets/common_appbar.dart';
 import '../../../widgets/drawer/drawer.dart';
 import '../../home_page.dart';
+import '../../self_assessment/self_assesment_controller.dart';
 import '../controller/practice_prv.dart';
 
 class PracticeSubjectPagePhone extends StatefulWidget {
@@ -61,6 +62,7 @@ class _PracticeSubjectPagePhoneState extends State<PracticeSubjectPagePhone> {
           // appBar: CommonAppbarMobile(title: widget.arguments.title),
           body: Consumer<PracticePrv>(
             builder: (context, ePrv, child) {
+               final self = Provider.of<SelfAssessmentController>(context);
               return Container(
                 padding: EdgeInsets.all(20),
                 child: Column(
@@ -95,6 +97,12 @@ class _PracticeSubjectPagePhoneState extends State<PracticeSubjectPagePhone> {
                                               children: [
                                                 GestureDetector(
                                                   onTap: () {
+                                                     ePrv.subCategoryName =
+                                                        ePrv.practiceSubjectList[
+                                                            index];
+                                                    self.selfAssessmntcat =
+                                                        ePrv.practiceSubjectList[
+                                                            index]; 
                                                     ePrv.SelectedIndex = index;
                                                     ePrv.notifyListeners();
                                                     if (AppPreference()

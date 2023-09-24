@@ -54,10 +54,14 @@ class ExpansionWidget extends StatelessWidget {
                     .copyWith(color: AppColors.primaryYellow)),
           ),
           w25,
-          Text(
-            title,
-            style: AppTextStyle.normalRegular16
-                .copyWith(fontWeight: FontWeight.w400, color: AppColors.black),
+          Expanded(
+            flex: 10,
+            child: Text(
+              title,
+               overflow: TextOverflow.ellipsis,
+              style: AppTextStyle.normalRegular16
+                  .copyWith(fontWeight: FontWeight.w400, color: AppColors.black),
+            ),
           ),
           Spacer(),
           (trailingIcon != null)

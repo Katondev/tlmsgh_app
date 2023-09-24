@@ -283,12 +283,12 @@ class SelfAssessmentController extends ChangeNotifier {
   Future<void> getAllSelfAssessmentList() async {
     
    int id = await AppPreference().getInt(PreferencesKey.student_Id);
-   print("khkhkdhfdhfd${id}");
+   
     try {
       connections = false;
       _setLoading(true);
       await ApiService.instance
-          .get("https://user.api.tlmsghdev.in/api/v1/student/selfAssessment/getAll?st_id=$id&sa_subCategory=Social Studies")
+          .get("https://user.api.tlmsghdev.in/api/v1/student/selfAssessment/getAll?st_id=$id&sa_subCategory=$selfAssessmntcat")
           .then((value) {
         selfAssessmentList = SelfAssessMentList.fromJson(value.data);
         log("self--------${value}");

@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import '../../../widgets/common_appbar.dart';
 import '../../../widgets/loader.dart';
 import '../../home_page.dart';
+import '../../self_assessment/self_assesment_controller.dart';
 import '../controller/practice_prv.dart';
 
 class PracticeSubjectPageTablet extends StatefulWidget {
@@ -36,6 +37,7 @@ class _PracticeSubjectPageTabletState extends State<PracticeSubjectPageTablet> {
       child: SafeArea(
         child: Consumer<PracticePrv>(
           builder: (context, ePrv, child) {
+            final self = Provider.of<SelfAssessmentController>(context);
             return Scaffold(
               resizeToAvoidBottomInset: false,
               backgroundColor: Colors.transparent,
@@ -75,12 +77,19 @@ class _PracticeSubjectPageTabletState extends State<PracticeSubjectPageTablet> {
                                                 (index) {
                                               var data = ePrv
                                                   .practiceSubjectList[index];
+                                                  
                                               return Column(
                                                 children: [
                                                   GestureDetector(
                                                     onTap: () {
                                                       ePrv.SelectedIndex =
                                                           index;
+                                                          ePrv.subCategoryName =
+                                                        ePrv.practiceSubjectList[
+                                                            index];
+                                                    self.selfAssessmntcat =
+                                                        ePrv.practiceSubjectList[
+                                                            index]; 
                                                       ePrv.notifyListeners();
                                                       if (AppPreference()
                                                               .getString(

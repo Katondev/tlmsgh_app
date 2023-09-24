@@ -372,6 +372,7 @@ class CommonAppBar2 extends StatelessWidget {
                           : SizedBox(),
                     ],
                   ),
+                  
                 ],
               ),
             ],
@@ -423,6 +424,7 @@ class CommonAppBar2 extends StatelessWidget {
                           : SizedBox(),
                     ],
                   ),
+                  Container(height: 20,)
                 ],
               ),
             ],
