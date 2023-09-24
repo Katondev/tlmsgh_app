@@ -38,4 +38,5 @@ class PreferencesKey {
   static String schoolId = "schoolId";
   static String trainingStatus = "trainingStatus";
   static String isPortrait = "isPortrait";
+  static String downloadedvideobookIdList = "downloadedvideobookIdList";
 }

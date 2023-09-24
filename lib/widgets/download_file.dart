@@ -6,10 +6,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:katon/models/book_info_model.dart';
+import 'package:katon/models/encode_decode/encode_decode.dart';
 import 'package:katon/models/snackbar_datamodel.dart';
 import 'package:katon/screens/library_page/controller/cnt_prv.dart';
 import 'package:katon/screens/library_page/controller/elearning_cnt.dart';
 import 'package:katon/services/snackbar_service.dart';
+import 'package:katon/utils/prefs/app_preference.dart';
+import 'package:katon/utils/prefs/preferences_key.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'dart:typed_data';
@@ -359,6 +362,17 @@ class DownloadGeoJsonFile {
         if (rec == total) {
           if (fileType == "Video") {
             GlobalSingleton().videobookIdList.remove(videobook!.bkId!);
+            if (File(
+                    "${GlobalSingleton().Dirpath}/${videobook.bkVideo?.split("/").last}")
+                .existsSync()) {
+              videobook.isDownloadedVideo.value = true;
+              GlobalSingleton().downloadedvideobookIdList.add(videobook.bkId!);
+              AppPreference().setString(
+                  PreferencesKey.downloadedvideobookIdList,
+                  EncodeDecode.encode(
+                      GlobalSingleton().downloadedvideobookIdList));
+              // AppPreference()
+            }
             // GlobalSingleton()
             //     .globalVideolabelData[currentlabelIndex!]
             //     .data![currentVideoIndex!]
@@ -371,6 +385,12 @@ class DownloadGeoJsonFile {
           } else if (fileType == "Pdf" || fileType == "Epub") {
             GlobalSingleton().ebookbookIdList.remove(book!.bkId!);
             cnt.isDownloaded.value = true;
+            if (File("${GlobalSingleton().Dirpath}/${book.bkEpub?.split("/").last}")
+                    .existsSync() ||
+                File("${GlobalSingleton().Dirpath}/${book.bkPdf?.split("/").last}")
+                    .existsSync()) {
+              // videobook?.isDownloadedVideo.value = true;
+            }
             print(
                 "isdownloaded--------------------------------${cnt.isDownloaded.value}");
             Provider.of<ELearningProvider>(Get.context!, listen: false)
