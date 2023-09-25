@@ -62,80 +62,80 @@ class _SelfAssessmentTabletState extends State<SelfAssessmentTablet> {
                       CommonAppBar2(
                         isshowback: true,
                         title: widget.arguments.title.toString(),
-                        description: "${args.toString()} Language",
+                        description: "${args.toString()}",
                       ),
-                      Spacer(),
-                      SizedBox(
-                        width: 200,
-                        child: DropDownCustom<FilterCategoryModel>(
-                          onChange: (value) =>
-                              ePrv.selectMainCategory(value: value),
-                          //  ePrv.mainCategoryMList.any((r) => r.categoryId==ePrv.selectedMainCat?.value.categoryId)?
-                          selectedValue:
-                              ePrv.selectedMainCat.value.categoryId == null
-                                  ? null
-                                  : ePrv.selectedMainCat,
-                          items: ePrv.mainCategoryMList
-                              .map((e) => DropdownMenuItem<FilterCategoryModel>(
-                                  enabled: e.isenabled ?? true,
-                                  value: e,
-                                  child: Text(
-                                    "${e.isenabled ?? false ? e.categoryName : e.maincategoryName}",
-                                    style: e.isenabled ?? false
-                                        ? AppTextStyle.normalRegular12
-                                        : AppTextStyle.normalRegular12
-                                            .copyWith(color: Colors.black54),
-                                  )))
-                              .toList(),
-                          hint: Text(
-                            "Class/Garde",
-                            style: AppTextStyle.normalRegular12,
-                          ),
-                        ),
-                      ),
-                      w10,
-                      SizedBox(
-                        width: 200,
-                        child: DropDownCustom<Subject>(
-                          onChange: (value) => ePrv.selectSubject(value: value),
-                          selectedValue:
-                              ePrv.selectedSubject.value.label == null
-                                  ? null
-                                  : ePrv.selectedSubject,
-                          items: ePrv.subjectList
-                              .map((e) => DropdownMenuItem<Subject>(
-                                  value: e,
-                                  child: Text("${e.label}",
-                                      style: AppTextStyle.normalRegular12)))
-                              .toList(),
-                          hint: Text(
-                            "Select Subject",
-                            style: AppTextStyle.normalRegular12,
-                          ),
-                        ),
-                      ),
-                      w10,
-                      LargeButton(
-                        height: 40,
-                        width: 100,
-                        borderRadius: BorderRadius.circular(0),
-                        onPressed: () {
-                          if (ePrv.selectedMainCat.value.categoryName ==
-                              "Class/Grade") {
-                            SnackBarService().showSnackBar(
-                                message: "Select Class/Grade",
-                                type: SnackBarType.error);
-                          } else if (ePrv.selectedSubject.value ==
-                              "Select Subject") {
-                            SnackBarService().showSnackBar(
-                                message: "Select Subject",
-                                type: SnackBarType.error);
-                          } else {
-                            ePrv.generatePaperApi(context);
-                          }
-                        },
-                        child: Text("Generate Paper"),
-                      ),
+                      // Spacer(),
+                      // SizedBox(
+                      //   width: 200,
+                      //   child: DropDownCustom<FilterCategoryModel>(
+                      //     onChange: (value) =>
+                      //         ePrv.selectMainCategory(value: value),
+                      //     //  ePrv.mainCategoryMList.any((r) => r.categoryId==ePrv.selectedMainCat?.value.categoryId)?
+                      //     selectedValue:
+                      //         ePrv.selectedMainCat.value.categoryId == null
+                      //             ? null
+                      //             : ePrv.selectedMainCat,
+                      //     items: ePrv.mainCategoryMList
+                      //         .map((e) => DropdownMenuItem<FilterCategoryModel>(
+                      //             enabled: e.isenabled ?? true,
+                      //             value: e,
+                      //             child: Text(
+                      //               "${e.isenabled ?? false ? e.categoryName : e.maincategoryName}",
+                      //               style: e.isenabled ?? false
+                      //                   ? AppTextStyle.normalRegular12
+                      //                   : AppTextStyle.normalRegular12
+                      //                       .copyWith(color: Colors.black54),
+                      //             )))
+                      //         .toList(),
+                      //     hint: Text(
+                      //       "Class/Garde",
+                      //       style: AppTextStyle.normalRegular12,
+                      //     ),
+                      //   ),
+                      // ),
+                      // w10,
+                      // SizedBox(
+                      //   width: 200,
+                      //   child: DropDownCustom<Subject>(
+                      //     onChange: (value) => ePrv.selectSubject(value: value),
+                      //     selectedValue:
+                      //         ePrv.selectedSubject.value.label == null
+                      //             ? null
+                      //             : ePrv.selectedSubject,
+                      //     items: ePrv.subjectList
+                      //         .map((e) => DropdownMenuItem<Subject>(
+                      //             value: e,
+                      //             child: Text("${e.label}",
+                      //                 style: AppTextStyle.normalRegular12)))
+                      //         .toList(),
+                      //     hint: Text(
+                      //       "Select Subject",
+                      //       style: AppTextStyle.normalRegular12,
+                      //     ),
+                      //   ),
+                      // ),
+                      // w10,
+                      // LargeButton(
+                      //   height: 40,
+                      //   width: 100,
+                      //   borderRadius: BorderRadius.circular(0),
+                      //   onPressed: () {
+                      //     if (ePrv.selectedMainCat.value.categoryName ==
+                      //         "Class/Grade") {
+                      //       SnackBarService().showSnackBar(
+                      //           message: "Select Class/Grade",
+                      //           type: SnackBarType.error);
+                      //     } else if (ePrv.selectedSubject.value ==
+                      //         "Select Subject") {
+                      //       SnackBarService().showSnackBar(
+                      //           message: "Select Subject",
+                      //           type: SnackBarType.error);
+                      //     } else {
+                      //       ePrv.generatePaperApi(context);
+                      //     }
+                      //   },
+                      //   child: Text("Generate Paper"),
+                      // ),
                     ],
                   ),
                   customHeight(15),

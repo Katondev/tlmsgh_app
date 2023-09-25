@@ -72,7 +72,7 @@ class _PracticeAssignmentTabletState extends State<PracticeAssignmentTablet> {
                           CommonAppBar2(
                               isshowback: true,
                               title: widget.arguments.title,
-                              description: "${args.toString()} Language"),
+                              description: "${args.toString()}"),
                           customHeight(15),
                           Expanded(
                             child: Container(

@@ -103,6 +103,7 @@ class _PracticeSubjectPagePhoneState extends State<PracticeSubjectPagePhone> {
                                                     self.selfAssessmntcat =
                                                         ePrv.practiceSubjectList[
                                                             index]; 
+                                                            print("-------${self.selfAssessmntcat}--------");
                                                     ePrv.SelectedIndex = index;
                                                     ePrv.notifyListeners();
                                                     if (AppPreference()

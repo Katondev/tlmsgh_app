@@ -10,10 +10,16 @@ import 'package:katon/network/api_constants.dart';
 import 'package:katon/screens/message/message_cnt.dart';
 import 'package:katon/utils/config.dart';
 import 'package:katon/widgets/button.dart';
+import 'package:katon/widgets/dropdown.dart';
 import 'package:katon/widgets/responsive.dart';
 import 'package:katon/widgets/svgIcon.dart';
+import 'package:provider/provider.dart';
 
 import '../components/app_text_style.dart';
+import '../models/filter_category_model/filter_category_model.dart';
+import '../models/snackbar_datamodel.dart';
+import '../screens/self_assessment/self_assesment_controller.dart';
+import '../services/snackbar_service.dart';
 
 AppBar commonAppBar({
   required String title,
@@ -324,6 +330,7 @@ class CommonAppBar2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ePrv = Provider.of<SelfAssessmentController>(context);
     return (Responsive.isMobilenew(context))
         ? Column(
             children: [
@@ -381,6 +388,7 @@ class CommonAppBar2 extends StatelessWidget {
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
+               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   (isshowback!)
                       ? GestureDetector(
@@ -424,7 +432,84 @@ class CommonAppBar2 extends StatelessWidget {
                           : SizedBox(),
                     ],
                   ),
-                  Container(height: 20,)
+                  SizedBox(width: 40,),
+                  
+                                 title == "Self Assessment"? Row(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 200,
+                        child: DropDownCustom<FilterCategoryModel>(
+                          onChange: (value) =>
+                              ePrv.selectMainCategory(value: value),
+                          //  ePrv.mainCategoryMList.any((r) => r.categoryId==ePrv.selectedMainCat?.value.categoryId)?
+                          selectedValue:
+                              ePrv.selectedMainCat.value.categoryId == null
+                                  ? null
+                                  : ePrv.selectedMainCat,
+                          items: ePrv.mainCategoryMList
+                              .map((e) => DropdownMenuItem<FilterCategoryModel>(
+                                  enabled: e.isenabled ?? true,
+                                  value: e,
+                                  child: Text(
+                                    "${e.isenabled ?? false ? e.categoryName : e.maincategoryName}",
+                                    style: e.isenabled ?? false
+                                        ? AppTextStyle.normalRegular12
+                                        : AppTextStyle.normalRegular12
+                                            .copyWith(color: Colors.black54),
+                                  )))
+                              .toList(),
+                          hint: Text(
+                            "Class/Garde",
+                            style: AppTextStyle.normalRegular12,
+                          ),
+                        ),
+                      ),
+                      w10,
+                      SizedBox(
+                        width: 200,
+                        child: DropDownCustom<Subject>(
+                          onChange: (value) => ePrv.selectSubject(value: value),
+                          selectedValue:
+                              ePrv.selectedSubject.value.label == null
+                                  ? null
+                                  : ePrv.selectedSubject,
+                          items: ePrv.subjectList
+                              .map((e) => DropdownMenuItem<Subject>(
+                                  value: e,
+                                  child: Text("${e.label}",
+                                      style: AppTextStyle.normalRegular12)))
+                              .toList(),
+                          hint: Text(
+                            "Select Subject",
+                            style: AppTextStyle.normalRegular12,
+                          ),
+                        ),
+                      ),
+                      w10,
+                      LargeButton(
+                        height: 40,
+                        width: 100,
+                        borderRadius: BorderRadius.circular(0),
+                        onPressed: () {
+                          if (ePrv.selectedMainCat.value.categoryName ==
+                              "Class/Grade") {
+                            SnackBarService().showSnackBar(
+                                message: "Select Class/Grade",
+                                type: SnackBarType.error);
+                          } else if (ePrv.selectedSubject.value ==
+                              "Select Subject") {
+                            SnackBarService().showSnackBar(
+                                message: "Select Subject",
+                                type: SnackBarType.error);
+                          } else {
+                            ePrv.generatePaperApi(context);
+                          }
+                        },
+                        child: Text("Generate Paper"),
+                      ),
+                    ],
+                  ):SizedBox(width: MediaQuery.of(context).size.width /5,)
                 ],
               ),
             ],
