@@ -131,6 +131,8 @@ class SelfAssessmentController extends ChangeNotifier {
 
   Future generatePaperApi(context) async {
     try {
+      final int id =
+          AppPreference().getInt(PreferencesKey.student_Id);
       connections = false;
       _setLoading(true);
       Map<String, dynamic> params = {
@@ -140,11 +142,11 @@ class SelfAssessmentController extends ChangeNotifier {
 
         // "sa_topic": topic!.topicName
       };
-      print("url--------${params}");
+      print("url- daayaya-------${ApiRoutes.createSelfAssessment+"st_id=${id}"}");
       await ApiService.instance
-          .postHTTP(url: ApiRoutes.createSelfAssessment, body: params)
+          .postHTTP(url: ApiRoutes.createSelfAssessment+"st_id=${id}", body: params)
           .then((value) async {
-        log("dddddddd--paper------${value}");
+        log("--paper------${value}");
         await getAllSelfAssessmentList();
         selectedMainCat.value = FilterCategoryModel();
         selectedSubject.value = Subject();

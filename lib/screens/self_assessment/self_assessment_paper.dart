@@ -158,6 +158,7 @@ class _GeneratePaperState extends State<GeneratePaper> {
                                           message: "Select Subject",
                                           type: SnackBarType.error);
                                     } else {
+                                      //Navigator.of(context).pop();
                                       ePrv
                                           .generatePaperApi(context)
                                           .whenComplete(() {

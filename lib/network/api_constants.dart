@@ -51,7 +51,7 @@ class ApiRoutes {
   static String pastQuestions = '${baseURL}pastPaper/getAll';
   static String getSelfAssessment =
       '${baseURL}selfAssessment/getAllQueBySelfAssessment?';
-  static String createSelfAssessment = '${baseURL}selfAssessment';
+  static String createSelfAssessment = '${baseURL}selfAssessment?';
   static String getSelfAssessmentList = '${baseURL}selfAssessment/getAll';
   static String saveSelfAssessMent = '${baseURL}selfAssessment/';
   static String assignmentResultNew =
