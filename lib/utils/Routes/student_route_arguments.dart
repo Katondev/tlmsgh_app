@@ -12,7 +12,7 @@ class StudentRouteArguments {
             description: "notification_news_books".tr);
       case RoutesConst.eLearning:
         return Arguments(
-            title: "library".tr, description: "Please select course".tr);
+            title: "library".tr, description: "Please select subject".tr);
       case RoutesConst.libraryeBooks:
         return Arguments(title: "E books".tr, description: "E books".tr);
       case RoutesConst.libraryvideo:
@@ -89,7 +89,7 @@ class StudentRouteArguments {
       case RoutesConst.practiceSubject:
         return Arguments(
             title: "Practice Subject".tr,
-            description: "Please select course".tr);
+            description: "Please select subject".tr);
       case RoutesConst.assignmentDetails:
         return Arguments(title: "practice".tr, description: "practice".tr);
       case RoutesConst.calender:

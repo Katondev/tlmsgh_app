@@ -72,7 +72,7 @@ class _PastQuestionsMobileState extends State<PastQuestionsMobile> {
                               CommonAppBar2(
                                 isshowback: true,
                                 title: widget.arguments.title,
-                                description: "${args.toString()} Language",
+                                description: "${args.toString()}",
                               ),
                               customHeight(15),
                               Expanded(

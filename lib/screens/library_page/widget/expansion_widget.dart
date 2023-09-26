@@ -58,7 +58,8 @@ class ExpansionWidget extends StatelessWidget {
             flex: 10,
             child: Text(
               title,
-               overflow: TextOverflow.ellipsis,
+              maxLines: 3,
+              // overflow: TextOverflow.ellipsis,
               style: AppTextStyle.normalRegular16
                   .copyWith(fontWeight: FontWeight.w400, color: AppColors.black),
             ),

@@ -78,7 +78,7 @@ android {
        release {
            keyAlias 'com.katon.student'
            keyPassword 'com.katon.student'
-           storeFile file('/Users/dreamworld/Desktop/tlmsgh_app/android/app/com.katon.student')
+           storeFile file('/G:/Katon-app-new/tlmsgh_app/android/app/com.katon.student')
            storePassword 'com.katon.student'
        }
 

@@ -148,7 +148,7 @@ class _PracticeSubjectPagePhoneState extends State<PracticeSubjectPagePhone> {
                                                         "Teacher") {
                                                       if (ePrv.selectedPractice ==
                                                           0) {
-                                                             navigatorKey
+                                                            navigatorKey
                                                             .currentState
                                                             ?.pushNamed(
                                                           RoutesConst

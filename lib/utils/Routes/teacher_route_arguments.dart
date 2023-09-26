@@ -28,7 +28,7 @@ class TeacherRouteArguments {
       case RoutesConst.eLearning:
         return Arguments(
           title: "Teaching Materials".tr,
-          description: "Please select books".tr,
+          description: "Please select subject".tr,
         );
       case RoutesConst.connect:
         return Arguments(
@@ -114,7 +114,7 @@ class TeacherRouteArguments {
       case RoutesConst.practiceSubject:
         return Arguments(
           title: "Practice Subject".tr,
-          description: "Please select course".tr,
+          description: "Please select subject".tr,
         );
       case RoutesConst.assignmentDetails:
         return Arguments(

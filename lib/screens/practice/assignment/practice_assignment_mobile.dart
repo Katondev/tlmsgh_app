@@ -73,7 +73,7 @@ class _PracticeAssignmentMobileState extends State<PracticeAssignmentMobile> {
                             CommonAppBar2(
                               isshowback: true,
                               title: widget.arguments.title,
-                              description: "${args.toString()} Language",
+                              description: "${args.toString()}",
                             ),
                             customHeight(15),
                             Expanded(

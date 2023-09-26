@@ -59,7 +59,7 @@ class SelfAssessmentMobile extends StatelessWidget {
                   child: CommonAppBar2(
                     isshowback: true,
                     title: arguments.title.toString(),
-                    description: "${args.toString()} Language",
+                    description: "${args.toString()}",
                   ),
                 ),
                 // customHeight(15),

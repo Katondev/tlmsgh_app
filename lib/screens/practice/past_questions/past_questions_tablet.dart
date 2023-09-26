@@ -53,7 +53,7 @@ class _PastQuestionsTabletState extends State<PastQuestionsTablet> {
                             CommonAppBar2(
                                 isshowback: true,
                                 title: widget.arguments.title,
-                                description: "${args.toString()} Language"),
+                                description: "${args.toString()}"),
                             customHeight(15),
                             Expanded(
                               child: Container(

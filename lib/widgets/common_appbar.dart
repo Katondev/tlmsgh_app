@@ -370,12 +370,17 @@ class CommonAppBar2 extends StatelessWidget {
                           : SizedBox(),
                       // h4,
                       (description != null)
-                          ? Text(
-                              "${description}",
-                              style: AppTextStyle.normalRegular15.copyWith(
-                                color: AppColors.textgrey,
+                          ? SizedBox(
+
+                            width: MediaQuery.of(context).size.width-100,
+                            child: Text(
+                            maxLines:5,
+                                "${description}",
+                                style: AppTextStyle.normalRegular15.copyWith(
+                                  color: AppColors.textgrey,
+                                ),
                               ),
-                            )
+                          )
                           : SizedBox(),
                     ],
                   ),

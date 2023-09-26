@@ -80,6 +80,7 @@ class _LibraryPageMobileState extends State<LibraryPageMobile> {
                                       ...List.generate(
                                           ePrv.listOfSubject.length, (index) {
                                         var data = ePrv.listOfSubject[index];
+                                        
                                         return Column(
                                           children: [
                                             GestureDetector(

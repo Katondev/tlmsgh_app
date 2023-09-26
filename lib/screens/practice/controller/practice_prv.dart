@@ -187,14 +187,15 @@ class PracticePrv extends ChangeNotifier {
       connections = false;
       _setLoading(true);
       log("-------------");
-      String id = await subCategoryName;
+      String id = await subCategoryName; 
+      int uid = AppPreference().getInt(PreferencesKey.uId);
       await ApiService.instance.get(ApiRoutes.Subassignment, queryParameters: {
-      "tc_id":AppPreference().getString(PreferencesKey.tpId),
+      "tc_id":uid,
       "userType":AppPreference().getString(PreferencesKey.uType),
       "asn_category":AppPreference().getString(PreferencesKey.level),
        "asn_subCategory": id
       }).then((value) {
-        print("model-----1-${subCategoryName.toString()}");
+        print("model---ddd--1-${uid}");
         assignmentModel = AssignmentModel.fromJson(value.data);
         print("model-----2-$assignmentModel");
       });

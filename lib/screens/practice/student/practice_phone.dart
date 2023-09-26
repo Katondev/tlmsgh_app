@@ -59,7 +59,7 @@ class _PracticePagePhoneState extends State<PracticePagePhone> {
                     // ),
                     // h4,
                     Text(
-                      "Please select course",
+                      "",
                       style: AppTextStyle.normalRegular14.copyWith(
                         color: AppColors.textgrey,
                       ),
