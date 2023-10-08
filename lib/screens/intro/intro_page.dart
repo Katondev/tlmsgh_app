@@ -69,7 +69,7 @@ class _IntroPageState extends State<IntroPage> {
               right: Responsive.isMobilenew(context) ? 30 : 74.r,
               child: Image.asset(
                 cnt.page.value == 2
-                    ? AppAssets.ic_splash_black
+                    ? AppAssets.ic_loder_black
                     : AppAssets.ic_splash,
                 width: Responsive.isMobilenew(context) ? 150.r : 70,
                 height: Responsive.isMobilenew(context) ? 150.r : 70,

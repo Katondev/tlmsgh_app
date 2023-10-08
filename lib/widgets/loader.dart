@@ -16,9 +16,9 @@ class Loader extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Image.asset(
-            AppAssets.ic_splash,
+            AppAssets.ic_loder_black,
             width: 64,
-            color: AppColors.black,
+            // color: AppColors.black,
           ),
           h10,
           const CircularProgressIndicator(

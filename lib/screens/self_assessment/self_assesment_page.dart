@@ -35,7 +35,9 @@ class _SelfAssessmentPageState extends State<SelfAssessmentPage> {
 
   void init() async {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      
       await selfAssessmentController?.getAllSelfAssessmentList();
+      
       await selfAssessmentController?.getAllCategoryInfo();
     });
   }

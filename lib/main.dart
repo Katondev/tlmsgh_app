@@ -148,7 +148,7 @@ class _MyAppState extends State<MyApp> {
           useInheritedMediaQuery: true,
           builder: (BuildContext context, Widget? child) => GetMaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'KATON',
+            title: 'LMS ghana',
             navigatorKey: navigatorKey,
             theme: AppTheme.theme,
             useInheritedMediaQuery: true,

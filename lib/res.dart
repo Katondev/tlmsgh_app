@@ -37,7 +37,7 @@ class AppAssets {
   static const String ic_radio_selected = "assets/images/ic_radio_selected.png";
   static const String ic_redio_unselected =
       "assets/images/ic_redio_unselected.png";
-  static const String ic_splash = "assets/images/ic_splash.png";
+  static const String ic_splash = "assets/images/ic_splash_black.png";
   static const String icon = "assets/images/icon.png";
   static const String icon1 = "assets/images/icon1.png";
   static const String idCard = "assets/svgs/idCard.svg";
@@ -82,6 +82,7 @@ class AppAssets {
   static const String walkthrough2 = "assets/images/walkthrough2.jpg";
   static const String white_icon = "assets/svgs/white_icon.svg";
 
+ static const String ic_loder_black = "assets/images/ic_loder_black.png";
   static const String ic_splash_black = "assets/images/ic_splash_black.png";
   static const String ic_user = "assets/svgs/ic_user.svg";
   static const String ic_visibility = "assets/svgs/visibility.svg";
@@ -101,6 +102,9 @@ class AppAssets {
   static const String ic_subject4 = "assets/images/library/social_studies.png";
   static const String ic_subject5 = "assets/images/library/computer.png";
   static const String ic_subject6 = "assets/images/library/creative_art.png";
+  static const String e_book = "assets/images/library/e_book.png";
+   static const String labrary_videos = "assets/images/library/labrary_videos.png";
+   
   static const String ic_arrow_down = "assets/images/arrow_down.png";
   static const String ic_arrow_left = "assets/images/arrow_left.png";
   static const String ic_book = "assets/images/book.png";
@@ -127,6 +131,8 @@ class AppAssets {
   static const String ic_send = "assets/images/send.png";
   static const String ic_mail = "assets/images/mail.png";
   static const String ic_assignment = "assets/images/assignment.png";
+  
+
   static const String ic_pastQuestion = "assets/images/past-questions.png";
   static const String ic_selfAssessment = "assets/images/self-assessment.png";
 

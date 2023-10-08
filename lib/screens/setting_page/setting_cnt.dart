@@ -64,6 +64,46 @@ class SettingCnt extends GetxController {
       "question": "10. Can I solve past questions on TLMS?",
       "answer": "Ans: No, past questions cannot be solved on the TLMS.",
     },
+    {
+      "question": "11. How do I use the self-assessment on the TLMS?",
+      "answer": "Take advantage of the self-assessment on the TLMS to objectively evaluate yourself and gain valuable insights for personal growth in",
+    },
+    {
+      "question": "12. Do assignments have a time duration?",
+      "answer": "Yes, the TLMS assignments are subject to a time limitation.",
+    },
+    {
+      "question": "13. Can books from the library section be shared with others?",
+      "answer": "Books and videos can be shared by simply copying the URL or clicking on the share button.",
+    },
+    {
+      "question": "14. How do I access my downloaded videos and books from the library?",
+      "answer": "There is no option to download on the TLMS platform.",
+    },
+     {
+      "question": "15. Do I need a smartphone to use TLMS?",
+      "answer": "Yes, any smartphone with Android, iOS or Windows features can be used to access TLMS GHANA.",
+    },
+    {
+      "question": "16. Does using the TLMS app mean I have to use my data?",
+      "answer": "Yes, it requires data nonetheless there is an offline option that users can use to access downloaded or shared documents.",
+    },
+    {
+      "question": "17. Can I have access to my downloaded videos and PDFs when offline?",
+      "answer": "Yes, you can access your downloaded videos and PDFs offline. Simply download the files to your device when you have an internet connection. Once downloaded, you can open and view them anytime, even without an internet connection. This provides convenient access to your educational materials, allowing you to study or review them on the go, without the need for an internet connection. Enjoy seamless learning wherever you are.",
+    },
+    {
+      "question": "18. Can I use TLMS on a device aside from the tablet?",
+      "answer": "You absolutely can. You can use the app to learn on a laptop or smartphone.",
+    },
+     {
+      "question": "19. How can I download the TLMS app?",
+      "answer": "Download the TLMS app from Play Store or App Store.",
+    },
+     {
+      "question": "20. Can I change my phone number or email?",
+      "answer": "Yes, to update your phone number, first sign up for the TLMS app with the new number, then send an email to info@tlmsgh.com or call 0800790555 requesting a phone number change.",
+    },
   ].obs;
 
   RxList<Map<String, dynamic>> TandCList = [
