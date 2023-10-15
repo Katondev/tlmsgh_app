@@ -38,6 +38,7 @@ import '../../screens/group_page/screens/create_group_blog/create_group_blog_mob
 import '../../screens/group_page/screens/group_details/group_details_page.dart';
 import '../../screens/group_page/screens/group_page.dart';
 import '../../screens/library_page/ebook/library_ebook_screen.dart';
+import '../../screens/library_page/library_select/library_select_page.dart';
 import '../../screens/practice/assignment/practice_assignment_screen.dart';
 import '../../screens/practice/self_assessment/self_assessment_screen.dart';
 import '../../screens/setting_page/help_and_support/T&C/terms_and_conditions_screen.dart';
@@ -71,7 +72,7 @@ class Routes {
     RoutesConst.home: (context) => HomePage(),
     RoutesConst.bookDetail: (context) => BookDetailPage(),
     RoutesConst.libraryBookDetail: (context) => LibraryBookDetailPage(),
-    RoutesConst.eLearning: (context) => LibraryPage(
+    RoutesConst.eLearning: (context) => LibrarySelectPage(
         arguments: (AppPreference().isTeacherLogin)
             ? TeacherRouteArguments().getTeacherArgument(RoutesConst.eLearning)
             : StudentRouteArguments().getArgument(RoutesConst.eLearning)),

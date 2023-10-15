@@ -2,8 +2,8 @@ import 'package:katon/utils/prefs/app_preference.dart';
 
 class ApiRoutes {
   //static String baseURL = 'https://frontapi.katon.app/api/v1/student/';
-    //static String baseURL = 'https://user.api.tlmsghdev.in/api/v1/student/';
-  static String baseURL = 'https://user.api.lmsgh.net/api/v1/student/';
+    static String baseURL = 'https://user.api.tlmsghdev.in/api/v1/student/';
+ // static String baseURL = 'https://user.api.lmsgh.net/api/v1/student/';
   //static String baseURL = 'https://user.api.tlmsghdev.in/api/v1/student/';
   static String teacherBaseURL = 'https://user.api.lmsgh.net/api/v1/teacher/';
   static String parentBaseURL = 'https://user.api.lmsgh.net/api/v1/parent/';

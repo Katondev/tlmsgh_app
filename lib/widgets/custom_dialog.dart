@@ -33,8 +33,8 @@ class CustomDialog extends StatelessWidget {
               children: [
                 h10,
                 Image.asset(
-                  AppAssets.ic_splash,
-                  color: AppColors.black,
+                  AppAssets.ic_loder_black,
+                  //color: AppColors.black,
                   height: 100.h,
                 ),
                 h20,

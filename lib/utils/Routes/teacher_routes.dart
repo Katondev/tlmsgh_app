@@ -33,6 +33,7 @@ import '../../screens/blog_page/Screens/blog_page.dart';
 import '../../screens/blog_page/Screens/create_blog/create_blog_page.dart';
 import '../../screens/edit_profile/teacher/teacher_edit_profile_page.dart';
 import '../../screens/library_page/ebook/library_ebook_screen.dart';
+import '../../screens/library_page/library_select/library_select_page.dart';
 import '../../screens/library_page/videos/library_video_screen.dart';
 import '../../screens/practice/practice_subject/practice_subject_page.dart';
 import '../../screens/practice/self_assessment/self_assessment_screen.dart';
@@ -59,7 +60,7 @@ class TeacherPageRoute {
       case RoutesConst.eLearning:
         return PageRouteBuilder(
             settings: settings,
-            pageBuilder: (_, __, ___) => LibraryPage(
+            pageBuilder: (_, __, ___) => LibrarySelectPage(
                 arguments: TeacherRouteArguments()
                     .getTeacherArgument(RoutesConst.eLearning)),
             transitionsBuilder: (_, a, __, c) =>
@@ -304,12 +305,22 @@ class TeacherPageRoute {
                     .getTeacherArgument(RoutesConst.practice)),
             transitionsBuilder: (_, a, __, c) =>
                 FadeTransition(opacity: a, child: c));
+
+
       case RoutesConst.practiceSubject:
         return PageRouteBuilder(
             settings: settings,
             pageBuilder: (_, __, ___) => PracticeSubjectPage(
                 arguments: TeacherRouteArguments()
                     .getTeacherArgument(RoutesConst.practiceSubject)),
+            transitionsBuilder: (_, a, __, c) =>
+                FadeTransition(opacity: a, child: c));
+                 case RoutesConst.eLearningcard:
+        return PageRouteBuilder(
+            settings: settings,
+            pageBuilder: (_, __, ___) => LibraryPage(
+                arguments: TeacherRouteArguments()
+                    .getTeacherArgument(RoutesConst.eLearningcard)),
             transitionsBuilder: (_, a, __, c) =>
                 FadeTransition(opacity: a, child: c));
       case RoutesConst.assignmentDetails:

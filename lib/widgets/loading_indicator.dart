@@ -133,8 +133,8 @@ class Spinner extends StatelessWidget {
                 height: 70,
                 width: 130,
                 child: Image.asset(
-                  AppAssets.ic_splash,
-                  color: AppColors.black,
+                  AppAssets.ic_loder_black,
+                 // color: AppColors.black,
                 ),
               ),
               h14,

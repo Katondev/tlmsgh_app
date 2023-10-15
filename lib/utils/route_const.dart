@@ -13,6 +13,8 @@ class RoutesConst {
   static const String home = "/home";
   static const String teacherHome = "/teacherHome";
   static const String eLearning = "/eLearning";
+  static const String eLearningcard = "/eLearningcard";
+  
   static const String libraryeBooks = "/libraryeBooks";
   static const String libraryvideo = "/libraryvideo";
   static const String pastQuestions = "/pastQuestions";

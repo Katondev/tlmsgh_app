@@ -32,6 +32,7 @@ import '../../../utils/global_singlton.dart';
 import '../../home_page.dart';
 
 class ELearningProvider extends ChangeNotifier {
+  String? selectsubjectype;
   List<BooksM> booksM = [];
   List<VideoBooksModel> videobooksM = [];
   List<BookDetailsM> downloadedEbooks = [];
@@ -73,6 +74,18 @@ class ELearningProvider extends ChangeNotifier {
       "subList": ["E Books", "Videos"],
       "isExpanded": false,
     },
+  ];
+ int selectedPractice = 0;
+   List<Map<String, dynamic>> practiceStudentList = [
+    {
+      "image": AppAssets.e_book,
+      "title": "e-BOOK",
+    },
+    {
+      "image": AppAssets.labrary_videos,
+      "title": "videos",
+    },
+    
   ];
   final TextEditingController ebookShareCnt = TextEditingController();
 
@@ -362,7 +375,7 @@ class ELearningProvider extends ChangeNotifier {
   }
 
   initEbookOffline() {
-    log("messageddd--------${books.length}");
+    log("messageddd-------${books.length}");
     for (var e in books) {
       if (File("${GlobalSingleton().Dirpath}/${e.bkEpub?.split("/").last}")
               .existsSync() ||
@@ -506,21 +519,27 @@ class ELearningProvider extends ChangeNotifier {
     String? subject,
   }) async {
     try {
+       print("-----type jfkjf ${selectsubjectype}");
       // isLoadingStarted = true;
       subjectList1.clear();
+      
       notifyListeners();
+        selectsubjectype;
       SubjectModel? subjectData;
 
       _isLoading = true;
       isLoadingStarted = true;
       notifyListeners();
+     
 
       connections = false;
       var book = await ApiService.instance.get(
-          "${ApiRoutes.subjectList}?subject=${AppPreference().getString(PreferencesKey.level)}",
+          "${ApiRoutes.subjectList}?",
           queryParameters: {
-            "subject": AppPreference().uType,
+            "subject":AppPreference().getString(PreferencesKey.level),
+           "ltype":selectsubjectype.toString()
           });
+         
       subjectData = SubjectModel.fromJson(book.data);
 
       if (book.statusCode == 200) {

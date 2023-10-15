@@ -86,6 +86,9 @@ class StudentRouteArguments {
       case RoutesConst.practice:
         return Arguments(
             title: "Practice".tr, description: "Please select practice".tr);
+             case RoutesConst.eLearningcard:
+        return Arguments(
+            title: "library".tr, description: "Please select subject".tr);
       case RoutesConst.practiceSubject:
         return Arguments(
             title: "Practice Subject".tr,

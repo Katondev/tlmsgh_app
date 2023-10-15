@@ -30,6 +30,11 @@ class TeacherRouteArguments {
           title: "Teaching Materials".tr,
           description: "Please select subject".tr,
         );
+          case RoutesConst.eLearningcard:
+        return Arguments(
+          title: "Teaching Materials".tr,
+          description: "Please select subject".tr,
+        );
       case RoutesConst.connect:
         return Arguments(
             title: "Connect".tr,

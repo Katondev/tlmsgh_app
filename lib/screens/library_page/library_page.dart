@@ -21,7 +21,7 @@ import '../../models/encode_decode/encode_decode.dart';
 class LibraryPage extends StatefulWidget {
   final Arguments arguments;
 
-  const LibraryPage({Key? key, required this.arguments}) : super(key: key);
+   LibraryPage({Key? key, required this.arguments}) : super(key: key);
 
   @override
   State<LibraryPage> createState() => _LibraryPageState();

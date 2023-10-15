@@ -35,6 +35,7 @@ import '../../screens/edit_profile/student/edit_profile_page.dart';
 import '../../screens/group_page/screens/create_group_blog/create_group_blog_mobile.dart';
 import '../../screens/group_page/screens/group_page.dart';
 import '../../screens/library_page/ebook/library_ebook_screen.dart';
+import '../../screens/library_page/library_select/library_select_page.dart';
 import '../../screens/live_class/live_class_details/live_class_details_page.dart';
 import '../../screens/practice/self_assessment/self_assessment_screen.dart';
 import '../../screens/setting_page/change_password/change_password.dart';
@@ -53,7 +54,7 @@ class StudentPageRoute {
       case RoutesConst.eLearning:
         return PageRouteBuilder(
           settings: settings,
-          pageBuilder: (_, __, ___) => LibraryPage(
+          pageBuilder: (_, __, ___) => LibrarySelectPage(
               arguments:
                   StudentRouteArguments().getArgument(RoutesConst.eLearning)),
           transitionsBuilder: (_, a, __, c) =>
@@ -237,6 +238,20 @@ class StudentPageRoute {
       //         arguments: StudentRouteArguments().getArgument(RoutesConst.orderHistory)),
       //     transitionsBuilder: (_, a, __, c) =>
       //         FadeTransition(opacity: a, child: c));
+      
+       case RoutesConst.libraryBookDetail:
+        return PageRouteBuilder(
+            settings: settings,
+            pageBuilder: (_, __, ___) => LibraryBookDetailPage(),
+            transitionsBuilder: (_, a, __, c) =>
+                FadeTransition(opacity: a, child: c));
+                  case RoutesConst.libraryBookDetail:
+                  
+        return PageRouteBuilder(
+            settings: settings,
+            pageBuilder: (_, __, ___) => LibraryBookDetailPage(),
+            transitionsBuilder: (_, a, __, c) =>
+                FadeTransition(opacity: a, child: c));
       case RoutesConst.libraryBookDetail:
         return PageRouteBuilder(
             settings: settings,
@@ -265,6 +280,7 @@ class StudentPageRoute {
                     StudentRouteArguments().getArgument(RoutesConst.practice)),
             transitionsBuilder: (_, a, __, c) =>
                 FadeTransition(opacity: a, child: c));
+                
       case RoutesConst.practiceSubject:
         return PageRouteBuilder(
             settings: settings,
@@ -273,6 +289,15 @@ class StudentPageRoute {
                     .getArgument(RoutesConst.practiceSubject)),
             transitionsBuilder: (_, a, __, c) =>
                 FadeTransition(opacity: a, child: c));
+  case RoutesConst.eLearningcard:
+        return PageRouteBuilder(
+            settings: settings,
+            pageBuilder: (_, __, ___) => LibraryPage(
+                arguments: StudentRouteArguments()
+                    .getArgument(RoutesConst.eLearningcard)),
+            transitionsBuilder: (_, a, __, c) =>
+                FadeTransition(opacity: a, child: c));
+
       case RoutesConst.deleteAccount:
         return PageRouteBuilder(
             settings: settings,

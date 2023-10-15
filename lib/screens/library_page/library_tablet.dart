@@ -9,6 +9,7 @@ import 'package:katon/res.dart';
 import 'package:katon/screens/library_page/controller/cnt_prv.dart';
 import 'package:katon/screens/library_page/widget/expansion_widget.dart';
 import 'package:katon/utils/route_const.dart';
+import 'package:katon/widgets/common_appbar.dart';
 import 'package:katon/widgets/common_container.dart';
 import 'package:katon/widgets/no_data_found.dart';
 import 'package:provider/provider.dart';
@@ -68,6 +69,7 @@ class _LibraryPageTabletState extends State<LibraryPageTablet> {
           // decoration: BoxContainer.boxDeco,
           child: Consumer<ELearningProvider>(
             builder: (context, ePrv, child) {
+               var args = ModalRoute.of(context)!.settings.arguments;
               return Scaffold(
                 resizeToAvoidBottomInset: false,
                 backgroundColor: Colors.transparent,
@@ -84,24 +86,30 @@ class _LibraryPageTabletState extends State<LibraryPageTablet> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "${widget.arguments.title}",
-                            style: AppTextStyle.normalBold28.copyWith(
-                              color: AppColors.black,
-                            ),
-                          ),
-                          // h4,
-                          Text(
-                            "${widget.arguments.description}",
-                            style: AppTextStyle.normalRegular16.copyWith(
-                              color: AppColors.textgrey,
-                            ),
-                          ),
-                        ],
-                      ),
+                      // Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     Text(
+                      //       "${widget.arguments.title}",
+                      //       style: AppTextStyle.normalBold28.copyWith(
+                      //         color: AppColors.black,
+                      //       ),
+                      //     ),
+                      //     // h4,
+                      //     Text(
+                      //       "${widget.arguments.description}",
+                      //       style: AppTextStyle.normalRegular16.copyWith(
+                      //         color: AppColors.textgrey,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      
+                       CommonAppBar2(
+                        isshowback: true,
+                        title: args.toString(),
+                        description: widget.arguments.description),
+                          
                       customHeight(15),
                       Expanded(
                         child: Container(
@@ -269,41 +277,13 @@ class _LibraryPageTabletState extends State<LibraryPageTablet> {
                                               children: [
                                                 GestureDetector(
                                                   onTap: () {
+                                                   
                                                     ePrv.SelectedIndex = index;
                                                     // ePrv.isExpanded = !ePrv.isExpanded;
-                                                    data.isExpanded =
-                                                        !data.isExpanded!;
-                                                    ePrv.notifyListeners();
-                                                    log("message--${ePrv.SelectedIndex}---${ePrv.isExpanded}");
-                                                  },
-                                                  child: ExpansionWidget(
-                                                    title: data.title!,
-                                                    trailingIcon:
-                                                        data.isExpanded!
-                                                            ? AppAssets
-                                                                .ic_arrow_down
-                                                            : AppAssets
-                                                                .ic_arrow_left,
-                                                    margin: EdgeInsets.only(
-                                                        bottom:
-                                                            (data.isExpanded!)
-                                                                ? 12
-                                                                : 20),
-                                                    borderColor: data.isExpanded!
-                                                        ? AppColors
-                                                            .primaryYellow
-                                                        : AppColors
-                                                            .transparentColor,
-                                                  ),
-                                                ),
-                                                if (data.isExpanded!)
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: GestureDetector(
-                                                          onTap: () {
-                                                            log("$data");
-                                                            ePrv.subCategoryName =
+                                                   if( ePrv.selectedPractice == 0){
+                                                     ePrv.selectsubjectype = "ebook";
+                                                     //print("khjkiihkh${ePrv.selectsubjectype}");
+                                                    ePrv.subCategoryName =
                                                                 data.title!;
                                                             navigatorKey
                                                                 .currentState
@@ -312,39 +292,11 @@ class _LibraryPageTabletState extends State<LibraryPageTablet> {
                                                                         .libraryeBooks,
                                                                     arguments: data
                                                                         .title);
-                                                          },
-                                                          child: Container(
-                                                            height: 48,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: AppColors
-                                                                  .white,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                            ),
-                                                            alignment: Alignment
-                                                                .center,
-                                                            child: Text(
-                                                              "${data.subList?[0]}",
-                                                              style: AppTextStyle
-                                                                  .normalRegular16
-                                                                  .copyWith(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      w18,
-                                                      Expanded(
-                                                        child: GestureDetector(
-                                                          onTap: () {
-                                                            log("$data");
-                                                            ePrv.subCategoryName =
+
+                                                   }else if(ePrv.selectedPractice == 1){
+                                                     ePrv.selectsubjectype = "videos";
+                                                      // print("khjkiihkh${ePrv.selectsubjectype}");
+                                                                    ePrv.subCategoryName =
                                                                 data.title!;
                                                             navigatorKey
                                                                 .currentState
@@ -354,36 +306,121 @@ class _LibraryPageTabletState extends State<LibraryPageTablet> {
                                                               arguments:
                                                                   data.title!,
                                                             );
-                                                          },
-                                                          child: Container(
-                                                            height: 48,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: AppColors
-                                                                  .white,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                            ),
-                                                            alignment: Alignment
-                                                                .center,
-                                                            child: Text(
-                                                              "${data.subList?[1]}",
-                                                              style: AppTextStyle
-                                                                  .normalRegular16
-                                                                  .copyWith(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                   }
+                                                                
+                                                    data.isExpanded =
+                                                        !data.isExpanded!;
+                                                    ePrv.notifyListeners();
+                                                    log("message--${ePrv.SelectedIndex}---${ePrv.isExpanded}");
+                                                  },
+                                                  child: ExpansionWidget(
+                                                    title: data.title!,
+                                                    // trailingIcon:
+                                                    //     data.isExpanded!
+                                                    //         ? AppAssets
+                                                    //             .ic_arrow_down
+                                                    //         : AppAssets
+                                                    //             .ic_arrow_left,
+                                                    margin: EdgeInsets.only(
+                                                        bottom:
+                                                            (data.isExpanded!)
+                                                                ? 12
+                                                                : 20),
+                                                    // borderColor: data.isExpanded!
+                                                    //     ? AppColors
+                                                    //         .primaryYellow
+                                                    //     : AppColors
+                                                    //         .transparentColor,
                                                   ),
-                                                if (data.isExpanded!) h12,
+                                                ),
+                                                // if (data.isExpanded!)
+                                                //   Row(
+                                                //     children: [
+                                                //       Expanded(
+                                                //         child: GestureDetector(
+                                                //           onTap: () {
+                                                //             log("$data");
+                                                //             ePrv.subCategoryName =
+                                                //                 data.title!;
+                                                //             navigatorKey
+                                                //                 .currentState
+                                                //                 ?.pushNamed(
+                                                //                     RoutesConst
+                                                //                         .libraryeBooks,
+                                                //                     arguments: data
+                                                //                         .title);
+                                                //           },
+                                                //           child: Container(
+                                                //             height: 48,
+                                                //             decoration:
+                                                //                 BoxDecoration(
+                                                //               color: AppColors
+                                                //                   .white,
+                                                //               borderRadius:
+                                                //                   BorderRadius
+                                                //                       .circular(
+                                                //                           10),
+                                                //             ),
+                                                //             alignment: Alignment
+                                                //                 .center,
+                                                //             child: Text(
+                                                //               "${data.subList?[0]}",
+                                                //               style: AppTextStyle
+                                                //                   .normalRegular16
+                                                //                   .copyWith(
+                                                //                 fontWeight:
+                                                //                     FontWeight
+                                                //                         .w400,
+                                                //               ),
+                                                //             ),
+                                                //           ),
+                                                //         ),
+                                                //       ),
+                                                //       w18,
+                                                //       Expanded(
+                                                //         child: GestureDetector(
+                                                //           onTap: () {
+                                                //             log("$data");
+                                                //             ePrv.subCategoryName =
+                                                //                 data.title!;
+                                                //             navigatorKey
+                                                //                 .currentState
+                                                //                 ?.pushNamed(
+                                                //               RoutesConst
+                                                //                   .libraryvideo,
+                                                //               arguments:
+                                                //                   data.title!,
+                                                //             );
+                                                //           },
+                                                //           child: Container(
+                                                //             height: 48,
+                                                //             decoration:
+                                                //                 BoxDecoration(
+                                                //               color: AppColors
+                                                //                   .white,
+                                                //               borderRadius:
+                                                //                   BorderRadius
+                                                //                       .circular(
+                                                //                           10),
+                                                //             ),
+                                                //             alignment: Alignment
+                                                //                 .center,
+                                                //             child: Text(
+                                                //               "${data.subList?[1]}",
+                                                //               style: AppTextStyle
+                                                //                   .normalRegular16
+                                                //                   .copyWith(
+                                                //                 fontWeight:
+                                                //                     FontWeight
+                                                //                         .w400,
+                                                //               ),
+                                                //             ),
+                                                //           ),
+                                                //         ),
+                                                //       ),
+                                                //     ],
+                                                //   ),
+                                                // if (data.isExpanded!) h12,
                                               ],
                                             );
                                           }),
