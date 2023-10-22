@@ -65,6 +65,7 @@ class AuthServices {
           }).then((value) {
         response = value;
       });
+      
       SnackBarService().showSnackBar(
           message: "Book Added to Library", type: SnackBarType.success);
 

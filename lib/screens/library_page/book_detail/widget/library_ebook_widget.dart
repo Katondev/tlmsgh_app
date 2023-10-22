@@ -288,7 +288,7 @@ class _LibraryEbookWidgetState extends State<LibraryEbookWidget> {
                                   },
                                   child: Image.asset(
                                     AppAssets.ic_pdf,
-                                    height: 16,
+                                    height: 25,
                                     // color: AppColors.textFieldhintColor,
                                   ),
                                 ),

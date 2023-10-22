@@ -30,11 +30,13 @@ class GeneratePaper extends StatefulWidget {
 
 class _GeneratePaperState extends State<GeneratePaper> {
   SelfAssessmentController? eLearningPrv;
+  
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+      
     eLearningPrv =
         Provider.of<SelfAssessmentController>(context, listen: false);
     init();
@@ -42,6 +44,8 @@ class _GeneratePaperState extends State<GeneratePaper> {
 
   void init() async {
     await eLearningPrv?.getAllCategoryInfo();
+   await eLearningPrv?.getSelectPapar();
+
   }
 
   @override
@@ -71,33 +75,33 @@ class _GeneratePaperState extends State<GeneratePaper> {
                       padding: const EdgeInsets.all(20.0),
                       child: Column(
                         children: [
-                          DropDownCustom<FilterCategoryModel>(
-                            onChange: (value) =>
-                                ePrv.selectMainCategory(value: value),
-                            selectedValue:
-                                ePrv.selectedMainCat.value.categoryId == null
-                                    ? null
-                                    : ePrv.selectedMainCat,
-                            items: ePrv.mainCategoryMList
-                                .map((e) =>
-                                    DropdownMenuItem<FilterCategoryModel>(
-                                        enabled: e.isenabled ?? true,
-                                        value: e,
-                                        child: Text(
-                                          "${e.isenabled ?? false ? e.categoryName : e.maincategoryName}",
-                                          style: e.isenabled ?? false
-                                              ? AppTextStyle.normalRegular12
-                                              : AppTextStyle.normalRegular12
-                                                  .copyWith(
-                                                      color: Colors.black54),
-                                        )))
-                                .toList(),
-                            hint: Text(
-                              "Select Class",
-                              style: AppTextStyle.normalRegular12,
-                            ),
-                          ),
-                          // h10,
+                          // DropDownCustom<FilterCategoryModel>(
+                          //   onChange: (value) =>
+                          //       ePrv.selectMainCategory(value: value),
+                          //   selectedValue:
+                          //       ePrv.selectedMainCat.value.categoryId == null
+                          //           ? null
+                          //           : ePrv.selectedMainCat,
+                          //   items: ePrv.mainCategoryMList
+                          //       .map((e) =>
+                          //           DropdownMenuItem<FilterCategoryModel>(
+                          //               enabled: e.isenabled ?? true,
+                          //               value: e,
+                          //               child: Text(
+                          //                 "${e.isenabled ?? false ? e.categoryName : e.maincategoryName}",
+                          //                 style: e.isenabled ?? false
+                          //                     ? AppTextStyle.normalRegular12
+                          //                     : AppTextStyle.normalRegular12
+                          //                         .copyWith(
+                          //                             color: Colors.black54),
+                          //               )))
+                          //       .toList(),
+                          //   hint: Text(
+                          //     "Select Class",
+                          //     style: AppTextStyle.normalRegular12,
+                          //   ),
+                          // ),
+                         
                           // DropDownCustom<Topic>(
                           //   onChange: (value) => ePrv.selectedTopic(value!),
                           //   selectedValue: ePrv.topic!.obs,
@@ -119,18 +123,59 @@ class _GeneratePaperState extends State<GeneratePaper> {
                           //       )
                           //       .toList(),
                           // ),
-                          h10,
-                          DropDownCustom<Subject>(
+                      
+                         
+                           
+                            DropDownCustom<Class>(
                             onChange: (value) =>
-                                ePrv.selectSubject(value: value),
+                                ePrv.selectSubject1(value: value),
                             selectedValue:
-                                ePrv.selectedSubject.value.label == null
+                                ePrv.classSelect.value.classClass == null
                                     ? null
-                                    : ePrv.selectedSubject,
-                            items: ePrv.subjectList
-                                .map((e) => DropdownMenuItem<Subject>(
+                                    : ePrv.classSelect,
+                            items: ePrv.classGrade
+                                .map((e) => DropdownMenuItem<Class>(
                                     value: e,
-                                    child: Text("${e.label}",
+                                    child: Text("${e.classClass}",
+                                        style: AppTextStyle.normalRegular12)))
+                                .toList(),
+                            hint: Text(
+                              "Class/Grade",
+                              style: AppTextStyle.normalRegular12,
+                            ),
+                          ),
+                          h10,
+                           DropDownCustom<Subjectt>(
+                            
+                            onChange: (value) =>
+                                ePrv.selctTopic(value: value),
+                            selectedValue:
+                                ePrv.selectTopic.value.subject == null
+                                    ? null
+                                    : ePrv.selectTopic,
+                            items: ePrv.subjects
+                                .map((e) => DropdownMenuItem<Subjectt>(
+                                    value: e,
+                                    child: Text("${e.subject ?? "SE"}",
+                                        style: AppTextStyle.normalRegular12)))
+                                .toList(),
+                            hint: Text(
+                              "Select Subject",
+                              style: AppTextStyle.normalRegular12,
+                            ),
+                          ),
+                          h10,
+                           DropDownCustom<SubjectTopic>(
+                            onChange: (value) =>
+                                ePrv.selctTopics(value: value),
+                            selectedValue:
+                                ePrv.selecttopics.value.topic == null
+                                    ? null
+                                    : ePrv.selecttopics,
+                            items: ePrv.topics
+                                .map((e) => DropdownMenuItem<SubjectTopic>(
+                                    value: e,
+                                    child: Text("${e.topic}",
                                         style: AppTextStyle.normalRegular12)))
                                 .toList(),
                             hint: Text(
@@ -158,7 +203,8 @@ class _GeneratePaperState extends State<GeneratePaper> {
                                           message: "Select Subject",
                                           type: SnackBarType.error);
                                     } else {
-                                      //Navigator.of(context).pop();
+                                      // Navigator.of(context).pop();
+                                     
                                       ePrv
                                           .generatePaperApi(context)
                                           .whenComplete(() {

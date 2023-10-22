@@ -254,6 +254,8 @@ class _LibraryPageMobileState extends State<LibraryPageMobile> {
 
                                                   //     print("--------------${  ePrv.selectsubjectype}-ddnddn") ;                                                ePrv.subCategoryName =
                                                   //       data.title!;
+                                                  ePrv.subCategoryName =
+                                                      data.title!;
                                                   navigatorKey.currentState
                                                       ?.pushNamed(
                                                     RoutesConst.libraryvideo,

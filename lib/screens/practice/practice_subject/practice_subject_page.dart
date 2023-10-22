@@ -6,6 +6,7 @@ import 'package:katon/utils/config.dart';
 import 'package:katon/widgets/responsive.dart';
 import 'package:provider/provider.dart';
 
+import '../../self_assessment/self_assesment_controller.dart';
 import '../controller/practice_prv.dart';
 
 class PracticeSubjectPage extends StatefulWidget {
@@ -20,6 +21,7 @@ class PracticeSubjectPage extends StatefulWidget {
 
 class PracticeSubjectPageState extends State<PracticeSubjectPage> {
   PracticePrv? practicePrv;
+   SelfAssessmentController? ePev;
 
   @override
   void initState() {
@@ -27,11 +29,13 @@ class PracticeSubjectPageState extends State<PracticeSubjectPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       practicePrv = Provider.of<PracticePrv>(context, listen: false);
+      ePev = Provider.of<SelfAssessmentController>(context,listen: false);
       init();
     });
   }
 
   init() async {
+      ePev!.getSelectPapar();
     if (AppPreference().getString(PreferencesKey.uType) == "Student") {
       if (practicePrv?.selectedPractice == 0) {
       practicePrv?.getAssessmentSubject();
@@ -54,6 +58,7 @@ class PracticeSubjectPageState extends State<PracticeSubjectPage> {
          practicePrv?.practiceSubjectList.clear();
       }
       practicePrv?.notifyListeners();
+    
     }
     // await practicePrv?.getSelfAssessmentSubject();
   }

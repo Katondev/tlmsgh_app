@@ -179,7 +179,7 @@ class _LibraryVideoWidgetState extends State<LibraryVideoWidget> {
                         ),
                         const Spacer(),
                         Text(
-                          "5:00",
+                         widget.book!.bk_videoDuration == null ? "": widget.book!.bk_videoDuration.toString(),
                           style: AppTextStyle.normalRegular12.copyWith(
                               fontWeight: FontWeight.w500,
                               color: AppColors.primaryWhite),

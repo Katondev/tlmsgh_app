@@ -42,7 +42,7 @@ class _DrawerBoxState extends State<DrawerBox> {
                   ),
                   w10,
                   Text(
-                    "TLMS GHANA",
+                    "LMS GHANA",
                     style: AppTextStyle.normalRegular16.copyWith(
                         fontFamily: "Audiowide", color: AppColors.primaryWhite),
                   ),

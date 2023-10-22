@@ -51,3 +51,143 @@ class FilterCategoryModel {
       .map<FilterCategoryModel>((item) => FilterCategoryModel.fromJson(item))
       .toList();
 }
+// To parse this JSON data, do
+//
+//     final dropDownList = dropDownListFromJson(jsonString);
+
+
+DropDownList dropDownListFromJson(String str) => DropDownList.fromJson(json.decode(str));
+
+String dropDownListToJson(DropDownList data) => json.encode(data.toJson());
+
+class DropDownList {
+    bool status;
+    String message;
+    Data data;
+
+    DropDownList({
+        required this.status,
+        required this.message,
+        required this.data,
+    });
+
+    factory DropDownList.fromJson(Map<String, dynamic> json) => DropDownList(
+        status: json["status"],
+        message: json["message"],
+        data: Data.fromJson(json["data"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "status": status,
+        "message": message,
+        "data": data.toJson(),
+    };
+}
+
+class Data {
+    List<DataTopic> topics;
+
+    Data({
+        required this.topics,
+    });
+
+    factory Data.fromJson(Map<String, dynamic> json) => Data(
+        topics: List<DataTopic>.from(json["topics"].map((x) => DataTopic.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "topics": List<dynamic>.from(topics.map((x) => x.toJson())),
+    };
+}
+
+class DataTopic {
+    int? levelId;
+    String? level;
+    List<Class>? classes;
+
+    DataTopic({
+      this.levelId,
+       this.level,
+     this.classes,
+    });
+
+    factory DataTopic.fromJson(Map<String, dynamic> json) => DataTopic(
+        levelId: json["levelId"],
+        level: json["level"],
+        classes: List<Class>.from(json["classes"].map((x) => Class.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "levelId": levelId,
+        "level": level,
+        "classes": List<dynamic>.from(classes!.map((x) => x.toJson())),
+    };
+}
+
+class Class {
+    int? classId;
+    String? classClass;
+    List<Subjectt>? subjects;
+
+    Class({
+        this.classId,
+         this.classClass,
+        this.subjects,
+    });
+
+    factory Class.fromJson(Map<String, dynamic> json) => Class(
+        classId: json["classId"],
+        classClass: json["class"],
+        subjects: List<Subjectt>.from(json["subjects"].map((x) => Subjectt.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "classId": classId,
+        "class": classClass,
+        "subjects": List<dynamic>.from(subjects!.map((x) => x.toJson())),
+    };
+}
+
+class Subjectt {
+    int? subjectId;
+    String? subject;
+    List<SubjectTopic>? topics;
+
+    Subjectt({
+        this.subjectId,
+         this.subject,
+        this.topics,
+    });
+
+    factory Subjectt.fromJson(Map<String, dynamic> json) => Subjectt(
+        subjectId: json["subjectId"],
+        subject: json["subject"],
+        topics: List<SubjectTopic>.from(json["topics"].map((x) => SubjectTopic.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "subjectId": subjectId,
+        "subject": subject,
+        "topics": List<dynamic>.from(topics!.map((x) => x.toJson())),
+    };
+}
+
+class SubjectTopic {
+    int? topicId;
+    String? topic;
+
+    SubjectTopic({
+         this.topicId,
+        this.topic,
+    });
+
+    factory SubjectTopic.fromJson(Map<String, dynamic> json) => SubjectTopic(
+        topicId: json["topicId"],
+        topic: json["topic"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "topicId": topicId,
+        "topic": topic,
+    };
+}

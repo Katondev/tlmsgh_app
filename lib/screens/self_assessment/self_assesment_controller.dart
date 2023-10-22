@@ -45,17 +45,28 @@ class SelfAssessmentController extends ChangeNotifier {
   }
 
   List<FilterCategoryModel> mainCategoryMList = <FilterCategoryModel>[];
+  List<DropDownList> dropDownList = <DropDownList>[];
   List<Subject> subjectList = <Subject>[];
   List<SubCategoryModel> subCategoryList = <SubCategoryModel>[];
   List<SubCategoryModel> subCategoryListFilter = <SubCategoryModel>[];
   List<Topics> topicListFilter = <Topics>[];
+    List<DataTopic> subjectList1 = <DataTopic>[];
+  List<Class> classGrade = <Class>[];
+  List<Subjectt> subjects = <Subjectt>[];
+   List<SubjectTopic> topics = <SubjectTopic>[];
+  List<Class> classListFilter = <Class>[];
   List<Topics> topicList = <Topics>[];
   List<SubCategoryTopic> topicListNew = <SubCategoryTopic>[];
   List<Topic> topicFilt = <Topic>[];
   SubCategoryModel? selectedSubCat = SubCategoryModel();
   Topic? topic = Topic();
+  Class? calss = Class();
   Rx<FilterCategoryModel> selectedMainCat = FilterCategoryModel().obs;
   Rx<Subject> selectedSubject = Subject().obs;
+  Rx<DataTopic> selected = DataTopic().obs;
+  Rx<Class> classSelect = Class().obs;
+   Rx<Subjectt> selectTopic = Subjectt().obs;
+   Rx<SubjectTopic> selecttopics = SubjectTopic().obs;
 
   /// Select Main Category Drop down
   ///
@@ -76,6 +87,56 @@ class SelfAssessmentController extends ChangeNotifier {
     });
 
     notifyListeners();
+  }
+
+
+  DropDownList? subjectData;
+ String st_lavel = AppPreference().getString(PreferencesKey.student_level);
+
+  Future getSelectPapar({
+    String? subject,
+  }) async {
+    try {
+     
+      //  print("-----type jfkjf ${selectsubjectype}");
+      // isLoadingStarted = true;
+      notifyListeners();
+      // selectsubjectype;
+      //  _isLoading = true;
+      // isLoadingStarted = true;
+      notifyListeners();
+
+      connections = false;
+      var book = await ApiService.instance.get("${ApiRoutes.selectPaper}");
+
+      subjectData = DropDownList.fromJson(book.data);
+
+      if (book.statusCode == 200) {
+        subjectList1.addAll(subjectData!.data.topics);
+        var a = getClasses(st_lavel);
+        classGrade.addAll(a!);
+        
+        print("---------$st_lavel ------------");
+
+        // print("books--------${subjectData1.classes!}");
+        // initSubjectOffline();
+        _isLoading = false;
+        // isLoadingStarted = false;
+        notifyListeners();
+      }
+    } on Exception catch (e) {
+      notifyListeners();
+      // isFilter.notifyListeners();
+      if (e.toString() == "No Internet") {
+        connections = true;
+      }
+      // isFilter.notifyListeners();
+      _isLoading = false;
+      // isLoadingStarted = false;
+      notifyListeners();
+
+      // _setLoading(false);
+    }
   }
 
   /// Select Sub Category Drop down
@@ -112,45 +173,122 @@ class SelfAssessmentController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void selectSubject({Subject? value}) {
-    selectedSubject.value = value!;
-    // subCategoryListFilter.clear();
-    // subCategoryList.forEach((mainCategory) {
-    //   if (mainCategory.categoryId == selectedMainCat.value!.categoryId) {
-    //     subCategoryListFilter.add(SubCategoryModel(
-    //       categoryId: mainCategory.categoryId,
-    //       categoryName: mainCategory.categoryName,
-    //       subCategoryId: mainCategory.subCategoryId,
-    //     ));
-    //     selectedSubCat = subCategoryListFilter.first;
-    //   }
-    // });
-
+  void selectSubject({DataTopic? value}) {
+    classGrade.clear();
+    // Notify listeners to update the UI
     notifyListeners();
   }
 
+  
+  List<Class>? getClasses(String levelName) {
+    final levelItem = subjectData!.data.topics.firstWhere(
+      (item) => item.level == levelName,
+      orElse: () => DataTopic(level: levelName, classes: []),
+    );
+    return levelItem?.classes ?? null;
+  }
+
+  List<Subjectt> getSubjects( levelName,  className) {
+    for (final levelItem in subjectData!.data.topics) {
+      if (levelName == null || levelItem.level == levelName) {
+        for (final classItem in levelItem.classes!) {
+          if (className == null || classItem.classClass == className) {
+            if (classItem.subjects == null || classItem.subjects!.isEmpty) continue;
+            subjects.addAll(classItem.subjects!);
+          }
+        }
+      }
+    }
+    return subjects;
+  }
+  void selectSubject1({Class? value}) {
+  classSelect.value= value!;
+   subjects.clear(); 
+  var b =  getSubjects(st_lavel, value.classClass,);
+  
+ 
+  print(b[0].subjectId);
+    notifyListeners();
+
+  } 
+
+   List<SubjectTopic> getTopics(String levelName,  className,  subjectName) {
+    for (final levelItem in subjectData!.data.topics) {
+      if (levelItem.level == levelName) {
+        for (final classItem in levelItem.classes!) {
+          if (classItem.classClass == className) {
+            for (final subjectItem in classItem.subjects!) {
+              if (subjectItem.subject == subjectName) {
+                print(subjectItem.topics![0].topic);
+                return subjectItem.topics! ;
+              }
+            }
+          }
+        }
+      }
+    }
+notifyListeners();
+    return [];
+    
+  }
+
+  void selctTopic({Subjectt? value}) {
+    selectTopic.value= value!; 
+  var b =  getSubjects(st_lavel, subjects,);
+  var  topic = getTopics(st_lavel, classSelect.value.classClass,value.subject);
+ topics.clear();
+   topics.addAll(topic!); 
+    notifyListeners();
+
+  } 
+   void selctTopics({SubjectTopic? value}) {
+    selecttopics.value= value!; 
+  // var b =  getSubjects('SHS', value!.subject,);
+  //getTopics(st_lavel, value!.classClass,value.subject);
+
+    notifyListeners();
+
+  }
+
+  
+
   Future generatePaperApi(context) async {
     try {
-      final int id =
-          AppPreference().getInt(PreferencesKey.student_Id);
+      final int id = AppPreference().getInt(PreferencesKey.student_Id);
       connections = false;
       _setLoading(true);
       Map<String, dynamic> params = {
-        "sa_category": selectedMainCat.value.categoryName,
-        "sa_subCategory": selectedSubject.value.value,
-        "sa_topic": "",
-
+        "sa_category": classSelect.value.classClass,
+        "sa_subCategory": selectTopic.value.subject,
+        "sa_topic": selecttopics.value.topic,
+      
         // "sa_topic": topic!.topicName
       };
-      print("url- daayaya-------${ApiRoutes.createSelfAssessment+"st_id=${id}"}");
+      
+      print(classSelect.value.classClass);
+        print(selectTopic.value.subject);
+         print(selecttopics.value.topic);
+
+      //  classGrade.clear();
+      //  subjects.clear();
+      //  topics.clear();
+
+      print(
+          "url- daayaya-------${ApiRoutes.createSelfAssessment +"st_id=${id}"}");
+          
       await ApiService.instance
-          .postHTTP(url: ApiRoutes.createSelfAssessment+"st_id=${id}", body: params)
+          .postHTTP(
+              url: ApiRoutes.createSelfAssessment + "st_id=${id}", body: params, headers: {
+        'Authorization': 'Bearer ${AppPreference().getString(PreferencesKey.token)}',
+        'Content-Type': "application/json"
+      })
           .then((value) async {
         log("--paper------${value}");
         await getAllSelfAssessmentList();
         selectedMainCat.value = FilterCategoryModel();
         selectedSubject.value = Subject();
       });
+      
       _setLoading(false);
     } on Exception catch (e) {
       if (e.toString() == "No Internet") {
@@ -283,14 +421,14 @@ class SelfAssessmentController extends ChangeNotifier {
   SelfAssessMentList? selfAssessmentList;
 
   Future<void> getAllSelfAssessmentList() async {
-    
-   int id = await AppPreference().getInt(PreferencesKey.student_Id);
-   
+    int id = await AppPreference().getInt(PreferencesKey.student_Id);
+
     try {
       connections = false;
       _setLoading(true);
       await ApiService.instance
-          .get("https://user.api.tlmsghdev.in/api/v1/student/selfAssessment/getAll?st_id=$id&sa_subCategory=$selfAssessmntcat")
+          .get(
+              "https://user.api.tlmsghdev.in/api/v1/student/selfAssessment/getAll?st_id=$id&sa_subCategory=$selfAssessmntcat")
           .then((value) {
         selfAssessmentList = SelfAssessMentList.fromJson(value.data);
         log("self--------${value}");

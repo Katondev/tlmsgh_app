@@ -124,6 +124,7 @@ class VideoBooksData {
   String? bkMainCategory;
   String? bkCategory;
   String? bkSubCategory;
+   String? bk_videoDuration;
   List<BkGenre>? bkGenre;
   List<BkWhoCanRead>? bkWhoCanRead;
   dynamic tpId;
@@ -156,6 +157,7 @@ class VideoBooksData {
     this.bkSubCategory,
     this.bkGenre,
     this.bkWhoCanRead,
+    this.bk_videoDuration,
     this.tpId,
   });
 
@@ -181,6 +183,7 @@ class VideoBooksData {
         bkVideo: json["bk_video"],
         bkPreviewVideo: json["bk_previewVideo"],
         bkStatus: json["bk_status"],
+        bk_videoDuration: json["bk_videoDuration"],
         bkCreatedAt: json["bk_createdAt"] == null
             ? null
             : DateTime.parse(json["bk_createdAt"]),
@@ -219,6 +222,7 @@ class VideoBooksData {
         "bk_video": bkVideo,
         "bk_previewVideo": bkPreviewVideo,
         "bk_status": bkStatus,
+         "bk_videoDuration": bk_videoDuration,
         "bk_createdAt": bkCreatedAt?.toIso8601String(),
         "bk_mainCategory": bkMainCategory,
         "bk_category": bkCategory,

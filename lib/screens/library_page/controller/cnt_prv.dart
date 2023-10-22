@@ -79,11 +79,11 @@ class ELearningProvider extends ChangeNotifier {
    List<Map<String, dynamic>> practiceStudentList = [
     {
       "image": AppAssets.e_book,
-      "title": "e-BOOK",
+      "title": "E-BOOK",
     },
     {
       "image": AppAssets.labrary_videos,
-      "title": "videos",
+      "title": "Videos",
     },
     
   ];

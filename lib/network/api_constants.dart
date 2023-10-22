@@ -11,7 +11,7 @@ class ApiRoutes {
   // static String parentBaseURL = 'https://user.api.tlmsgh.com/api/v1/parent/';
   //static String imageURL = 'https://dashapi.katondev.in/uploads/';
   static String imageURL =
-      'https://katon-prod-uploads.s3.eu-central-1.amazonaws.com/';
+      'https://katon-dev-uploads.s3.eu-central-1.amazonaws.com/';
   // static String imageURL = 'https://dashapi.katon.app/uploads/'; 
   static String dashBoardURL =
       'https://dashboard.api.lmsgh.net/api/v1/admin/';
@@ -35,7 +35,7 @@ class ApiRoutes {
   static String updateProfilePicTeacher = '${dashBoardURL}teacher/';
   static String addBookLibrary = '${baseURL}book';
   static String deleteLibrary = '${baseURL}book';
-  static String libraryBook = '${baseURL}book/library';
+  static String  libraryBook = '${baseURL}book/library';
   static String bookWithSearch = '${baseURL}book';
   static String videobookWithSearch = '${baseURL}book/getAllVideosByLevel';
   static String liveClass = '${baseURL}liveSession/getAll';
@@ -52,6 +52,8 @@ class ApiRoutes {
   static String assignmentResultbyId =
       '${baseURL}assignmentResult/getAllAssignmentResultByAssignment/';
   static String pastQuestions = '${baseURL}pastPaper/getAll';
+  static String selectPaper = '${baseURL}contentCategory/all';
+  
   static String getSelfAssessment =
       '${baseURL}selfAssessment/getAllQueBySelfAssessment?';
   static String createSelfAssessment = '${baseURL}selfAssessment?';

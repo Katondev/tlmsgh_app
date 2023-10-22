@@ -220,12 +220,14 @@ class _LibraryVideoMobileState extends State<LibraryVideoMobile> {
                                                               horizontalIndex];
                                                           return Obx(
                                                             () =>
-                                                                LibraryVideoWidget(
+                                                                LibraryVideoWidget( 
+
                                                               onTap: (GlobalSingleton()
                                                                       .downloadedvideobookIdList
                                                                       .any((e) =>
                                                                           e ==
                                                                           data?.bkId))
+                                                                          
                                                                   ? () {
                                                                       log("message");
                                                                       Get.to(
@@ -235,6 +237,9 @@ class _LibraryVideoMobileState extends State<LibraryVideoMobile> {
                                                                       ));
                                                                     }
                                                                   : () {
+                                                            Get.to(Video(
+                                                          title: data?.bkVideo,
+                                                        ));
                                                                       eLearningPrv
                                                                           ?.currentlabelIndex = i;
                                                                       eLearningPrv
@@ -258,7 +263,9 @@ class _LibraryVideoMobileState extends State<LibraryVideoMobile> {
                                                                     }
                                                                   : () {
                                                                       log("message---1");
-
+                                                        Get.to(Video(
+                                                          title: data?.bkVideo,
+                                                        ));
                                                                       eLearningPrv
                                                                           ?.currentlabelIndex = i;
                                                                       eLearningPrv

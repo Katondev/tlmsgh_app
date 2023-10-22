@@ -39,7 +39,8 @@ class _VideoState extends State<Video> {
 // .split("/").last
     dirPath = '${tempDir.path}/${widget.title}';
     bool exists = await File(dirPath!).exists();
-    log("video exists----->${exists.toString()}");
+    log("video exists----->${exists}");
+    
     // print(dirPath);
 
     loading = false;
@@ -61,9 +62,20 @@ class _VideoState extends State<Video> {
 
   getVideo() async {
     log("videopath------->>------${widget.title!}");
+
     // videoPlayerController = VideoPlayerController.file(File(widget.title!));
-    videoPlayerController = VideoPlayerController.file(
-        File("${GlobalSingleton().Dirpath}/${widget.title?.split("/").last}"));
+
+    
+videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(
+        '${ApiRoutes.imageURL}${widget.title!}'));
+   
+//  videoPlayerController = VideoPlayerController.file(
+//         File("${GlobalSingleton().Dirpath}/${widget.title?.split("/").last}"));
+    
+   
+      
+        
+   
     await videoPlayerController.initialize();
     chewieController = ChewieController(
       videoPlayerController: videoPlayerController,
