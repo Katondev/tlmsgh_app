@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:katon/network/api_constants.dart';
+import 'package:katon/screens/my_library/widgets/video_and_book_related_questions.dart';
 import 'package:katon/utils/config.dart';
 import 'package:katon/utils/global_singlton.dart';
 import 'package:katon/widgets/custom_dialog.dart';
@@ -143,6 +144,24 @@ videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                  FloatingActionButton(
+                  onPressed: () {
+                   Get.to(QuizScreen());
+
+                  
+
+                    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge,
+                    //     overlays: []);
+                  },
+                  heroTag: "3",
+                  child: const Icon(
+                    Icons.article,
+                    color: AppColors.white,
+                  ),
+                ),
+                SizedBox(
+                  width: 10.0,
+                ),
                 FloatingActionButton(
                   onPressed: () {
                     Orientation currentOrientation =
@@ -172,6 +191,7 @@ videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(
                 SizedBox(
                   width: 10.0,
                 ),
+
                 FloatingActionButton(
                   onPressed: () {
                     if (Responsive.isMobilenew(context)) {

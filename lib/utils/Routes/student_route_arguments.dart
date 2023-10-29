@@ -17,7 +17,10 @@ class StudentRouteArguments {
         return Arguments(title: "E books".tr, description: "E books".tr);
       case RoutesConst.libraryvideo:
         return Arguments(title: "Videos".tr, description: "Videos".tr);
-      case RoutesConst.bookDetail:
+      case RoutesConst.videobokQuestions:
+        return Arguments(
+            title: "Questions".tr, description: "reviews_similarBook".tr); 
+             case RoutesConst.bookDetail:
         return Arguments(
             title: "book_details".tr, description: "reviews_similarBook".tr);
       case RoutesConst.training:

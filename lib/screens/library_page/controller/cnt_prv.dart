@@ -23,19 +23,32 @@ import 'package:katon/utils/prefs/preferences_key.dart';
 import 'package:katon/utils/route_const.dart';
 import 'package:katon/widgets/responsive.dart';
 import 'package:pagination_view/pagination_view.dart';
+import 'package:http/http.dart' as http;
 
+import '../../../models/elearning_model/ebook_and_videos_model.dart';
 import '../../../models/subject_model.dart';
 import '../../../network/api_constants.dart';
 import '../../../res.dart';
 import '../../../services/api_service.dart';
+import '../../../utils/app_colors.dart';
 import '../../../utils/global_singlton.dart';
 import '../../home_page.dart';
+import '../../my_library/widgets/video_and_book_related_questions.dart';
 
 class ELearningProvider extends ChangeNotifier {
   String? selectsubjectype;
   List<BooksM> booksM = [];
   List<VideoBooksModel> videobooksM = [];
   List<BookDetailsM> downloadedEbooks = [];
+   List<Datum> questions = []; // List to store questions from API
+  List<String> selectedAnswers = [];
+  List<String>? correctAnswerList;
+  List<dynamic> resultColors = [];
+    bool  isCorrect = false;
+
+  int score = 0;
+
+  bool showResult = false;
   int currentIndex = -1;
   List<Map<String, dynamic>> subjectList = [
     {
@@ -190,6 +203,180 @@ class ELearningProvider extends ChangeNotifier {
       selectedSubCat.value = subCategoryList.first;
     }
   }
+    Future<void> fetchDataFromApi() async {
+
+    final response = await http.get(Uri.parse(
+        '${ApiRoutes.libraryQuestions}?studentClass=SHS 1&subject=Social Studies&type=book&limit=5&topic'));
+ notifyListeners();
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      final List<dynamic> questionList = data['data'];
+      questions = questionList.map((json) => Datum.fromJson(json)).toList();
+      notifyListeners();
+      print("hjdh");
+
+        resultColors = [
+        {
+          'option1':Colors.white,
+          'option2':Colors.white,
+          'option3':Colors.white,
+          'option4':Colors.white,
+          'option5':Colors.white,
+        },
+        {
+          'option1':AppColors.white,
+          'option2':AppColors.white,
+          'option3':AppColors.white,
+          'option4':AppColors.white,
+          'option5':AppColors.white,
+        },
+        {
+          'option1':AppColors.white,
+          'option2':AppColors.white,
+          'option3':AppColors.white,
+          'option4':AppColors.white,
+          'option5':AppColors.white,
+        },
+        {
+          'option1':AppColors.white,
+          'option2':AppColors.white,
+          'option3':AppColors.white,
+          'option4':AppColors.white,
+          'option5':AppColors.white,
+        },
+        {
+          'option1':AppColors.white,
+          'option2':AppColors.white,
+          'option3':AppColors.white,
+          'option4':AppColors.white,
+          'option5':AppColors.white,
+        }
+        ];
+
+     
+        questions = questionList.map((json) => Datum.fromJson(json)).toList();
+        // Initialize selectedAnswers with empty strings
+        selectedAnswers = List.filled(questions.length, '');
+        print('--------response body-----${selectedAnswers}');
+    
+
+    } else {
+      throw Exception('Failed to load questions');
+    }
+  }
+
+ void submitAnswers() {
+  notifyListeners();
+    int correctAnswersCount = 0;
+    List<Widget> answerWidgets = [];
+
+    for (int i = 0; i < questions.length; i++) {
+       isCorrect = false;
+
+      // Extract the correct answers and clean them
+      String correctAnswers = questions[i]
+          .aqCorrentAns
+          .join(', '); // Join correct answers into a comma-separated string
+      correctAnswers = correctAnswers
+          .replaceAll('[', '')
+          .replaceAll(']', '') 
+
+          .replaceAll(RegExp(r'\s+'), ' ');
+
+      String userAnswer = selectedAnswers[i];
+      userAnswer = userAnswer.replaceAll('aq', '').replaceAll('O', 'o');
+
+      correctAnswerList =
+          correctAnswers.split(',').map((e) => e.trim()).toList();
+// int correctOptionNumber = -1;
+      if (correctAnswerList!.contains(userAnswer)) {
+          isCorrect = true;
+          resultColors[i][userAnswer] = AppColors.green;
+      } else {
+        resultColors[i][correctAnswerList?[0]] = AppColors.green;
+        resultColors[i][userAnswer] =AppColors.red1;
+      }
+      // print(resultColors.toString());
+
+      final question = questions[i];
+
+      // Determine whether the answer is correct or not
+      final answerStatus = isCorrect? "Correct" : "Incorrect";
+      print("");
+      
+
+      
+     
+
+      if (isCorrect!) {
+        correctAnswersCount++;
+      }
+    }
+
+    // showDialog(
+    //   context: context,
+    //   builder: (BuildContext context) {
+    //     return AlertDialog(
+    //       content: SingleChildScrollView
+    //       (
+    //         child: Column(
+    //           children: [
+              
+    //             Center(
+    //                 child: Text(
+    //               'Your Score:',
+    //               style: TextStyle(
+    //                   color: AppColors.black,
+    //                   fontWeight: FontWeight.w700,
+    //                   fontSize: 18),
+    //             )),
+    //             // Column(children: answerWidgets,),
+    //             Text(
+    //               "$correctAnswersCount",
+    //               style: TextStyle(
+    //                   color: AppColors.red,
+    //                   fontWeight: FontWeight.bold,
+    //                   fontSize: 25),
+    //             ),
+              
+    //             Text(
+    //               "You Failed",
+    //               style: TextStyle(
+    //                   color:AppColors.red,
+    //                   fontWeight: FontWeight.bold,
+    //                   fontSize: 25),
+    //             ),
+
+             
+    //             InkWell(
+    //               onTap: (){
+                   
+    //                   resultColors = resultColors;
+                  
+    //                 Navigator.pop(context);
+    //               },
+    //               child: Container(
+    //                 alignment: Alignment.center,
+    //                 height: 40,
+    //                 width: 100, 
+    //                 decoration: BoxDecoration(
+    //                   color:Colors.black,
+    //                    borderRadius: BorderRadius.circular(5)
+    //                    ),
+    //                    child: Text("View Result",style:TextStyle(
+    //                     color:AppColors.white,
+    //                     fontWeight: FontWeight.bold,
+    //                     fontSize: 15),),
+    //                    ),
+    //             )
+                
+    //           ],
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // );
+  }
 
   List<BookDetailsM>? rowsTemp = [];
 
@@ -309,10 +496,13 @@ class ELearningProvider extends ChangeNotifier {
       var res = await ApiService.instance.get(
         ApiRoutes.videobookWithSearch,
         queryParameters: {
-          "bk_mainCategory": bkCategory ?? "JHS",
-          "bk_subCategory": bkSubCategory,
-          "userType": AppPreference().getString(PreferencesKey.uType),
           "level": AppPreference().getString(PreferencesKey.level),
+           "userType": AppPreference().getString(PreferencesKey.uType),
+           "bk_subCategory": bkSubCategory,
+          "search":""
+          
+         
+          
         },
       );
       booksM = VideoBooksModel.fromJson(res.data);
@@ -612,11 +802,11 @@ class ELearningProvider extends ChangeNotifier {
       }
       connections = false;
       await ApiService.instance.get(ApiRoutes.bookWithSearch, queryParameters: {
-        "bk_mainCategory": AppPreference().getString(PreferencesKey.level),
+        "level": AppPreference().getString(PreferencesKey.level),
+        "userType": AppPreference().uType,
         "bk_subCategory": subCategoryName,
-        "page": pages,
-        "limit": 50,
-        "userType": AppPreference().uType
+        "search":"",
+        
       }).then((book) {
         print("--------------------HH------------------------${book.data}");
         bookData = BooksM.fromJson(book.data);

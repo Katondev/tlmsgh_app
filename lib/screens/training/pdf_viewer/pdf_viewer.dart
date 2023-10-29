@@ -11,7 +11,9 @@ import 'package:katon/widgets/responsive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
+import '../../../utils/app_binding.dart';
 import '../../../widgets/download_file.dart';
+import '../../my_library/widgets/video_and_book_related_questions.dart';
 
 // class PdfViewerScreen extends StatefulWidget {
 //   final String filename;
@@ -152,6 +154,8 @@ import '../../../widgets/download_file.dart';
 
 /// Represents the Homepage for Navigation
 class PdfViewerScreen extends StatefulWidget {
+  final bookname;
+  final type;
   final String filename;
   final String? file;
   final bool? isdownloadicon;
@@ -163,7 +167,7 @@ class PdfViewerScreen extends StatefulWidget {
       this.isdownloadicon = false,
       required this.filetype,
       this.file,
-      this.isdownloaded = false});
+      this.isdownloaded = false, this.bookname, this.type});
 
   @override
   State<PdfViewerScreen> createState() => _PdfViewerScreenState();
@@ -222,6 +226,21 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        // isExtended: true,
+        child: Icon(
+          Icons.article,
+          color: AppColors.white,
+        ),
+        backgroundColor: AppColors.primaryYellow,
+        onPressed: () {
+          print(widget.bookname);
+            Get.to(() => QuizScreen());
+          // navigatorKey.currentState
+          //     ?.pushNamed(RoutesConst.videobokQuestions, arguments: "kd");
+          setState(() {});
+        },
+      ),
       appBar: _showToolbar
           ? PreferredSize(
               preferredSize: Size(Get.width, 60),
@@ -232,7 +251,7 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
               // ),
               child: SafeArea(
                 child: Container(
-                  height: 60,
+                  height: 50,
                   decoration: BoxDecoration(color: AppColors.white, boxShadow: [
                     BoxShadow(
                         color: AppColors.black12,
@@ -436,10 +455,10 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
                             children: [
                               PopupMenuButton(
                                 // icon:
-                                child: Icon(
-                                  Icons.more_vert,
-                                  color: Colors.black54,
-                                ),
+                                // child: Icon(
+                                //   Icons.more_vert,
+                                //   color: Colors.black54,
+                                // ),
                                 constraints: BoxConstraints(maxWidth: 230),
                                 itemBuilder: (BuildContext context) {
                                   return [

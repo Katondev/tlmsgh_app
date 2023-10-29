@@ -37,6 +37,7 @@ import '../../screens/group_page/screens/group_page.dart';
 import '../../screens/library_page/ebook/library_ebook_screen.dart';
 import '../../screens/library_page/library_select/library_select_page.dart';
 import '../../screens/live_class/live_class_details/live_class_details_page.dart';
+import '../../screens/my_library/widgets/video_and_book_related_questions.dart';
 import '../../screens/practice/self_assessment/self_assessment_screen.dart';
 import '../../screens/setting_page/change_password/change_password.dart';
 
@@ -77,7 +78,16 @@ class StudentPageRoute {
                   .getArgument(RoutesConst.libraryvideo)),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
-        );
+        );//book
+        //   case RoutesConst.videobokQuestions:
+        // return PageRouteBuilder(
+        //   settings: settings,
+        //   pageBuilder: (_, __, ___) => VideoAndBookRelatedQuestions(
+        //       arguments: StudentRouteArguments()
+        //           .getArgument(RoutesConst.videobokQuestions)),
+        //   transitionsBuilder: (_, a, __, c) =>
+        //       FadeTransition(opacity: a, child: c),
+        // );
       case RoutesConst.pastQuestions:
         return PageRouteBuilder(
           settings: settings,

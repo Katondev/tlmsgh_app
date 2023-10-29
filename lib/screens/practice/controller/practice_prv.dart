@@ -321,7 +321,8 @@ class PracticePrv extends ChangeNotifier {
     }
   }
 
-  PastPaperModel? pastPaperModel;
+  PastPaperModel? 
+  pastPaperModel;
 
   Future<void> getAllPastQuestions(
       {String? bkCategory,

@@ -55,7 +55,7 @@ class ExpansionWidget extends StatelessWidget {
           ),
           w14,
           Expanded(
-            flex: 3,
+            flex: 2,
             child: Text(
               title,
              // maxLines: 7,

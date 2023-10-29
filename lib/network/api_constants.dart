@@ -37,6 +37,7 @@ class ApiRoutes {
   static String deleteLibrary = '${baseURL}book';
   static String  libraryBook = '${baseURL}book/library';
   static String bookWithSearch = '${baseURL}book';
+   static String  libraryQuestions= '${baseURL}all-Questions/practice';
   static String videobookWithSearch = '${baseURL}book/getAllVideosByLevel';
   static String liveClass = '${baseURL}liveSession/getAll';
   static String scheduledliveClass =

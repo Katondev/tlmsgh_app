@@ -6,6 +6,7 @@ import 'package:katon/models/argument_model.dart';
 import 'package:katon/screens/library_page/book_detail/book_details_provider.dart';
 import 'package:katon/screens/library_page/book_detail/widget/library_ebook_widget.dart';
 import 'package:katon/screens/practice/assignment/widget/assignment_widget.dart';
+import 'package:katon/screens/practice/past_questions/past_multipule_choies.dart';
 import 'package:katon/screens/training/pdf_viewer/pdf_viewer.dart';
 import 'package:katon/utils/app_colors.dart';
 import 'package:katon/widgets/common_container.dart';
@@ -129,12 +130,18 @@ class _PastQuestionsMobileState extends State<PastQuestionsMobile> {
                                                 if (data.ppPdf != null)
                                                   GestureDetector(
                                                     onTap: () {
+                                                      
                                                       Get.to(
-                                                          () => PdfViewerScreen(
-                                                                filename: data
-                                                                    .ppWrittenPdf!,
-                                                                filetype: "Pdf",
-                                                              ));
+                                                          () => PastMultipleQuestions(
+                                                            ppId: data.ppId,
+                                                               
+                                                             ));
+                                                            
+                                                              // PdfViewerScreen(
+                                                              //   filename: data
+                                                              //       .ppWrittenPdf!,
+                                                              //   filetype: "Pdf",
+                                                              // ));
                                                     },
                                                     child: Container(
                                                       // height: 30,

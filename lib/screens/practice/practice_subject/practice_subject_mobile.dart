@@ -47,7 +47,7 @@ class _PracticeSubjectPagePhoneState extends State<PracticeSubjectPagePhone> {
           drawer: AppPreference().isTeacherLogin
               ? TeacherDrawerBox(navKey: navigatorKey)
               : DrawerBox(navKey: navigatorKey),
-              floatingActionButton:AppPreference().isTeacherLogin? null :FloatingActionButton(
+              floatingActionButton:  args.toString() == "Self Assessment"?AppPreference().isTeacherLogin? null :FloatingActionButton(
             onPressed: () {
               Get.to(() => GeneratePaper());
             },
@@ -57,7 +57,7 @@ class _PracticeSubjectPagePhoneState extends State<PracticeSubjectPagePhone> {
               Icons.my_library_books_outlined,
               color: Colors.white,
             ),
-          ),
+          ):null,
           // endDrawer: endDrawer(),
           // appBar: CommonAppbarMobile(title: widget.arguments.title),
           body: Consumer<PracticePrv>(
@@ -130,6 +130,7 @@ class _PracticeSubjectPagePhoneState extends State<PracticeSubjectPagePhone> {
                                                               .pastQuestions,
                                                           arguments: data,
                                                         );
+                                                        
                                                       } else if (ePrv
                                                               .selectedPractice ==
                                                           2) {

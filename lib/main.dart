@@ -16,6 +16,7 @@ import 'package:katon/screens/live_class/controller/live_class_prv.dart';
 import 'package:katon/screens/past_paper/controller/past_paper_prv.dart';
 import 'package:katon/screens/practice/assignment/controller/assignment_controller.dart';
 import 'package:katon/screens/practice/controller/practice_prv.dart';
+import 'package:katon/screens/practice/past_questions/past_multipule_choies.dart';
 import 'package:katon/screens/practice/practice_details/controller/mcq_test_prv.dart';
 import 'package:katon/screens/self_assessment/self_assesment_controller.dart';
 import 'package:katon/screens/training/controller/training_prv.dart';
@@ -123,6 +124,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        
+          ChangeNotifierProvider<PastMultipleQuestionsProvider>(
+            create: (context) => PastMultipleQuestionsProvider()),
         ChangeNotifierProvider<ELearningProvider>(
             create: (context) => ELearningProvider()),
         ChangeNotifierProvider<BookDetailProvider>(
