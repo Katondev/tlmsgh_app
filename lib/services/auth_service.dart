@@ -65,7 +65,7 @@ class AuthServices {
           }).then((value) {
         response = value;
       });
-      
+
       SnackBarService().showSnackBar(
           message: "Book Added to Library", type: SnackBarType.success);
 
@@ -104,6 +104,7 @@ class AuthServices {
     required String st_region,
     required String st_district,
     required int sc_schoolId,
+    required String stLevel,
     // required String sc_schoolName,
     required String st_countrycode,
     required String st_phoneNumber,
@@ -120,16 +121,15 @@ class AuthServices {
     Response<dynamic>? response;
 
     try {
-      log("scschool----->${sc_schoolId}");
-      await ApiService.instance.putHTTP(url: ApiRoutes.updateProfile, headers: {
-        'Authorization': 'Bearer $token',
-        'Content-Type': "application/json"
-      }, body: {
+      print(" api next $stLevel");
+
+      Map data = {
         'st_fullName': st_fullName,
         // 'st_email': st_email,
         'st_education': 'm.com',
         'st_region': st_region,
         'st_district': st_district,
+         "st_mainCategory":stLevel,
         // 'sc_schoolName': sc_schoolName,
         "st_schoolId": sc_schoolId,
         'st_countryCode': st_countrycode,
@@ -145,9 +145,21 @@ class AuthServices {
         'st_parentEmail': st_parentEmail,
         if (AppPreference().getInt(PreferencesKey.isLoggedInFirstTimeSt) != 1)
           "isFirstTimeLogin": 1,
-      }).then((value) {
+      };
+      log("scschool----->${sc_schoolId}");
+      print(" token: -   $token");
+      await ApiService.instance
+          .putHTTP(
+              url: ApiRoutes.updateProfile,
+              headers: {
+                'Authorization': 'Bearer $token',
+                'Content-Type': "application/json"
+              },
+              body: data)
+          .then((value) {
         response = value;
       });
+      print(data);
       return response;
     } catch (e) {
       SnackBarService()

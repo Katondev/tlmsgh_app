@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,11 +12,9 @@ import 'package:katon/widgets/responsive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:vocsy_epub_viewer/epub_viewer.dart';
-
 import '../../../../components/image/image_widget.dart';
 import '../../../../network/api_constants.dart';
 import '../../../../utils/global_singlton.dart';
-import '../../../../widgets/pdf_view/pdf_view_page.dart';
 import '../../../training/pdf_viewer/pdf_viewer.dart';
 import '../../controller/cnt_prv.dart';
 import '../../controller/elearning_cnt.dart';
@@ -491,7 +488,7 @@ class _LibraryEbookWidgetState extends State<LibraryEbookWidget> {
                                           filename: "${widget.book!.bkPdf}",
                                           filetype: "Pdf",
                                           isdownloaded: File(
-                                                  "${GlobalSingleton().Dirpath}/${widget.book?.bkPdf?.split("/").last}")
+                                          "${GlobalSingleton().Dirpath}/${widget.book?.bkPdf?.split("/").last}")
                                               .existsSync(),
                                         ));
                                   },

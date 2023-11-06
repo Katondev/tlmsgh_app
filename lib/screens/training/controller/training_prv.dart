@@ -22,6 +22,7 @@ import '../../../models/school_filter_model/school_filter_model.dart';
 import '../../../models/sign_in_model.dart';
 import '../../../models/snackbar_datamodel.dart';
 import '../../../models/training_detail_model.dart';
+import '../../../res.dart';
 import '../../../services/snackbar_service.dart';
 import '../../../utils/Routes/teacher_route_arguments.dart';
 import '../../../widgets/custom_dialog.dart';
@@ -46,6 +47,7 @@ class TrainingProvider extends ChangeNotifier {
   int trainingProgramId = 0;
   int trainingOption = 0;
   int trainingStatus = 0;
+  int? selected = 0;
   bool isStatus = false;
   Rx<Uint8List> imageFile = Uint8List(1).obs;
   File? downloadForm;
@@ -68,6 +70,67 @@ class TrainingProvider extends ChangeNotifier {
     "Pontgraph",
     "Reinatha",
   ].obs;
+
+  int selectedTrainingMode = 0;
+  List<Map<String, dynamic>> trainingList = [
+    {
+      "image": AppAssets.ic_physical_Training,
+      "title": "Physical Training",
+    },
+    {
+      "image": AppAssets.ic_live_Training,
+      "title": "Live Training",
+    },
+    {
+      "image": AppAssets.ic_recorded_Training,
+      "title": "Recorded Training",
+    },
+  ];
+
+  List<Map<String, dynamic>> PhysicalTraningDetails = [
+    {
+      "image": AppAssets.ic_physical_Training,
+      "title": "Physical Training",
+      "im": "Physical Training",
+      "description":
+          " Participants should ensure that they have received by email or SMS their default login password for KATon and have logged in and change their password. The login mails are usually sent to participant’s ges.gov.gh or personal email as may be expedient Participant will require a computer (eg TM1 laptop) for this trainingParticipant in areas with connectivity challenges should download the KATon desktop application when at areas with modest connectivity,After downloading the desktop application, log in and go to “Courses” and select the training on ICT Skills Acquisition for Teachers, Try to access the training resources that are in PDF and also play the training videos while still connected to internet,Go off the internet and test that you can access all the training materials. You can reconnect to internet and re-access any materials you were unable to access while offline.Participants should access the training materials and start the learning process. Study the PDF training content and watch the training videos. Then practice with your PC as you study.You can pause and repeat videos multiple times and make sure you have learned and practiced well.",
+    },
+  ];
+
+  List<Map<String, dynamic>> LiveTraningList = [
+    {
+      "image": AppAssets.ic_live_Training,
+      "title": "Live Training",
+      "description": [
+        "Participants should ensure that they have received by email or SMS their default login password for KATon and have logged in and change their password. The login mails are usually sent to participant’s ges.gov.gh or personal email as may be expedient.",
+        "This training will happen on Microsoft Teams. The Microsoft Team link will be shared at least 4-5 days before the training.",
+        "Participant will require a computer (eg TM1 laptop) for this training. Microsoft Team is already installed on your TM1 laptop.",
+        "The training will be in 2 Hours sessions for 3-4 consecutive working days from the date of commencement of your training at the same training time slot.",
+        "Participants, in extreme cases, may request for a change in the assigned class or time slot minimum of three working days before the training start date.",
+        "Each session will last a maximum of 2:00 hours facilitated by one of our expert trainers. Make sure you are logged in and have registered minimum of 10 minutes to the commencement of your class. During this live class, you can learn and practice on your TM1 laptop. Please make sure you have internet connection ready for the duration of the training."
+        "To further aid your study during and off the training time, participants in areas with connectivity challenges should download the KATon desktop application when at areas with modest connectivity.",
+        "After downloading the desktop application, log in and go to “Courses” and select the training on “ICT Skills Acquisition for Teachers” Try to access the training resources that are in PDF and also play the training videos while still connected to internet.",
+      ]
+    },
+  ];
+
+  List<Map<String, dynamic>> recoardedTranning = [
+    {
+      "image": AppAssets.ic_recorded_Training,
+      "title": "Recorded Training",
+      "description":[
+        "Participants should ensure that they have received by email or SMS their default login password for KATon and have logged in and change their password. The login mails are usually sent to participant’s ges.gov.gh or personal email as may be expedient.",
+        "Participant will require a computer (eg TM1 laptop) for this training.",
+        "Participant in areas with connectivity challenges should download the KATon desktop application when at areas with modest connectivity",
+        "After downloading the desktop application, log in and go to “Courses” and select the training on “ICT Skills Acquisition for Teachers”",
+        "Try to access the training resources that are in PDF and also play the training videos while still connected to internet.",
+        "Go off the internet and test that you can access all the training materials. You can reconnect to internet and re-access any materials you were unable to access while offline.",
+        "Participants should access the training materials and start the learning process. Study the PDF training content and watch the training videos. Then practice with your PC as you study.",
+        "You can pause and repeat videos multiple times and make sure you have learned and practiced well.",
+      ],
+    },
+  ];
+
   int selectedSign = 0;
 
   List<Map<String, dynamic>> trainingOptionList = <Map<String, dynamic>>[
@@ -678,7 +741,7 @@ class TrainingProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> getTrainingParticipants(BuildContext context) async {
+  Future<void> getTrainingParticipants(BuildContext context) async { 
     try {
       _setLoading(true);
       await ApiService.instance
@@ -706,13 +769,15 @@ class TrainingProvider extends ChangeNotifier {
       });
       _setLoading(false);
       if (trainingStatus == 1) {
-        Navigator.of(context).pushNamed(
-          RoutesConst.trainingSignature,
-          arguments: TeacherRouteArguments()
-              .getTeacherArgument(RoutesConst.trainingSignature),
-        );
+        // Navigator.of(context).pushNamed(
+        //   RoutesConst.trainingOptions,
+        //   arguments: TeacherRouteArguments()
+        //       .getTeacherArgument(RoutesConst.trainingOptions),
+         
+        // );
+        Navigator.pop(context);
       } else {
-        Navigator.of(context).popUntil((route) => route.isFirst);
+         Navigator.of(context).popUntil((route) => route.isFirst);
         // Navigator.of(context)
         //     .pushNamedAndRemoveUntil(RoutesConst.training, (route) => false);
       }
@@ -723,31 +788,30 @@ class TrainingProvider extends ChangeNotifier {
       _setLoading(false);
     }
   }
-   PlatformFile? selectedFile;
+
+  PlatformFile? selectedFile;
 
   void pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
-        selectedFile = result.files.first;
-        notifyListeners();
-      
+      selectedFile = result.files.first;
+      notifyListeners();
     }
   }
-  
 
-
-   Future<void> uploadFile(BuildContext context) async {
-     CustomLoadingIndicator.instance.show();
-    String url =  "${ApiRoutes.updateSignedForm}${tpsId}";
+  Future<void> uploadFile(BuildContext context) async {
+    CustomLoadingIndicator.instance.show();
+    String url = "${ApiRoutes.updateSignedForm}${tpsId}";
 
     var headers = {
-      'Authorization': 'Bearer ${AppPreference().getString(PreferencesKey.token)}',
+      'Authorization':
+          'Bearer ${AppPreference().getString(PreferencesKey.token)}',
       'Content-Type': 'application/json',
     };
 
     var request = http.MultipartRequest('PUT', Uri.parse(url));
     request.headers.addAll(headers);
-    request.fields['tps_signFontFamily'] =signatureFontfamily[selectedSign];
+    request.fields['tps_signFontFamily'] = signatureFontfamily[selectedSign];
     request.fields['tps_signText'] = signatureCnt.value.text.trim();
     request.fields['tps_attentionFormDate'] = DateTime.now().toString();
     request.fields['tps_trainingStatus'] = '3';
@@ -768,23 +832,21 @@ class TrainingProvider extends ChangeNotifier {
       var response = await request.send();
 
       if (response.statusCode == 200) {
-         CustomLoadingIndicator.instance.hide();
-         if (trainingStatus == 2 && isStatus) {
-        Navigator.of(context)
-          ..pop()
-          ..pop()
-          ..pop();
-        getTrainingDetails();
-        notifyListeners();
-      } else {
-        // Navigator.of(context)
-        //   ..pop()
-        //   ..pop();
-        getTrainingDetails();
-        notifyListeners();
-      }
-
-
+        CustomLoadingIndicator.instance.hide();
+        if (trainingStatus == 2 && isStatus) {
+          Navigator.of(context)
+            ..pop()
+            ..pop()
+            ..pop();
+          getTrainingDetails();
+          notifyListeners();
+        } else {
+          // Navigator.of(context)
+          //   ..pop()
+          //   ..pop();
+          getTrainingDetails();
+          notifyListeners();
+        }
       } else {
         print('Failed to upload file. Status code: ${response.statusCode}');
       }
@@ -792,8 +854,6 @@ class TrainingProvider extends ChangeNotifier {
       print('Error uploading file: $e');
     }
   }
-
-  
 
   Future<void> getAllschoolData(
       {required String region, required String district}) async {

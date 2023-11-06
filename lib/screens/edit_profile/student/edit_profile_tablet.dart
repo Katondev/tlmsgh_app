@@ -271,6 +271,7 @@ class _EditProfileTabletPageState extends State<EditProfileTabletPage> {
                                                     DropDownCustom<
                                                         DropdownClasses>(
                                                       onChange: (value) {
+                                                        
                                                         cnt.classValue.value =
                                                             value!;
                                                         if (!cnt.textChanged

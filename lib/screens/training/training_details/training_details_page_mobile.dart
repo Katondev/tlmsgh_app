@@ -41,661 +41,925 @@ class _TrainingDetailsMobileState extends State<TrainingDetailsMobile> {
   @override
   Widget build(BuildContext context) {
     args = ModalRoute.of(context)!.settings.arguments;
+
     data = args;
     return Material(
-      color: AppColors.primaryWhite,
-      child: SafeArea(
-        child: Scaffold(
-          // appBar: CommonAppbarMobile(title: "${data?.tpProgramTitle}"),
-          // appBar: AppBar(
-          //   title: Column(
-          //     children: [
-          //       Text(
-          //         "${data?.tpProgramTitle}",
-          //         maxLines: 2,
-          //         style: FontStyleUtilities.t1(
-          //           fontWeight: FWT.semiBold,
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          // endDrawer: endDrawerMobile(),
+        color: AppColors.primaryWhite,
+        child: SafeArea(
+            child: Scaffold(
+                // appBar: CommonAppbarMobile(title: "${data?.tpProgramTitle}"),
+                // appBar: AppBar(
+                //   title: Column(
+                //     children: [
+                //       Text(
+                //         "${data?.tpProgramTitle}",
+                //         maxLines: 2,
+                //         style: FontStyleUtilities.t1(
+                //           fontWeight: FWT.semiBold,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // endDrawer: endDrawerMobile(),
 
-          body: Consumer<TrainingProvider>(
-            builder: (context, value, child) => Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: CommonAppBar2(
-                    isshowback: true,
-                    title: "Training",
-                    description: "${data?.tpProgramTitle}",
-                  ),
-                ),
-                ConnectionWidget.connection,
-                value.value
-                    ? Expanded(child: Loader(message: "loading_wait".tr))
-                    : value.connection
-                        ? Expanded(
-                            child: NoInternet(
-                                onTap: () => value.getAllTrainings()))
-                        : value.trainingdetailModel == null ||
-                                value.trainingdetailModel?.data?.content
-                                        ?.length ==
-                                    0
-                            ? Expanded(
-                                child: NoDataFound(message: "no_data_found".tr))
-                            : Expanded(
-                                child: ListView(
-                                  physics: BouncingScrollPhysics(),
-                                  children: [
-                                    h20,
-                                    StageWidget(),
-                                    Padding(
-                                      padding: EdgeInsets.all(20),
-                                      child: Column(
-                                        children: [
-                                          if (value.trainingStatus == 1)
-                                            Container(
-                                              width: Get.width,
-                                              padding: EdgeInsets.all(20),
-                                              color: AppColors.boxgrey,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Submit Form",
-                                                    style:
-                                                        FontStyleUtilities.h4(
-                                                      fontWeight: FWT.semiBold,
-                                                      fontColor:
-                                                          AppColors.blueType2,
-                                                    ),
-                                                  ),
-                                                  h10,
-                                                  LargeButton(
-                                                    onPressed: (value
-                                                                    .trainingStatus ==
+                body: Consumer<TrainingProvider>(
+                    builder: (context, value, child) => Column(children: [
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: CommonAppBar2(
+                              isshowback: true,
+                              title: "Training",
+                              description: "${data?.tpProgramTitle}",
+                            ),
+                          ),
+                          ConnectionWidget.connection,
+                          value.value
+                              ? Expanded(
+                                  child: Loader(message: "loading_wait".tr))
+                              : value.connection
+                                  ? Expanded(
+                                      child: NoInternet(
+                                          onTap: () => value.getAllTrainings()))
+                                  : value.trainingdetailModel == null ||
+                                          value.trainingdetailModel?.data
+                                                  ?.content?.length ==
+                                              0
+                                      ? Expanded(
+                                          child: NoDataFound(
+                                              message: "no_data_found".tr))
+                                      : Expanded(
+                                          child: ListView(
+                                            physics: BouncingScrollPhysics(),
+                                            children: [
+                                              h20,
+                                              StageWidget(),
+                                              Padding(
+                                                padding: EdgeInsets.all(20),
+                                                child: Column(
+                                                  children: [
+                                                   
+                                                     
+                                                  
+                                                    if (value.trainingStatus == 1 )
+                                                  value.trainingStatus == 1 &&value.trainingdetailModel?.data!.trainingParticipants!.tpsTrainingOption == 1? Container(
+                                                        color:
+                                                            AppColors.boxgrey,
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Column(
+                                                            children: [
+                                                              Text(
+                                                                  "Note: Lets complete all recorded videos and then submit attestation form"),
+                                                              h20,
+                                                              LargeButton(
+                                                                onPressed: () {
+                                                                  log("this side");
+                                                                  navigatorKey
+                                                                      .currentState
+                                                                      ?.pushNamed(
+                                                                    RoutesConst
+                                                                        .trainingResources,
+                                                                  );
+                                                                },
+                                                                height: 40,
+                                                                width:
+                                                                    Get.width,
+                                                                // borderRadius:
+                                                                //     BorderRadius
+                                                                //         .circular(30),
+                                                                child: Text(
+                                                                  "Training Resources",
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ):
+                                                      Container(
+                                                        width: Get.width,
+                                                        padding:
+                                                            EdgeInsets.all(20),
+                                                        color:
+                                                            AppColors.boxgrey,
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              "Submit Form",
+                                                              style:
+                                                                  FontStyleUtilities
+                                                                      .h4(
+                                                                fontWeight: FWT
+                                                                    .semiBold,
+                                                                fontColor:
+                                                                    AppColors
+                                                                        .blueType2,
+                                                              ),
+                                                            ),
+                                                            h10,
+                                                            LargeButton(
+                                                              onPressed: (value
+                                                                              .trainingStatus ==
+                                                                          3 ||
+                                                                      value.trainingStatus ==
+                                                                          4 ||
+                                                                      value.trainingStatus ==
+                                                                          5)
+                                                                  ? () {
+                                                                      log("this side");
+                                                                      navigatorKey
+                                                                          .currentState
+                                                                          ?.pushNamed(
+                                                                        RoutesConst
+                                                                            .trainingResources,
+                                                                      );
+                                                                    }
+                                                                  : () {
+                                                                      if (value
+                                                                              .trainingStatus ==
+                                                                          0) {
+                                                                        navigatorKey
+                                                                            .currentState
+                                                                            ?.pushNamed(
+                                                                          RoutesConst
+                                                                              .trainingOptions,
+                                                                          arguments:
+                                                                              TeacherRouteArguments().getTeacherArgument(RoutesConst.trainingOptions),
+                                                                        );
+                                                                      } else if (value
+                                                                              .trainingStatus ==
+                                                                          1) {
+                                                                        navigatorKey
+                                                                            .currentState
+                                                                            ?.pushNamed(
+                                                                          RoutesConst
+                                                                              .trainingSignature,
+                                                                          arguments:
+                                                                              TeacherRouteArguments().getTeacherArgument(RoutesConst.trainingSignature),
+                                                                        );
+                                                                      }
+                                                                    },
+                                                              height: 40,
+                                                              width: Get.width,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          30),
+                                                              child: Text(
+                                                                // "Start Upload Document",
+                                                                "Digital Attestation",
+                                                              ),
+                                                            ),
+                                                            h10,
+                                                            Row(
+                                                              children: [
+                                                                Expanded(
+                                                                    child:
+                                                                        Divider(
+                                                                  endIndent: 10,
+                                                                )),
+                                                                Text("OR"),
+                                                                Expanded(
+                                                                    child:
+                                                                        Divider(
+                                                                  indent: 10,
+                                                                )),
+                                                              ],
+                                                            ),
+                                                            h10,
+                                                            LargeButton(
+                                                              onPressed:
+                                                                  () async {
+                                                                primaryFocus
+                                                                    ?.unfocus();
+                                                                await uploadAddBlogDialog(
+                                                                    context);
+                                                                blgCnt;
+                                                              },
+                                                              height: 40,
+                                                              width: Get.width,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          30),
+                                                              child: Text(
+                                                                // "Start Upload Document",
+                                                                "Upload Attestation",
+                                                                // style: AppTextStyle
+                                                                //     .normalRegular14
+                                                                //     .copyWith(
+                                                                //         color: AppColors
+                                                                //             .primaryWhite),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    if (value.trainingStatus ==
+                                                            2 ||
+                                                        value.trainingStatus ==
+                                                            3)
+                                                      Container(
+                                                        width: Get.width,
+                                                        padding:
+                                                            EdgeInsets.all(20),
+                                                        color:
+                                                            AppColors.boxgrey,
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              "Online Exam",
+                                                              style:
+                                                                  FontStyleUtilities
+                                                                      .h4(
+                                                                fontWeight: FWT
+                                                                    .semiBold,
+                                                                fontColor:
+                                                                    AppColors
+                                                                        .primary,
+                                                              ),
+                                                            ),
+                                                            h10,
+                                                            GestureDetector(
+                                                              onTap: () async {
+                                                                await value.downloadCertificate(
+                                                                    path: value
+                                                                        .certificatePath);
+                                                                Get.to(
+                                                                  PdfViewerScreen(
+                                                                    filename: value
+                                                                        .trainingdetailModel!
+                                                                        .data!
+                                                                        .trainingParticipants!
+                                                                        .tpsSignedForm,
+                                                                    // isFrom: true,
+                                                                    isdownloadicon:
+                                                                        true,
+                                                                    filetype:
+                                                                        "Signed Form",
+                                                                  ),
+                                                                );
+                                                              },
+                                                              child: Row(
+                                                                children: [
+                                                                  Container(
+                                                                    height: 35,
+                                                                    width: 35,
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .center,
+                                                                    color: AppColors
+                                                                        .primary,
+                                                                    child: Image
+                                                                        .asset(
+                                                                      Images
+                                                                          .img,
+                                                                      height:
+                                                                          15,
+                                                                      width: 15,
+                                                                      // color: AppColors.white,
+                                                                    ),
+                                                                  ),
+                                                                  Expanded(
+                                                                    child:
+                                                                        Container(
+                                                                      height:
+                                                                          35,
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .centerLeft,
+                                                                      padding: EdgeInsets.symmetric(
+                                                                          horizontal:
+                                                                              15),
+                                                                      color: AppColors
+                                                                          .white,
+                                                                      child:
+                                                                          Text(
+                                                                        "Signed Form",
+                                                                        style: FontStyleUtilities.t1(
+                                                                            fontWeight:
+                                                                                FWT.regular),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            h10,
+                                                            LargeButton(
+                                                              onPressed: () {
+                                                                // Navigator.of(context).pushNamed(
+                                                                //   RoutesConst.onlineExam,
+                                                                //   arguments: TeacherRouteArguments()
+                                                                //       .getTeacherArgument(
+                                                                //           RoutesConst.onlineExam),
+                                                                // );
+                                                                Get.toNamed(
+                                                                    RoutesConst
+                                                                        .onlineExam);
+                                                              },
+                                                              height: 40,
+                                                              width: Get.width,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          30),
+                                                              child: Text(
+                                                                "Start Exam",
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    if (value.trainingStatus ==
+                                                        4)
+                                                      Container(
+                                                        width: Get.width,
+                                                        padding:
+                                                            EdgeInsets.all(20),
+                                                        color:
+                                                            AppColors.boxgrey,
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              "Certification!",
+                                                              style:
+                                                                  FontStyleUtilities
+                                                                      .h4(
+                                                                fontWeight: FWT
+                                                                    .semiBold,
+                                                                fontColor:
+                                                                    AppColors
+                                                                        .blueType2,
+                                                              ),
+                                                            ),
+                                                            h10,
+                                                            Text(
+                                                              "Great, you have passed Online MCQ Exam. Admin team will approve your certificate soon.",
+                                                              style:
+                                                                  FontStyleUtilities
+                                                                      .t1(
+                                                                fontWeight: FWT
+                                                                    .semiBold,
+                                                                fontColor:
+                                                                    AppColors
+                                                                        .black,
+                                                              ),
+                                                            ),
+                                                            // h10,
+                                                            // LargeButton(
+                                                            //   onPressed: () async {},
+                                                            //   height: 40,
+                                                            //   width: Get.width,
+                                                            //   borderRadius:
+                                                            //       BorderRadius.circular(30),
+                                                            //   child: Text(
+                                                            //     "Waiting for Admin to check Result",
+                                                            //   ),
+                                                            // ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    if (value.trainingStatus ==
+                                                        5)
+                                                      Container(
+                                                        width: Get.width,
+                                                        padding:
+                                                            EdgeInsets.all(20),
+                                                        color:
+                                                            AppColors.boxgrey,
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              "Certification!",
+                                                              style:
+                                                                  FontStyleUtilities
+                                                                      .h4(
+                                                                fontWeight: FWT
+                                                                    .semiBold,
+                                                                fontColor:
+                                                                    AppColors
+                                                                        .blueType2,
+                                                              ),
+                                                            ),
+                                                            h10,
+                                                            Text(
+                                                              "Congratulations, you have successfully completed ICT training program. Hit button to download your certificate",
+                                                              style:
+                                                                  FontStyleUtilities
+                                                                      .t1(
+                                                                fontWeight: FWT
+                                                                    .semiBold,
+                                                                fontColor:
+                                                                    AppColors
+                                                                        .black,
+                                                              ),
+                                                            ),
+                                                            h10,
+                                                            LargeButton(
+                                                              onPressed:
+                                                                  () async {
+                                                                // await value
+                                                                //     .downloadCertificate();
+
+                                                                // Get.to(
+                                                                //   PDFViewPage(
+                                                                //     filename: value
+                                                                //         .trainingdetailModel!
+                                                                //         .data!
+                                                                //         .trainingParticipants!
+                                                                //         .tpsCertificate,
+                                                                //     isFrom: true,
+                                                                //     isdownloading: true,
+                                                                //   ),
+                                                                // );
+                                                                Get.to(
+                                                                  PdfViewerScreen(
+                                                                    filename: value
+                                                                        .trainingdetailModel!
+                                                                        .data!
+                                                                        .trainingParticipants!
+                                                                        .tpsCertificate,
+                                                                    // isFrom: true,
+                                                                    isdownloadicon:
+                                                                        true,
+                                                                    filetype:
+                                                                        "Certificate",
+                                                                  ),
+                                                                );
+                                                              },
+                                                              height: 40,
+                                                              width: Get.width,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          30),
+                                                              child: Text(
+                                                                "Download Certificate",
+                                                              ),
+                                                            ),
+                                                            h10,
+                                                            LargeButton(
+                                                              onPressed: () {
+                                                                // navigatorKey.currentState
+                                                                //     ?.pushNamed(
+                                                                //   RoutesConst.trainingOptions,
+                                                                //   arguments: TeacherRouteArguments()
+                                                                //       .getTeacherArgument(
+                                                                //           RoutesConst
+                                                                //               .trainingOptions),
+                                                                // );
+                                                              },
+                                                              height: 40,
+                                                              width: Get.width,
+                                                              color: AppColors
+                                                                  .lightOrange,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          30),
+                                                              child: Text(
+                                                                "Submit Your Feedback",
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    (value.trainingStatus ==
+                                                                1 ||
+                                                            value.trainingStatus ==
+                                                                2 ||
+                                                            value.trainingStatus ==
                                                                 3 ||
                                                             value.trainingStatus ==
                                                                 4 ||
                                                             value.trainingStatus ==
                                                                 5)
-                                                        ? () {
-                                                            log("this side");
-                                                            navigatorKey
-                                                                .currentState
-                                                                ?.pushNamed(
-                                                              RoutesConst
-                                                                  .trainingResources,
-                                                            );
-                                                          }
-                                                        : () {
-                                                            if (value
-                                                                    .trainingStatus ==
-                                                                0) {
-                                                              navigatorKey
-                                                                  .currentState
-                                                                  ?.pushNamed(
-                                                                RoutesConst
-                                                                    .trainingOptions,
-                                                                arguments: TeacherRouteArguments()
-                                                                    .getTeacherArgument(
+                                                        ? h20
+                                                        : SizedBox(),
+                                                    (value.trainingStatus == 0)
+                                                        ? ListView.builder(
+                                                            shrinkWrap: true,
+                                                            itemCount: value!
+                                                                .trainingList
+                                                                .length,
+                                                            itemBuilder:
+                                                                (BuildContext
+                                                                        context,
+                                                                    i) {
+                                                              var data = value
+                                                                  .trainingList[i];
+                                                              value.selectedTrainingMode =
+                                                                  i;
+
+                                                              return Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child:
+                                                                    GestureDetector(
+                                                                  onTap: () {
+                                                                    if (i ==
+                                                                        0) {
+                                                                      value.trainingOption =
+                                                                          3;
+                                                                    } else if (i ==
+                                                                        1) {
+                                                                      value.trainingOption =
+                                                                          2;
+                                                                    } else if (i ==
+                                                                        2) {
+                                                                      value.trainingOption =
+                                                                          1;
+                                                                    }
+
+                                                                    print(value
+                                                                        .trainingOption);
+                                                                    if (value
+                                                                            .trainingStatus ==
+                                                                        0) {
+                                                                      navigatorKey
+                                                                          .currentState
+                                                                          ?.pushNamed(
                                                                         RoutesConst
-                                                                            .trainingOptions),
-                                                              );
-                                                            } else if (value
-                                                                    .trainingStatus ==
-                                                                1) {
-                                                              navigatorKey
-                                                                  .currentState
-                                                                  ?.pushNamed(
-                                                                RoutesConst
-                                                                    .trainingSignature,
-                                                                arguments: TeacherRouteArguments()
-                                                                    .getTeacherArgument(
+                                                                            .trainingOptions,
+                                                                        arguments:
+                                                                            TeacherRouteArguments().getTeacherArgument(RoutesConst.trainingOptions),
+                                                                      );
+                                                                    } else if (value
+                                                                            .trainingStatus ==
+                                                                        1) {
+                                                                      navigatorKey
+                                                                          .currentState
+                                                                          ?.pushNamed(
                                                                         RoutesConst
-                                                                            .trainingSignature),
+                                                                            .trainingSignature,
+                                                                        arguments:
+                                                                            TeacherRouteArguments().getTeacherArgument(RoutesConst.trainingSignature),
+                                                                      );
+                                                                    }
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    height: 60,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              5),
+                                                                      color: value.selectedTrainingMode ==
+                                                                              0
+                                                                          ? AppColors
+                                                                              .purple
+                                                                          : value.selectedTrainingMode == 1
+                                                                              ? AppColors.skayblue
+                                                                              : AppColors.blue,
+                                                                    ),
+                                                                    width: Get
+                                                                        .width,
+                                                                    child:
+                                                                        ListTile(
+                                                                      leading: Image
+                                                                          .asset(
+                                                                        data[
+                                                                            "image"],
+                                                                        height:
+                                                                            30,
+                                                                      ),
+                                                                      title:
+                                                                          Text(
+                                                                        data[
+                                                                            "title"],
+                                                                        style: FontStyleUtilities.t1(
+                                                                            fontColor:
+                                                                                AppColors.white,
+                                                                            fontWeight: FWT.semiBold),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
                                                               );
-                                                            }
-                                                          },
-                                                    height: 40,
-                                                    width: Get.width,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30),
-                                                    child: Text(
-                                                      // "Start Upload Document",
-                                                      "Digital Attestation",
-                                                    ),
-                                                  ),
-                                                  h10,
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                          child: Divider(
-                                                        endIndent: 10,
-                                                      )),
-                                                      Text("OR"),
-                                                      Expanded(
-                                                          child: Divider(
-                                                        indent: 10,
-                                                      )),
-                                                    ],
-                                                  ),
-                                                  h10,
-                                                  LargeButton(
-                                                    onPressed: () async{
-                                                        primaryFocus
-                                                                  ?.unfocus();
-                                                              await uploadAddBlogDialog(
-                                                                  context);
-                                                                  blgCnt;
-                                                                  
-                                                    },
-                                                    height: 40,
-                                                    width: Get.width,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30),
-                                                    child: Text(
-                                                      // "Start Upload Document",
-                                                      "Upload Attestation",
-                                                      // style: AppTextStyle
-                                                      //     .normalRegular14
-                                                      //     .copyWith(
-                                                      //         color: AppColors
-                                                      //             .primaryWhite),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          if (value.trainingStatus == 2 ||
-                                              value.trainingStatus == 3)
-                                            Container(
-                                              width: Get.width,
-                                              padding: EdgeInsets.all(20),
-                                              color: AppColors.boxgrey,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Online Exam",
-                                                    style:
-                                                        FontStyleUtilities.h4(
-                                                      fontWeight: FWT.semiBold,
-                                                      fontColor:
-                                                          AppColors.primary,
-                                                    ),
-                                                  ),
-                                                  h10,
-                                                  GestureDetector(
-                                                    onTap: () async {
-                                                      await value
-                                                          .downloadCertificate(
-                                                              path: value
-                                                                  .certificatePath);
-                                                      Get.to(
-                                                        PdfViewerScreen(
-                                                          filename: value
-                                                              .trainingdetailModel!
-                                                              .data!
-                                                              .trainingParticipants!
-                                                              .tpsSignedForm,
-                                                          // isFrom: true,
-                                                          isdownloadicon: true,
-                                                          filetype:
-                                                              "Signed Form",
-                                                        ),
-                                                      );
-                                                    },
-                                                    child: Row(
-                                                      children: [
-                                                        Container(
-                                                          height: 35,
-                                                          width: 35,
-                                                          alignment:
-                                                              Alignment.center,
-                                                          color:
-                                                              AppColors.primary,
-                                                          child: Image.asset(
-                                                            Images.img,
-                                                            height: 15,
-                                                            width: 15,
-                                                            // color: AppColors.white,
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Container(
-                                                            height: 35,
-                                                            alignment: Alignment
-                                                                .centerLeft,
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                                    horizontal:
-                                                                        15),
-                                                            color:
-                                                                AppColors.white,
-                                                            child: Text(
-                                                              "Signed Form",
-                                                              style: FontStyleUtilities.t1(
-                                                                  fontWeight: FWT
-                                                                      .regular),
+                                                            })
+                                                        // ? Container(
+                                                        //     width: Get.width,
+                                                        //     padding: EdgeInsets.all(20),
+                                                        //     color: AppColors.boxgrey,
+                                                        //   child: Column(
+                                                        //     children: [
+                                                        //       Row(
+                                                        //         mainAxisAlignment:
+                                                        //             MainAxisAlignment
+                                                        //                 .spaceBetween,
+                                                        //         children: [
+                                                        //           Text(
+                                                        //             "Duration :",
+                                                        //             style: FontStyleUtilities.t1(
+                                                        //                 fontWeight: FWT
+                                                        //                     .semiBold),
+                                                        //           ),
+                                                        //           Text(
+                                                        //               data?.tpDuration ??
+                                                        //                   ""),
+                                                        //         ],
+                                                        //       ),
+                                                        //       Divider(),
+                                                        //       Row(
+                                                        //         mainAxisAlignment:
+                                                        //             MainAxisAlignment
+                                                        //                 .spaceBetween,
+                                                        //         children: [
+                                                        //           Text(
+                                                        //             "Course level :",
+                                                        //             style: FontStyleUtilities.t1(
+                                                        //                 fontWeight: FWT
+                                                        //                     .semiBold),
+                                                        //           ),
+                                                        //           Text("Intermediate"),
+                                                        //         ],
+                                                        //       ),
+                                                        //       Divider(),
+                                                        //       Row(
+                                                        //         mainAxisAlignment:
+                                                        //             MainAxisAlignment
+                                                        //                 .spaceBetween,
+                                                        //         children: [
+                                                        //           Text(
+                                                        //             "Language :",
+                                                        //             style: FontStyleUtilities.t1(
+                                                        //                 fontWeight: FWT
+                                                        //                     .semiBold),
+                                                        //           ),
+                                                        //           Text("English"),
+                                                        //         ],
+                                                        //       ),
+                                                        //       Divider(),
+                                                        //       h6,
+                                                        //       LargeButton(
+                                                        //         onPressed: () {
+                                                        //           if (value
+                                                        //                   .trainingStatus ==
+                                                        //               0) {
+                                                        //             navigatorKey
+                                                        //                 .currentState
+                                                        //                 ?.pushNamed(
+                                                        //               RoutesConst
+                                                        //                   .trainingOptions,
+                                                        //               arguments: TeacherRouteArguments()
+                                                        //                   .getTeacherArgument(
+                                                        //                       RoutesConst
+                                                        //                           .trainingOptions),
+                                                        //             );
+                                                        //           } else if (value
+                                                        //                   .trainingStatus ==
+                                                        //               1) {
+                                                        //             navigatorKey
+                                                        //                 .currentState
+                                                        //                 ?.pushNamed(
+                                                        //               RoutesConst
+                                                        //                   .trainingSignature,
+                                                        //               arguments: TeacherRouteArguments()
+                                                        //                   .getTeacherArgument(
+                                                        //                       RoutesConst
+                                                        //                           .trainingSignature),
+                                                        //             );
+                                                        //           }
+                                                        //         },
+                                                        //         height: 40,
+                                                        //         width: Get.width,
+                                                        //         borderRadius:
+                                                        //             BorderRadius
+                                                        //                 .circular(30),
+                                                        //         child: Text(
+                                                        //           "Choose Training Option",
+                                                        //         ),
+                                                        //       ),
+                                                        //     ],
+                                                        //   ),
+                                                        // )
+                                                        :value.trainingdetailModel?.data!.trainingParticipants!.tpsTrainingOption == 1? Text(""): Container(
+                                                            width: Get.width,
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    20),
+                                                            color: AppColors
+                                                                .boxgrey,
+                                                            child: Column(
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Text(
+                                                                      "Duration :",
+                                                                      style: FontStyleUtilities.t1(
+                                                                          fontWeight:
+                                                                              FWT.semiBold),
+                                                                    ),
+                                                                    Text(
+                                                                        data?.tpDuration ??
+                                                                            ""),
+                                                                  ],
+                                                                ),
+                                                                Divider(),
+                                                                Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Text(
+                                                                      "Course level :",
+                                                                      style: FontStyleUtilities.t1(
+                                                                          fontWeight:
+                                                                              FWT.semiBold),
+                                                                    ),
+                                                                    Text(
+                                                                        "Intermediate"),
+                                                                  ],
+                                                                ),
+                                                                Divider(),
+                                                                Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Text(
+                                                                      "Language :",
+                                                                      style: FontStyleUtilities.t1(
+                                                                          fontWeight:
+                                                                              FWT.semiBold),
+                                                                    ),
+                                                                    Text(
+                                                                        "English"),
+                                                                  ],
+                                                                ),
+                                                                Divider(),
+                                                                h6,
+                                                                LargeButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    log("this side");
+                                                                    navigatorKey
+                                                                        .currentState
+                                                                        ?.pushNamed(
+                                                                      RoutesConst
+                                                                          .trainingResources,
+                                                                    );
+                                                                  },
+                                                                  height: 40,
+                                                                  width:
+                                                                      Get.width,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              30),
+                                                                  child: Text(
+                                                                    "View Training Resources",
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
                                                           ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  h10,
-                                                  LargeButton(
-                                                    onPressed: () {
-                                                      // Navigator.of(context).pushNamed(
-                                                      //   RoutesConst.onlineExam,
-                                                      //   arguments: TeacherRouteArguments()
-                                                      //       .getTeacherArgument(
-                                                      //           RoutesConst.onlineExam),
-                                                      // );
-                                                      Get.toNamed(RoutesConst
-                                                          .onlineExam);
-                                                    },
-                                                    height: 40,
-                                                    width: Get.width,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30),
-                                                    child: Text(
-                                                      "Start Exam",
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          if (value.trainingStatus == 4)
-                                            Container(
-                                              width: Get.width,
-                                              padding: EdgeInsets.all(20),
-                                              color: AppColors.boxgrey,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Certification!",
-                                                    style:
-                                                        FontStyleUtilities.h4(
-                                                      fontWeight: FWT.semiBold,
-                                                      fontColor:
-                                                          AppColors.blueType2,
-                                                    ),
-                                                  ),
-                                                  h10,
-                                                  Text(
-                                                    "Great, you have passed Online MCQ Exam. Admin team will approve your certificate soon.",
-                                                    style:
-                                                        FontStyleUtilities.t1(
-                                                      fontWeight: FWT.semiBold,
-                                                      fontColor:
-                                                          AppColors.black,
-                                                    ),
-                                                  ),
-                                                  // h10,
-                                                  // LargeButton(
-                                                  //   onPressed: () async {},
-                                                  //   height: 40,
-                                                  //   width: Get.width,
-                                                  //   borderRadius:
-                                                  //       BorderRadius.circular(30),
-                                                  //   child: Text(
-                                                  //     "Waiting for Admin to check Result",
-                                                  //   ),
-                                                  // ),
-                                                ],
-                                              ),
-                                            ),
-                                          if (value.trainingStatus == 5)
-                                            Container(
-                                              width: Get.width,
-                                              padding: EdgeInsets.all(20),
-                                              color: AppColors.boxgrey,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Certification!",
-                                                    style:
-                                                        FontStyleUtilities.h4(
-                                                      fontWeight: FWT.semiBold,
-                                                      fontColor:
-                                                          AppColors.blueType2,
-                                                    ),
-                                                  ),
-                                                  h10,
-                                                  Text(
-                                                    "Congratulations, you have successfully completed ICT training program. Hit button to download your certificate",
-                                                    style:
-                                                        FontStyleUtilities.t1(
-                                                      fontWeight: FWT.semiBold,
-                                                      fontColor:
-                                                          AppColors.black,
-                                                    ),
-                                                  ),
-                                                  h10,
-                                                  LargeButton(
-                                                    onPressed: () async {
-                                                      // await value
-                                                      //     .downloadCertificate();
-
-                                                      // Get.to(
-                                                      //   PDFViewPage(
-                                                      //     filename: value
-                                                      //         .trainingdetailModel!
-                                                      //         .data!
-                                                      //         .trainingParticipants!
-                                                      //         .tpsCertificate,
-                                                      //     isFrom: true,
-                                                      //     isdownloading: true,
-                                                      //   ),
-                                                      // );
-                                                      Get.to(
-                                                        PdfViewerScreen(
-                                                          filename: value
-                                                              .trainingdetailModel!
-                                                              .data!
-                                                              .trainingParticipants!
-                                                              .tpsCertificate,
-                                                          // isFrom: true,
-                                                          isdownloadicon: true,
-                                                          filetype:
-                                                              "Certificate",
-                                                        ),
-                                                      );
-                                                    },
-                                                    height: 40,
-                                                    width: Get.width,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30),
-                                                    child: Text(
-                                                      "Download Certificate",
-                                                    ),
-                                                  ),
-                                                  h10,
-                                                  LargeButton(
-                                                    onPressed: () {
-                                                      // navigatorKey.currentState
-                                                      //     ?.pushNamed(
-                                                      //   RoutesConst.trainingOptions,
-                                                      //   arguments: TeacherRouteArguments()
-                                                      //       .getTeacherArgument(
-                                                      //           RoutesConst
-                                                      //               .trainingOptions),
-                                                      // );
-                                                    },
-                                                    height: 40,
-                                                    width: Get.width,
-                                                    color:
-                                                        AppColors.lightOrange,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30),
-                                                    child: Text(
-                                                      "Submit Your Feedback",
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          (value.trainingStatus == 1 ||
-                                                  value.trainingStatus == 2 ||
-                                                  value.trainingStatus == 3 ||
-                                                  value.trainingStatus == 4 ||
-                                                  value.trainingStatus == 5)
-                                              ? h20
-                                              : SizedBox(),
-                                          (value.trainingStatus == 0)
-                                              ? Container(
-                                                  width: Get.width,
-                                                  padding: EdgeInsets.all(20),
-                                                  color: AppColors.boxgrey,
-                                                  child: Column(
-                                                    children: [
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            "Duration :",
-                                                            style: FontStyleUtilities.t1(
-                                                                fontWeight: FWT
-                                                                    .semiBold),
-                                                          ),
-                                                          Text(
-                                                              data?.tpDuration ??
-                                                                  ""),
-                                                        ],
-                                                      ),
-                                                      Divider(),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            "Course level :",
-                                                            style: FontStyleUtilities.t1(
-                                                                fontWeight: FWT
-                                                                    .semiBold),
-                                                          ),
-                                                          Text("Intermediate"),
-                                                        ],
-                                                      ),
-                                                      Divider(),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            "Language :",
-                                                            style: FontStyleUtilities.t1(
-                                                                fontWeight: FWT
-                                                                    .semiBold),
-                                                          ),
-                                                          Text("English"),
-                                                        ],
-                                                      ),
-                                                      Divider(),
-                                                      h6,
-                                                      LargeButton(
-                                                        onPressed: () {
-                                                          if (value
-                                                                  .trainingStatus ==
-                                                              0) {
-                                                            navigatorKey
-                                                                .currentState
-                                                                ?.pushNamed(
-                                                              RoutesConst
-                                                                  .trainingOptions,
-                                                              arguments: TeacherRouteArguments()
-                                                                  .getTeacherArgument(
-                                                                      RoutesConst
-                                                                          .trainingOptions),
-                                                            );
-                                                          } else if (value
-                                                                  .trainingStatus ==
-                                                              1) {
-                                                            navigatorKey
-                                                                .currentState
-                                                                ?.pushNamed(
-                                                              RoutesConst
-                                                                  .trainingSignature,
-                                                              arguments: TeacherRouteArguments()
-                                                                  .getTeacherArgument(
-                                                                      RoutesConst
-                                                                          .trainingSignature),
-                                                            );
-                                                          }
-                                                        },
-                                                        height: 40,
-                                                        width: Get.width,
+                                                    h20,
+                                                    ListTile(
+                                                      leading: Material(
+                                                        color: AppColors.grey,
+                                                        elevation: 1,
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(30),
-                                                        child: Text(
-                                                          "Choose Training Option",
+                                                                .circular(50),
+                                                        child: CircleAvatar(
+                                                          radius: 25,
+                                                          backgroundColor:
+                                                              AppColors.white,
                                                         ),
                                                       ),
-                                                    ],
-                                                  ),
-                                                )
-                                              : Container(
-                                                  width: Get.width,
-                                                  padding: EdgeInsets.all(20),
-                                                  color: AppColors.boxgrey,
-                                                  child: Column(
-                                                    children: [
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
+                                                      title: Row(
                                                         children: [
                                                           Text(
-                                                            "Duration :",
+                                                            'facilitator : ',
                                                             style: FontStyleUtilities.t1(
                                                                 fontWeight: FWT
                                                                     .semiBold),
                                                           ),
                                                           Text(
-                                                              data?.tpDuration ??
-                                                                  ""),
+                                                            'KAT Technologies:',
+                                                            style: FontStyleUtilities.t1(
+                                                                fontColor: AppColors
+                                                                    .primaryYellow),
+                                                          ),
                                                         ],
                                                       ),
-                                                      Divider(),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
+                                                      subtitle: Row(
                                                         children: [
                                                           Text(
-                                                            "Course level :",
+                                                            'Last Update : ',
                                                             style: FontStyleUtilities.t1(
                                                                 fontWeight: FWT
                                                                     .semiBold),
                                                           ),
-                                                          Text("Intermediate"),
-                                                        ],
-                                                      ),
-                                                      Divider(),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
                                                           Text(
-                                                            "Language :",
+                                                            '29 Aug 2023:',
                                                             style: FontStyleUtilities.t1(
-                                                                fontWeight: FWT
-                                                                    .semiBold),
+                                                                fontColor: AppColors
+                                                                    .primaryYellow),
                                                           ),
-                                                          Text("English"),
                                                         ],
                                                       ),
-                                                      Divider(),
-                                                      h6,
-                                                      LargeButton(
-                                                        onPressed: () {
-                                                          log("this side");
-                                                          navigatorKey
-                                                              .currentState
-                                                              ?.pushNamed(
-                                                            RoutesConst
-                                                                .trainingResources,
-                                                          );
-                                                        },
-                                                        height: 40,
-                                                        width: Get.width,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30),
-                                                        child: Text(
-                                                          "View Training Resources",
-                                                        ),
+                                                    ),
+                                                    Container(
+                                                      height: 50,
+                                                      width: Get.width,
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      color: AppColors.white,
+                                                      child: Text(
+                                                        "Course Content",
+                                                        style: FontStyleUtilities
+                                                            .h4(
+                                                                fontWeight: FWT
+                                                                    .semiBold,
+                                                                fontColor:
+                                                                    AppColors
+                                                                        .black),
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                    h10,
+                                                    ListView.builder(
+                                                      shrinkWrap: true,
+                                                      physics:
+                                                          BouncingScrollPhysics(),
+                                                      itemCount: value
+                                                          .trainingdetailModel
+                                                          ?.data
+                                                          ?.content
+                                                          ?.length,
+                                                      itemBuilder:
+                                                          (context, i) {
+                                                        var data = value
+                                                            .trainingdetailModel
+                                                            ?.data
+                                                            ?.content?[i];
+                                                        return ExpansionTileCustom(
+                                                          title: Text(
+                                                            "${data?.cmContentTitle}",
+                                                            style: FontStyleUtilities.t1(
+                                                                fontWeight:
+                                                                    FWT.medium,
+                                                                fontColor:
+                                                                    AppColors
+                                                                        .primary),
+                                                          ),
+                                                          children: [
+                                                            ListView.builder(
+                                                              shrinkWrap: true,
+                                                              physics:
+                                                                  NeverScrollableScrollPhysics(),
+                                                              itemCount: data
+                                                                  ?.cmDescription
+                                                                  ?.length,
+                                                              itemBuilder:
+                                                                  (context, i) {
+                                                                var desData = data
+                                                                    ?.cmDescription?[
+                                                                        i]
+                                                                    .replaceAll(
+                                                                        "\n",
+                                                                        "");
+                                                                return ContentWidget(
+                                                                  leading:
+                                                                      "${i + 1}. ",
+                                                                  title:
+                                                                      "${desData}",
+                                                                );
+                                                              },
+                                                            ),
+                                                            h20,
+                                                          ],
+                                                        );
+                                                      },
+                                                    ),
+                                                  ],
                                                 ),
-                                          h20,
-                                          Container(
-                                            height: 50,
-                                            width: Get.width,
-                                            alignment: Alignment.centerLeft,
-                                            color: AppColors.white,
-                                            child: Text(
-                                              "Course Content",
-                                              style: FontStyleUtilities.h4(
-                                                  fontWeight: FWT.semiBold,
-                                                  fontColor: AppColors.black),
-                                            ),
+                                              ),
+                                            ],
                                           ),
-                                          h10,
-                                          ListView.builder(
-                                            shrinkWrap: true,
-                                            physics: BouncingScrollPhysics(),
-                                            itemCount: value.trainingdetailModel
-                                                ?.data?.content?.length,
-                                            itemBuilder: (context, i) {
-                                              var data = value
-                                                  .trainingdetailModel
-                                                  ?.data
-                                                  ?.content?[i];
-                                              return ExpansionTileCustom(
-                                                title: Text(
-                                                  "${data?.cmContentTitle}",
-                                                  style: FontStyleUtilities.t1(
-                                                      fontWeight: FWT.medium,
-                                                      fontColor:
-                                                          AppColors.primary),
-                                                ),
-                                                children: [
-                                                  ListView.builder(
-                                                    shrinkWrap: true,
-                                                    physics:
-                                                        NeverScrollableScrollPhysics(),
-                                                    itemCount: data
-                                                        ?.cmDescription?.length,
-                                                    itemBuilder: (context, i) {
-                                                      var desData = data
-                                                          ?.cmDescription?[i]
-                                                          .replaceAll("\n", "");
-                                                      return ContentWidget(
-                                                        leading: "${i + 1}. ",
-                                                        title: "${desData}",
-                                                      );
-                                                    },
-                                                  ),
-                                                  h20,
-                                                ],
-                                              );
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+                                        )
+                        ])))));
   }
 }

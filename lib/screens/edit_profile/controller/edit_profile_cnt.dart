@@ -160,7 +160,9 @@ class EditProfileCnt extends GetxController {
         st_phoneNumber:
             int.parse(mobileNumber.value.text.toString()).toString(),
         st_address: address.value.text,
+
         st_class: classValue.value.label.toString(),
+        stLevel: classValue.value.level.toString(),
         st_division: divisionNumber.value,
         // st_dateOfBirth: dateCnt.value.text,
         st_parentName: parentName.value.text,
@@ -232,9 +234,11 @@ class EditProfileCnt extends GetxController {
       }
       if (classList.isEmpty) {
         signIn.data?.classes?.forEach((e) {
-          classList.add(DropdownClasses(label: e.label, enable: false));
+          classList.add(
+              DropdownClasses(level: e.label, label: e.label, enable: false));
           e.options?.forEach((element) {
-            classList.add(DropdownClasses(label: element.label, enable: true));
+            classList.add(DropdownClasses(
+                level: e.label, label: element.label, enable: true));
             log("classes---${element.label}");
           });
         });
@@ -471,9 +475,9 @@ class EditProfileCnt extends GetxController {
         regionValue.value.district != student.value.stDistrict ||
         selectedSchoolValue.value.scSchoolId !=
             student.value.stSchoolId.toString()) {
-      print(
-          "dsd-----${classValue.value.label}----${student.value.stClass}------${classValue.value.label != student.value.stClass.toString()}");
-      log("--...${stIdCnt.value.text != student.value.stId}");
+      // print(
+      //     "dsd-----${classValue.value.label}----${student.value.stClass}------${classValue.value.label != student.value.stClass.toString()}");
+      // log("--...${stIdCnt.value.text != student.value.stId}");
       buttonColor?.value = AppColors.primaryYellow;
       return true;
     } else {

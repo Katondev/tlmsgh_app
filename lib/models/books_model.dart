@@ -31,13 +31,13 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     bookList =
-        json['bookList'] != null ? BookList.fromJson(json['bookList']) : null;
+        json['books'] != null ? BookList.fromJson(json['books']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (bookList != null) {
-      data['bookList'] = bookList!.toJson();
+      data['books'] = bookList!.toJson();
     }
     return data;
   }

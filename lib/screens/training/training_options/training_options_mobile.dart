@@ -42,73 +42,54 @@ class _TrainingOptionsMobileState extends State<TrainingOptionsMobile> {
                       isshowback: true),
                 ),
                 Expanded(
-                  child: ListView(
-                    physics: BouncingScrollPhysics(),
-                    padding: EdgeInsets.all(20),
-                    children: [
-                      Text(
-                        "Choose Training Option",
-                        style: FontStyleUtilities.h4(
-                            fontWeight: FWT.medium,
-                            fontColor: AppColors.primary),
-                      ),
-                      Divider(),
-                      ListView.builder(
-                        key: Key(value.selectedTile.toString()),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: value.trainingOption == 3? ListView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          var alldata = value.trainingOptionList[index];
-                          return ExpansionTileCustom(
-                            key: Key(index.toString()),
-                            initiallyExpanded: index == value.selectedTile,
-                            title: Text(
-                              alldata.keys.toList()[0].toString(),
-                              style: FontStyleUtilities.t1(
-                                  fontWeight: FWT.medium,
-                                  fontColor: AppColors.primary),
-                            ),
-                            onExpansionChanged: (val) {
-                              if (val) {
-                                value.radioGroupVal = "${index + 1}";
-
-                                value.selectedTile = index;
-                              } else {
-                                value.radioGroupVal = "0";
-                                value.selectedTile = -1;
-                              }
-
-                              value.notifyListeners();
-                              log(val.toString());
-                            },
-                            leading: Radio(
-                              value: "${index + 1}",
-                              groupValue: value.radioGroupVal,
-                              visualDensity:
-                                  VisualDensity(horizontal: -4, vertical: -4),
-                              onChanged: (String? val) {
-                                value.radioGroupVal = val;
-                              },
-                            ),
+                        itemCount: value!.PhysicalTraningDetails.length,
+                        itemBuilder: (BuildContext context, i) {
+                          var data = value.PhysicalTraningDetails[i];
+                          value.selectedTrainingMode = i;
+                  
+                          return Column(
                             children: [
-                              ListView.separated(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                separatorBuilder: (context, i) {
-                                  return h6;
-                                },
-                                itemBuilder: (context, i) {
-                                  var data = alldata.values.toList()[0][i];
-                                  return ContentWidgetwithDot(
-                                    title: data,
-                                  );
-                                },
-                                itemCount: alldata.values.toList()[0].length,
+                              TranningOptionselect(
+                                title: data["title"],
+                                image: data["image"],
+                                description: data["description"],
                               ),
-                              h20,
+                              h10,
                               LargeButton(
                                 onPressed: () {
-                                  value.trainingOption = index + 1;
+                                    value.trainingOption = 3;
+                                  log(value.trainingOption.toString());
+                                    value.getTrainingParticipants(context);
+                                },
+                                height: 40,
+                                borderRadius: BorderRadius.circular(30),
+                                child: Text("submit".tr),
+                              ),
+                              h20,
+                            ],
+                          );
+                        }):value.trainingOption == 2? ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: value!.LiveTraningList.length,
+                        itemBuilder: (BuildContext context, i) {
+                          var data = value.LiveTraningList[i];
+                          value.selectedTrainingMode = i;
+                  
+                          return Column(
+                            children: [
+                              TranningOptionselect(
+                                title: data["title"],
+                                image: data["image"],
+                                description: data["description"],
+                              ),
+                              h10,
+                              LargeButton(
+                                onPressed: () {
+                                  value.trainingOption = 2;
                                   log(value.trainingOption.toString());
                                   value.getTrainingParticipants(context);
                                 },
@@ -119,104 +100,36 @@ class _TrainingOptionsMobileState extends State<TrainingOptionsMobile> {
                               h20,
                             ],
                           );
-                        },
-                        itemCount: value.trainingOptionList.length,
-                      ),
-                      // ExpansionTileCustom(
-                      //   title: Text(
-                      //     "Online Live Training",
-                      //     style: FontStyleUtilities.t1(
-                      //         fontWeight: FWT.medium, fontColor: AppColors.primary),
-                      //   ),
-                      //   onExpansionChanged: (val) {
-                      //     if (val) {
-                      //       value.radioGroupVal = "2";
-                      //     } else {
-                      //       value.radioGroupVal = "0";
-                      //     }
-                      //     value.notifyListeners();
-                      //     log(val.toString());
-                      //   },
-                      //   leading: Radio(
-                      //     value: "2",
-                      //     groupValue: value.radioGroupVal,
-                      //     visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-                      //     onChanged: (String? val) {
-                      //       value.radioGroupVal = val;
-                      //     },
-                      //   ),
-                      //   children: [
-                      //     ListView.separated(
-                      //       shrinkWrap: true,
-                      //       separatorBuilder: (context, i) {
-                      //         return h6;
-                      //       },
-                      //       itemBuilder: (context, i) {
-                      //         var data = value.onlineTrainingList[i];
-                      //         return ContentWidgetwithDot(
-                      //           title: data,
-                      //         );
-                      //       },
-                      //       itemCount: value.onlineTrainingList.length,
-                      //     ),
-                      //     h20,
-                      //     LargeButton(
-                      //       onPressed: () {},
-                      //       height: 40,
-                      //       borderRadius: BorderRadius.circular(30),
-                      //       child: Text("submit".tr),
-                      //     ),
-                      //     h20,
-                      //   ],
-                      // ),
-                      // ExpansionTileCustom(
-                      //   title: Text(
-                      //     "Physical Training",
-                      //     style: FontStyleUtilities.t1(
-                      //         fontWeight: FWT.medium, fontColor: AppColors.primary),
-                      //   ),
-                      //   onExpansionChanged: (val) {
-                      //     if (val) {
-                      //       value.radioGroupVal = "3";
-                      //     } else {
-                      //       value.radioGroupVal = "0";
-                      //     }
-                      //     value.notifyListeners();
-                      //     log(val.toString());
-                      //   },
-                      //   leading: Radio(
-                      //     value: "3",
-                      //     groupValue: value.radioGroupVal,
-                      //     visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-                      //     onChanged: (String? val) {
-                      //       value.radioGroupVal = val;
-                      //     },
-                      //   ),
-                      //   children: [
-                      //     ListView.separated(
-                      //       shrinkWrap: true,
-                      //       separatorBuilder: (context, i) {
-                      //         return h6;
-                      //       },
-                      //       itemBuilder: (context, i) {
-                      //         var data = value.physicalTrainingList[i];
-                      //         return ContentWidgetwithDot(
-                      //           title: data,
-                      //         );
-                      //       },
-                      //       itemCount: value.physicalTrainingList.length,
-                      //     ),
-                      //     h20,
-                      //     LargeButton(
-                      //       onPressed: () {},
-                      //       height: 40,
-                      //       borderRadius: BorderRadius.circular(30),
-                      //       child: Text("submit".tr),
-                      //     ),
-                      //     h20,
-                      //   ],
-                      // ),
-                    ],
+                        }):ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: value!.recoardedTranning.length,
+                        itemBuilder: (BuildContext context, i) {
+                          var data = value.recoardedTranning[i];
+                          value.selectedTrainingMode = i;
+                  
+                          return Column(
+                            children: [
+                              TranningOptionselect(
+                                title: data["title"],
+                                image: data["image"],
+                                description: data["description"],
+                              ),
+                              h10,
+                              LargeButton(
+                                onPressed: () {
+                                   value.trainingOption =  1;
+                                  log(value.trainingOption.toString());
+                                   value.getTrainingParticipants(context);
+                                   
+                                },
+                                height: 40,
+                                borderRadius: BorderRadius.circular(30),
+                                child: Text("submit".tr),
+                              ),
+                              h20,
+                            ],
+                          );
+                        }),
                   ),
                 ),
               ],
@@ -224,6 +137,44 @@ class _TrainingOptionsMobileState extends State<TrainingOptionsMobile> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class TranningOptionselect extends StatelessWidget {
+  const TranningOptionselect(
+      {super.key, this.title, this.image, this.description});
+  final title;
+  final image;
+  final description;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Image.asset(
+              image.toString(),
+              height: 30,
+            ),
+            w10,
+            Text(
+              title,
+              style: FontStyleUtilities.t1(
+                  fontColor: AppColors.black, fontWeight: FWT.semiBold),
+            ),
+          ],
+        ),
+        h10,
+        Text(
+          description.toString(),
+          style: FontStyleUtilities.t1(
+            fontColor: AppColors.black,
+          ),
+        ),
+        h20,
+      ],
     );
   }
 }

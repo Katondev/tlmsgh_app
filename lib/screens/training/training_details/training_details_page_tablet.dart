@@ -167,7 +167,44 @@ class _TrainingDetailsTabletState extends State<TrainingDetailsTablet> {
                                                 child: Column(
                                                   children: [
                                                     if (value.trainingStatus ==
-                                                        1)
+                                                        1) 
+                                                      if (value.trainingStatus == 1 )
+                                                  value.trainingdetailModel?.data!.trainingParticipants!.tpsTrainingOption == null||value.trainingStatus == 1 &&value.trainingdetailModel?.data!.trainingParticipants!.tpsTrainingOption == 1? Container(
+                                                        color:
+                                                            AppColors.boxgrey,
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Column(
+                                                            children: [
+                                                              Text(
+                                                                  "Note: Lets complete all recorded videos and then submit attestation form"),
+                                                              h20,
+                                                              LargeButton(
+                                                                onPressed: () {
+                                                                  log("this side");
+                                                                  navigatorKey
+                                                                      .currentState
+                                                                      ?.pushNamed(
+                                                                    RoutesConst
+                                                                        .trainingResources,
+                                                                  );
+                                                                },
+                                                                height: 40,
+                                                                width:
+                                                                    Get.width,
+                                                                // borderRadius:
+                                                                //     BorderRadius
+                                                                //         .circular(30),
+                                                                child: Text(
+                                                                  "Training Resources",
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ):  
                                                       Container(
                                                         width: Get.width,
                                                         padding:
@@ -604,83 +641,44 @@ class _TrainingDetailsTabletState extends State<TrainingDetailsTablet> {
                                                         ? h30
                                                         : SizedBox(),
                                                     (value.trainingStatus == 0)
-                                                        ? Container(
-                                                            width: Get.width,
-                                                            padding:
-                                                                EdgeInsets.all(
-                                                                    20),
-                                                            color: AppColors
-                                                                .boxgrey,
-                                                            child: Column(
-                                                              children: [
-                                                                Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  children: [
-                                                                    Text(
-                                                                      "Duration :",
-                                                                      style: FontStyleUtilities.h5(
-                                                                          fontWeight:
-                                                                              FWT.semiBold),
-                                                                    ),
-                                                                    Text(
-                                                                      data?.tpDuration ??
-                                                                          "",
-                                                                      style: FontStyleUtilities.h5(
-                                                                          fontWeight:
-                                                                              FWT.regular),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                Divider(
-                                                                    height: 20),
-                                                                Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  children: [
-                                                                    Text(
-                                                                      "Course level :",
-                                                                      style: FontStyleUtilities.h5(
-                                                                          fontWeight:
-                                                                              FWT.semiBold),
-                                                                    ),
-                                                                    Text(
-                                                                      "Intermediate",
-                                                                      style: FontStyleUtilities.h5(
-                                                                          fontWeight:
-                                                                              FWT.regular),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                Divider(
-                                                                    height: 20),
-                                                                Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  children: [
-                                                                    Text(
-                                                                      "Language :",
-                                                                      style: FontStyleUtilities.h5(
-                                                                          fontWeight:
-                                                                              FWT.semiBold),
-                                                                    ),
-                                                                    Text(
-                                                                      "English",
-                                                                      style: FontStyleUtilities.h5(
-                                                                          fontWeight:
-                                                                              FWT.regular),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                Divider(
-                                                                    height: 20),
-                                                                h6,
-                                                                LargeButton(
-                                                                  onPressed:
-                                                                      () {
+                                                        ? ListView.builder(
+                                                            shrinkWrap: true,
+                                                            itemCount: value!
+                                                                .trainingList
+                                                                .length,
+                                                            itemBuilder:
+                                                                (BuildContext
+                                                                        context,
+                                                                    i) {
+                                                              var data = value
+                                                                  .trainingList[i];
+                                                              value.selectedTrainingMode =
+                                                                  i;
+
+                                                              return Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child:
+                                                                    GestureDetector(
+                                                                  onTap: () {
+                                                                    if (i ==
+                                                                        0) {
+                                                                      value.trainingOption =
+                                                                          3;
+                                                                    } else if (i ==
+                                                                        1) {
+                                                                      value.trainingOption =
+                                                                          2;
+                                                                    } else if (i ==
+                                                                        2) {
+                                                                      value.trainingOption =
+                                                                          1;
+                                                                    }
+
+                                                                    print(value
+                                                                        .trainingOption);
                                                                     if (value
                                                                             .trainingStatus ==
                                                                         0) {
@@ -705,26 +703,180 @@ class _TrainingDetailsTabletState extends State<TrainingDetailsTablet> {
                                                                       );
                                                                     }
                                                                   },
-                                                                  height: 50,
-                                                                  width:
-                                                                      Get.width,
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              30),
-                                                                  child: Text(
-                                                                    "Choose Training Option",
-                                                                    style: FontStyleUtilities.h5(
-                                                                        fontWeight: FWT
-                                                                            .medium,
-                                                                        fontColor:
-                                                                            AppColors.white),
-                                                                  ),
+                                                                  child: Container(
+                                                                      height: 150,
+                                                                      decoration: BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(5),
+                                                                        color: value.selectedTrainingMode ==
+                                                                                0
+                                                                            ? AppColors.purple
+                                                                            : value.selectedTrainingMode == 1
+                                                                                ? AppColors.skayblue
+                                                                                : AppColors.blue,
+                                                                      ),
+                                                                      width: Get.width,
+                                                                      child: Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.center,
+                                                                        children: [
+                                                                          Image
+                                                                              .asset(
+                                                                            data["image"],
+                                                                          ),
+                                                                          Text(
+                                                                            data["title"],
+                                                                            style:
+                                                                                FontStyleUtilities.t1(fontColor: AppColors.white, fontWeight: FWT.semiBold),
+                                                                          ),
+                                                                        ],
+                                                                      )
+
+                                                                      //     ListTile(
+                                                                      //   leading: Image
+                                                                      //       .asset(
+                                                                      //     data[
+                                                                      //         "image"],
+                                                                      //     height:
+                                                                      //         30,
+                                                                      //   ),
+                                                                      //   title:
+                                                                      //       Text(
+                                                                      //     data[
+                                                                      //         "title"],
+                                                                      //     style: FontStyleUtilities.t1(
+                                                                      //         fontColor:
+                                                                      //             AppColors.white,
+                                                                      //         fontWeight: FWT.semiBold),
+                                                                      //   ),
+                                                                      // ),
+                                                                      ),
                                                                 ),
-                                                              ],
-                                                            ),
-                                                          )
-                                                        : Container(
+                                                              );
+                                                            })
+                                                        // ? Container(
+                                                        //     width: Get.width,
+                                                        //     padding:
+                                                        //         EdgeInsets.all(
+                                                        //             20),
+                                                        //     color: AppColors
+                                                        //         .boxgrey,
+                                                        //     child: Column(
+                                                        //       children: [
+                                                        //         Row(
+                                                        //           mainAxisAlignment:
+                                                        //               MainAxisAlignment
+                                                        //                   .spaceBetween,
+                                                        //           children: [
+                                                        //             Text(
+                                                        //               "Duration :",
+                                                        //               style: FontStyleUtilities.h5(
+                                                        //                   fontWeight:
+                                                        //                       FWT.semiBold),
+                                                        //             ),
+                                                        //             Text(
+                                                        //               data?.tpDuration ??
+                                                        //                   "",
+                                                        //               style: FontStyleUtilities.h5(
+                                                        //                   fontWeight:
+                                                        //                       FWT.regular),
+                                                        //             ),
+                                                        //           ],
+                                                        //         ),
+                                                        //         Divider(
+                                                        //             height: 20),
+                                                        //         Row(
+                                                        //           mainAxisAlignment:
+                                                        //               MainAxisAlignment
+                                                        //                   .spaceBetween,
+                                                        //           children: [
+                                                        //             Text(
+                                                        //               "Course level :",
+                                                        //               style: FontStyleUtilities.h5(
+                                                        //                   fontWeight:
+                                                        //                       FWT.semiBold),
+                                                        //             ),
+                                                        //             Text(
+                                                        //               "Intermediate",
+                                                        //               style: FontStyleUtilities.h5(
+                                                        //                   fontWeight:
+                                                        //                       FWT.regular),
+                                                        //             ),
+                                                        //           ],
+                                                        //         ),
+                                                        //         Divider(
+                                                        //             height: 20),
+                                                        //         Row(
+                                                        //           mainAxisAlignment:
+                                                        //               MainAxisAlignment
+                                                        //                   .spaceBetween,
+                                                        //           children: [
+                                                        //             Text(
+                                                        //               "Language :",
+                                                        //               style: FontStyleUtilities.h5(
+                                                        //                   fontWeight:
+                                                        //                       FWT.semiBold),
+                                                        //             ),
+                                                        //             Text(
+                                                        //               "English",
+                                                        //               style: FontStyleUtilities.h5(
+                                                        //                   fontWeight:
+                                                        //                       FWT.regular),
+                                                        //             ),
+                                                        //           ],
+                                                        //         ),
+                                                        //         Divider(
+                                                        //             height: 20),
+                                                        //         h6,
+                                                        //         LargeButton(
+                                                        //           onPressed:
+                                                        //               () {
+                                                        //             if (value
+                                                        //                     .trainingStatus ==
+                                                        //                 0) {
+                                                        //               navigatorKey
+                                                        //                   .currentState
+                                                        //                   ?.pushNamed(
+                                                        //                 RoutesConst
+                                                        //                     .trainingOptions,
+                                                        //                 arguments:
+                                                        //                     TeacherRouteArguments().getTeacherArgument(RoutesConst.trainingOptions),
+                                                        //               );
+                                                        //             } else if (value
+                                                        //                     .trainingStatus ==
+                                                        //                 1) {
+                                                        //               navigatorKey
+                                                        //                   .currentState
+                                                        //                   ?.pushNamed(
+                                                        //                 RoutesConst
+                                                        //                     .trainingSignature,
+                                                        //                 arguments:
+                                                        //                     TeacherRouteArguments().getTeacherArgument(RoutesConst.trainingSignature),
+                                                        //               );
+                                                        //             }
+                                                        //           },
+                                                        //           height: 50,
+                                                        //           width:
+                                                        //               Get.width,
+                                                        //           borderRadius:
+                                                        //               BorderRadius
+                                                        //                   .circular(
+                                                        //                       30),
+                                                        //           child: Text(
+                                                        //             "Choose Training Option",
+                                                        //             style: FontStyleUtilities.h5(
+                                                        //                 fontWeight: FWT
+                                                        //                     .medium,
+                                                        //                 fontColor:
+                                                        //                     AppColors.white),
+                                                        //           ),
+                                                        //         ),
+                                                        //       ],
+                                                        //     ),
+                                                        //   )
+                                                        :value.trainingdetailModel?.data!.trainingParticipants!.tpsTrainingOption == null||value.trainingdetailModel?.data!.trainingParticipants!.tpsTrainingOption == 1 || value.trainingOption ==1 ? Text(""): Container(
                                                             width: Get.width,
                                                             padding:
                                                                 EdgeInsets.all(

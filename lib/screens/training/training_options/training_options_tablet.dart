@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:katon/screens/training/controller/training_prv.dart';
+import 'package:katon/screens/training/training_options/training_options_mobile.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/argument_model.dart';
@@ -47,97 +48,97 @@ class _TrainingOptionsTabletState extends State<TrainingOptionsTablet> {
                   ),
                 ),
                 Expanded(
-                  child: ListView(
-                    physics: BouncingScrollPhysics(),
-                    padding: EdgeInsets.all(30),
-                    children: [
-                      Text(
-                        "Choose Training Option",
-                        style: FontStyleUtilities.h2(
-                          fontWeight: FWT.medium,
-                          fontColor: AppColors.primary,
-                        ),
-                      ),
-                      Divider(),
-                      ListView.builder(
-                        key: Key(value.selectedTile.toString()),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: value.trainingOption == 3? ListView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          var alldata = value.trainingOptionList[index];
-                          return ExpansionTileCustom(
-                            key: Key(index.toString()),
-                            initiallyExpanded: index == value.selectedTile,
-                            title: Text(
-                              alldata.keys.toList()[0].toString(),
-                              style: FontStyleUtilities.h5(
-                                  fontWeight: FWT.medium,
-                                  fontColor: AppColors.primary),
-                            ),
-                            onExpansionChanged: (val) {
-                              if (val) {
-                                value.radioGroupVal = "${index + 1}";
-
-                                value.selectedTile = index;
-                              } else {
-                                value.radioGroupVal = "0";
-                                value.selectedTile = -1;
-                              }
-
-                              value.notifyListeners();
-                              log(val.toString());
-                            },
-                            leading: Radio(
-                              value: "${index + 1}",
-                              groupValue: value.radioGroupVal,
-                              visualDensity:
-                                  VisualDensity(horizontal: -4, vertical: -4),
-                              onChanged: (String? val) {
-                                value.radioGroupVal = val;
-                              },
-                            ),
-                            children: [
-                              ListView.separated(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                separatorBuilder: (context, i) {
-                                  return h6;
-                                },
-                                itemBuilder: (context, i) {
-                                  var data = alldata.values.toList()[0][i];
-                                  return ContentWidgetwithDot(
-                                    title: data,
-                                  );
-                                },
-                                itemCount: alldata.values.toList()[0].length,
-                              ),
-                              h20,
-                              LargeButton(
-                                onPressed: () async {
-                                  // navigatorKey.currentState?.pushNamed(
-                                  //   RoutesConst.trainingSignature,
-                                  //   arguments: TeacherRouteArguments().getTeacherArgument(
-                                  //       RoutesConst.trainingSignature),
-                                  // );
-                                  value.trainingOption = index + 1;
-                                  await value.getTrainingParticipants(context);
-                                },
-                                height: 50,
-                                borderRadius: BorderRadius.circular(30),
-                                child: Text(
-                                  "submit".tr,
-                                  style: FontStyleUtilities.h5(
-                                      fontWeight: FWT.medium,
-                                      fontColor: AppColors.white),
+                        itemCount: value!.PhysicalTraningDetails.length,
+                        itemBuilder: (BuildContext context, i) {
+                          var data = value.PhysicalTraningDetails[i];
+                          value.selectedTrainingMode = i;
+                  
+                          return Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              children: [
+                                TranningOptionselect(
+                                  title: data["title"],
+                                  image: data["image"],
+                                  description: data["description"],
                                 ),
+                                h10,
+                                LargeButton(
+                                  onPressed: () {
+                                      value.trainingOption = 3;
+                                    log(value.trainingOption.toString());
+                                      value.getTrainingParticipants(context);
+                                  },
+                                  height: 40,
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: Text("submit".tr),
+                                ),
+                                h20,
+                              ],
+                            ),
+                          );
+                        }):value.trainingOption == 2? ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: value!.LiveTraningList.length,
+                        itemBuilder: (BuildContext context, i) {
+                          var data = value.LiveTraningList[i];
+                          value.selectedTrainingMode = i;
+                  
+                          return Column(
+                            children: [
+                              TranningOptionselect(
+                                title: data["title"],
+                                image: data["image"],
+                                description: data["description"],
+                              ),
+                              h10,
+                              LargeButton(
+                                onPressed: () {
+                                  value.trainingOption = 2;
+                                  log(value.trainingOption.toString());
+                                  value.getTrainingParticipants(context);
+                                },
+                                height: 40,
+                                borderRadius: BorderRadius.circular(30),
+                                child: Text("submit".tr),
                               ),
                               h20,
                             ],
                           );
-                        },
-                        itemCount: value.trainingOptionList.length,
-                      ),
-                    ],
+                        }):ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: value!.recoardedTranning.length,
+                        itemBuilder: (BuildContext context, i) {
+                          var data = value.recoardedTranning[i];
+                          value.selectedTrainingMode = i;
+                  
+                          return Column(
+                            children: [
+                              TranningOptionselect(
+                                title: data["title"],
+                                image: data["image"],
+                                description: data["description"],
+                              ),
+                              h10,
+                              LargeButton(
+                                onPressed: () {
+                                   value.trainingOption =  1;
+                                  log(value.trainingOption.toString());
+                                   value.getTrainingParticipants(context);
+                                   
+                                },
+                                height: 40,
+                                borderRadius: BorderRadius.circular(30),
+                                child: Text("submit".tr),
+                              ),
+                              h20,
+                            ],
+                          );
+                        }),
                   ),
                 ),
               ],

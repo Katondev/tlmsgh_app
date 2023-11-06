@@ -10,9 +10,11 @@ import 'package:katon/screens/training/pdf_viewer/pdf_viewer.dart';
 import 'package:katon/utils/config.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
+import '../../../utils/Routes/teacher_route_arguments.dart';
+import '../../../utils/app_binding.dart';
 import '../../../widgets/button.dart';
 import '../../../widgets/common_appbar.dart';
-import '../../../widgets/pdf_view/pdf_view_page.dart';
+import '../../connect/widgets/create_blog_dialog.dart';
 
 class TrainingResourcesMobile extends StatefulWidget {
   final Arguments arguments;
@@ -38,7 +40,8 @@ class _TrainingResourcesMobileState extends State<TrainingResourcesMobile> {
       pro?.videoUrl =
           "${ApiRoutes.imageURL}${pro!.trainingdetailModel!.data!.content![pro!.currentVideoIndex].cmVideo!}";
     }
-    videoPlayerController = VideoPlayerController.network("${pro?.videoUrl}");
+    videoPlayerController = VideoPlayerController.networkUrl(Uri.parse("${pro?.videoUrl}"));
+    print("${pro?.videoUrl}");
     await videoPlayerController.initialize();
     chewieController = ChewieController(
       videoPlayerController: videoPlayerController,
@@ -47,6 +50,8 @@ class _TrainingResourcesMobileState extends State<TrainingResourcesMobile> {
       autoPlay: false,
       looping: false,
       showOptions: false,
+     
+      
       allowFullScreen: true,
       deviceOrientationsOnEnterFullScreen: [
         DeviceOrientation.landscapeLeft,
@@ -174,6 +179,8 @@ class _TrainingResourcesMobileState extends State<TrainingResourcesMobile> {
                                     },
                                     child: Text("Next"),
                                   ),
+                                  
+
                                 Spacer(),
                                 if (value
                                     .trainingdetailModel!
@@ -201,6 +208,7 @@ class _TrainingResourcesMobileState extends State<TrainingResourcesMobile> {
                                   ),
                               ],
                             ),
+                            
                           ],
                         ),
                         // child: ListView.builder(
@@ -224,7 +232,7 @@ class _TrainingResourcesMobileState extends State<TrainingResourcesMobile> {
                         //   itemCount: value.trainingdetailModel?.data?.content?.length,
                         // ),
                       ),
-
+            
                       h20,
                       SizedBox(
                         width: Get.width,
@@ -235,10 +243,126 @@ class _TrainingResourcesMobileState extends State<TrainingResourcesMobile> {
                                 child: CircularProgressIndicator(),
                               )
                             : Chewie(controller: chewieController!),
-                      )
+                      ),
+                        if (value.currentVideoIndex == 9)
+                                  Container(
+                                              width: Get.width,
+                                              padding: EdgeInsets.all(20),
+                                              color: AppColors.boxgrey,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Submit Form",
+                                                    style:
+                                                        FontStyleUtilities.h4(
+                                                      fontWeight: FWT.semiBold,
+                                                      fontColor:
+                                                          AppColors.blueType2,
+                                                    ),
+                                                  ),
+                                                  h10,
+                                                  LargeButton(
+                                                    onPressed: (value
+                                                                    .trainingStatus ==
+                                                                3 ||
+                                                            value.trainingStatus ==
+                                                                4 ||
+                                                            value.trainingStatus ==
+                                                                5)
+                                                        ? () {
+                                                            log("this side");
+                                                            navigatorKey
+                                                                .currentState
+                                                                ?.pushNamed(
+                                                              RoutesConst
+                                                                  .trainingResources,
+                                                            );
+                                                          }
+                                                        : () {
+                                                            if (value
+                                                                    .trainingStatus ==
+                                                                0) {
+                                                              navigatorKey
+                                                                  .currentState
+                                                                  ?.pushNamed(
+                                                                RoutesConst
+                                                                    .trainingOptions,
+                                                                arguments: TeacherRouteArguments()
+                                                                    .getTeacherArgument(
+                                                                        RoutesConst
+                                                                            .trainingOptions),
+                                                              );
+                                                            } else if (value
+                                                                    .trainingStatus ==
+                                                                1) {
+                                                              navigatorKey
+                                                                  .currentState
+                                                                  ?.pushNamed(
+                                                                RoutesConst
+                                                                    .trainingSignature,
+                                                                arguments: TeacherRouteArguments()
+                                                                    .getTeacherArgument(
+                                                                        RoutesConst
+                                                                            .trainingSignature),
+                                                              );
+                                                            }
+                                                          },
+                                                    height: 40,
+                                                    width: Get.width,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30),
+                                                    child: Text(
+                                                      // "Start Upload Document",
+                                                      "Digital Attestation",
+                                                    ),
+                                                  ),
+                                                  h10,
+                                                  Row(
+                                                    children: [
+                                                      Expanded(
+                                                          child: Divider(
+                                                        endIndent: 10,
+                                                      )),
+                                                      Text("OR"),
+                                                      Expanded(
+                                                          child: Divider(
+                                                        indent: 10,
+                                                      )),
+                                                    ],
+                                                  ),
+                                                  h10,
+                                                  LargeButton(
+                                                    onPressed: () async {
+                                                      primaryFocus?.unfocus();
+                                                      await uploadAddBlogDialog(
+                                                          context);
+                                                     // blgCnt;
+                                                    },
+                                                    height: 40,
+                                                    width: Get.width,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30),
+                                                    child: Text(
+                                                      // "Start Upload Document",
+                                                      "Upload Attestation",
+                                                      // style: AppTextStyle
+                                                      //     .normalRegular14
+                                                      //     .copyWith(
+                                                      //         color: AppColors
+                                                      //             .primaryWhite),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                     ],
                   ),
                 ),
+                 
               ],
             ),
           ),

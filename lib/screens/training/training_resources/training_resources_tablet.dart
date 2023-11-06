@@ -11,15 +11,19 @@ import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../network/api_constants.dart';
+import '../../../utils/Routes/teacher_route_arguments.dart';
+import '../../../utils/app_binding.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/font_style.dart';
+import '../../../utils/route_const.dart';
 import '../../../widgets/button.dart';
 import '../../../widgets/common_appbar.dart';
 import '../../../widgets/common_container.dart';
 import '../../../widgets/loader.dart';
 import '../../../widgets/no_data_found.dart';
 import '../../../widgets/no_internet.dart';
+import '../../connect/widgets/create_blog_dialog.dart';
 import '../pdf_viewer/pdf_viewer.dart';
 
 class TrainingResourcesTablet extends StatefulWidget {
@@ -313,6 +317,124 @@ class _TrainingResourcesTabletState extends State<TrainingResourcesTablet> {
                                                         controller:
                                                             chewieController!),
                                               ),
+
+                                                if (value.currentVideoIndex == 9)
+                                  Container(
+                                              width: Get.width,
+                                              padding: EdgeInsets.all(20),
+                                              color: AppColors.boxgrey,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Submit Form",
+                                                    style:
+                                                        FontStyleUtilities.h4(
+                                                      fontWeight: FWT.semiBold,
+                                                      fontColor:
+                                                          AppColors.blueType2,
+                                                    ),
+                                                  ),
+                                                  h10,
+                                                  LargeButton(
+                                                    onPressed: (value
+                                                                    .trainingStatus ==
+                                                                3 ||
+                                                            value.trainingStatus ==
+                                                                4 ||
+                                                            value.trainingStatus ==
+                                                                5)
+                                                        ? () {
+                                                            log("this side");
+                                                            navigatorKey
+                                                                .currentState
+                                                                ?.pushNamed(
+                                                              RoutesConst
+                                                                  .trainingResources,
+                                                            );
+                                                          }
+                                                        : () {
+                                                            if (value
+                                                                    .trainingStatus ==
+                                                                0) {
+                                                              navigatorKey
+                                                                  .currentState
+                                                                  ?.pushNamed(
+                                                                RoutesConst
+                                                                    .trainingOptions,
+                                                                arguments: TeacherRouteArguments()
+                                                                    .getTeacherArgument(
+                                                                        RoutesConst
+                                                                            .trainingOptions),
+                                                              );
+                                                            } else if (value
+                                                                    .trainingStatus ==
+                                                                1) {
+                                                              navigatorKey
+                                                                  .currentState
+                                                                  ?.pushNamed(
+                                                                RoutesConst
+                                                                    .trainingSignature,
+                                                                arguments: TeacherRouteArguments()
+                                                                    .getTeacherArgument(
+                                                                        RoutesConst
+                                                                            .trainingSignature),
+                                                              );
+                                                            }
+                                                          },
+                                                    height: 40,
+                                                    width: Get.width,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30),
+                                                    child: Text(
+                                                      // "Start Upload Document",
+                                                      "Digital Attestation",
+                                                    ),
+                                                  ),
+                                                  h10,
+                                                  Row(
+                                                    children: [
+                                                      Expanded(
+                                                          child: Divider(
+                                                        endIndent: 10,
+                                                      )),
+                                                      Text("OR"),
+                                                      Expanded(
+                                                          child: Divider(
+                                                        indent: 10,
+                                                      )),
+                                                    ],
+                                                  ),
+                                                  h10,
+                                                  LargeButton(
+                                                    onPressed: () async {
+                                                      primaryFocus?.unfocus();
+                                                      await uploadAddBlogDialog(
+                                                          context);
+                                                     // blgCnt;
+                                                    },
+                                                    height: 40,
+                                                    width: Get.width,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30),
+                                                    child: Text(
+                                                      // "Start Upload Document",
+                                                      "Upload Attestation",
+                                                      // style: AppTextStyle
+                                                      //     .normalRegular14
+                                                      //     .copyWith(
+                                                      //         color: AppColors
+                                                      //             .primaryWhite),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+
+
                                             ],
                                           ),
                                         )

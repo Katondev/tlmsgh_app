@@ -623,12 +623,16 @@ class ELearningProvider extends ChangeNotifier {
         notifyListeners();
       }
       connections = false;
-      await ApiService.instance.get(ApiRoutes.bookWithSearch, queryParameters: {
-        "bk_mainCategory": bkCategory ?? "JHS",
+      await ApiService.instance.get("${ApiRoutes.bookWithSearch}?", queryParameters: {
+        "bk_mainCategory":bkCategory ?? "JHS",
         "bk_subCategory": bkSubCategory,
-        "page": page,
-        "limit": limit,
-        "userType": AppPreference().uType
+        "bk_isFree":"",
+        "bk_resource":0,
+        "userType":AppPreference().uType,
+        "isLoggedIn":"true", 
+        "page":"1",
+        "limit":limit,
+        "search":""
       }).then((book) {
         log("--------------------HH------------------------");
         bookData = BooksM.fromJson(book.data);
@@ -788,6 +792,7 @@ class ELearningProvider extends ChangeNotifier {
     //   return [];
     // }
     try {
+      print("hvbcccccbvbbvbvj$subCategoryName");
       // isLoadingStarted = true;
       notifyListeners();
       BooksM? bookData;
@@ -801,11 +806,16 @@ class ELearningProvider extends ChangeNotifier {
         notifyListeners();
       }
       connections = false;
-      await ApiService.instance.get(ApiRoutes.bookWithSearch, queryParameters: {
-        "level": AppPreference().getString(PreferencesKey.level),
-        "userType": AppPreference().uType,
+      await ApiService.instance.get("${ApiRoutes.bookWithSearch}?", queryParameters: {
+        "bk_mainCategory":'SHS - Business',
         "bk_subCategory": subCategoryName,
-        "search":"",
+        "bk_isFree":"",
+        "bk_resource":0,
+        "userType":AppPreference().getString(PreferencesKey.uType),
+        "isLoggedIn":"true", 
+        "page":"1",
+        "limit":"200",
+        "search":""
         
       }).then((book) {
         print("--------------------HH------------------------${book.data}");

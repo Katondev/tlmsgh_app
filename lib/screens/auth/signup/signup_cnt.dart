@@ -344,6 +344,7 @@ class SignupCnt extends GetxController {
               classList
                   .add(DropdownClasses(label: element.label, enable: true));
             });
+            log("classes---${element.label}");
           });
         }
       });

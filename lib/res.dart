@@ -26,7 +26,7 @@ class AppAssets {
   static const String eyeSlash = "assets/svgs/eyeSlash.svg";
   static const String facebook = "assets/images/facebook.png";
   static const String fast_forward = "assets/images/fast-forward.png";
-
+  static const String fast_ = "assets/images/fast-forward.png";
   static const String forgot_password = "assets/images/forgot_password.png";
   static const String forgotPassword = "assets/svgs/forgotPassword.svg";
   static const String gallery_edit = "assets/svgs/gallery_edit.svg";
@@ -34,7 +34,13 @@ class AppAssets {
   static const String heart = "assets/images/heart.png";
   static const String holiday = "assets/svgs/holiday.svg";
   static const String home = "assets/svgs/home.svg";
-  static const String ic_radio_selected = "assets/images/ic_radio_selected.png";
+  static const String ic_radio_selected = "assets/images/ic_radio_selected.png"; 
+   static const String ic_physical_Training= "assets/images/ic_physical_Training.png"; 
+   static const String ic_live_Training= "assets/images/ic_live.training.png"; 
+     static const String ic_recorded_Training= "assets/images/ic_recorded.training.png"; 
+   
+   
+  
   static const String ic_redio_unselected =
       "assets/images/ic_redio_unselected.png";
   static const String ic_splash = "assets/images/ic_splash_black.png";

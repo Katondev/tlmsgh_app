@@ -629,10 +629,11 @@ class Topic {
 }
 
 class DropdownClasses {
+   String?  level;
   String? label;
   bool? enable;
 
-  DropdownClasses({this.label, this.enable});
+  DropdownClasses({this.level, this.label, this.enable,});
 }
 
 class DropdownRegion {
