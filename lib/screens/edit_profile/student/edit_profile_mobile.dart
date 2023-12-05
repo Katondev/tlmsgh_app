@@ -124,7 +124,7 @@ class _EditProfileMobilePageState extends State<EditProfileMobilePage> {
                                             right: 0,
                                             child: GestureDetector(
                                               onTap: () {
-                                                cnt.getFromGallery();
+                                                cnt.getImage();
                                               },
                                               child: Container(
                                                 height: 27,

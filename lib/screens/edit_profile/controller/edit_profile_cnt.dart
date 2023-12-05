@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart' as formData;
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -93,7 +94,7 @@ class EditProfileCnt extends GetxController {
 
   ImagePicker pick = ImagePicker();
 
-  XFile? imageFile;
+  // XFile? imageFile;
 
   RxString? image = "".obs;
   // 'https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?cs=srgb&dl=pexels-pixabay-301920.jpg&fm=jpg'
@@ -300,17 +301,29 @@ class EditProfileCnt extends GetxController {
     }
   }
 
-  void getFromGallery() async {
-    loading.value = true;
-    XFile? pickedFile = await pick.pickImage(
-      source: ImageSource.gallery,
-    );
-    if (pickedFile != null) {
-      imageFile = pickedFile;
-      image?.value = imageFile!.path;
-      image?.value = imageFile!.path.split('/').last;
-    }
-    loading.value = false;
+  // void getFromGallery() async {
+  //   loading.value = true;
+  //   XFile? pickedFile = await pick.pickImage(
+  //     source: ImageSource.gallery,
+  //   );
+  //   if (pickedFile != null) {
+  //     imageFile = pickedFile;
+  //     image?.value = imageFile!.path;
+  //     image?.value = imageFile!.path.split('/').last;
+  //   }
+  //   loading.value = false;
+  // }
+ 
+  XFile? image1;
+  double uploadProgress = 0.0;
+
+  Future<void> getImage() async {
+    final picker = ImagePicker();
+    final XFile? pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+    
+      image1 = pickedImage;
+    
   }
 
   Future updateProfilePic() async {
@@ -319,25 +332,32 @@ class EditProfileCnt extends GetxController {
       // CustomLoadingIndicator.instance.show();
       loading.value = true;
       connection.value = true;
+      if (image1 != null) {
       var imageUpload = formData.FormData.fromMap({
         "st_profilePic": await formData.MultipartFile.fromFile(
-          imageFile!.path,
-          filename: image?.value,
-          contentType: MediaType("image", 'jpg'),
+          image1!.path,
+          filename: "cafeteria.png",
+          // contentType: MediaType("image", 'jpg'),
         ),
       });
       await ApiService.instance
           .putHTTP(
-        url: "${ApiRoutes.updateProfilePic}${student.value.stId}",
+        url: "${ApiRoutes.updateProfilePic}${student.value.stId}?from=studentApp&key=xsv321sa2ds4235reuy354FE4rsd",
         headers: {
           'Authorization': 'Bearer $token',
           'Content-Type': "application/json"
         },
+        onSendProgress: (int sent, int total){
+          uploadProgress = sent / total;
+          
+        },
         body: imageUpload,
       )
           .then((value) {
+            print(value.data['data']);
         students = Student.fromJson(value.data["data"]['student'][1][0]);
       });
+      }
       Map<String, dynamic> userData =
           jsonDecode(AppPreference().getString(PreferencesKey.studentData));
 
