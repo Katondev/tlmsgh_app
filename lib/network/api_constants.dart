@@ -10,6 +10,7 @@ class ApiRoutes {
   // static String teacherBaseURL = 'https://user.api.tlmsgh.com/api/v1/teacher/';
   // static String parentBaseURL = 'https://user.api.tlmsgh.com/api/v1/parent/';
   //static String imageURL = 'https://dashapi.katondev.in/uploads/';
+ 
   static String imageURL =
       'https://katon-prod-uploads.s3.amazonaws.com/';
   // static String imageURL = 'https://dashapi.katon.app/uploads/'; 

@@ -85,11 +85,13 @@ class ApiService {
       {String? url,
       dynamic body,
       Map<String, dynamic>? headers,
+       void Function(int ,int) ? onSendProgress,
       Map<String, dynamic>? queryParams}) async {
     try {
       Response response = await _dio.put(url!,
       
           data: body,
+          onSendProgress:onSendProgress ,
           queryParameters: queryParams,
           options: Options(headers: headers));
       return response;

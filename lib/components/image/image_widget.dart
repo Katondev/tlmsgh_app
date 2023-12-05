@@ -28,6 +28,7 @@ class NetworkImageWidget extends StatelessWidget {
   }) : super(key: key);
 
   static Map? header;
+ 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
