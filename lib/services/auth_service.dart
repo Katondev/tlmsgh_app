@@ -129,7 +129,7 @@ class AuthServices {
         'st_education': 'm.com',
         'st_region': st_region,
         'st_district': st_district,
-         "st_mainCategory":stLevel,
+         'st_mainCategory':stLevel,
         // 'sc_schoolName': sc_schoolName,
         "st_schoolId": sc_schoolId,
         'st_countryCode': st_countrycode,

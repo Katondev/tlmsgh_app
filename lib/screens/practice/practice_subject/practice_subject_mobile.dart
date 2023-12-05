@@ -92,7 +92,8 @@ class _PracticeSubjectPagePhoneState extends State<PracticeSubjectPagePhone> {
                                               (index) {
                                             var data =
                                                 ePrv.practiceSubjectList[index];
-                                               ePrv.subCategoryName = data;
+                                              //  ePrv.subCategoryName =   ePrv.practiceSubjectList[index];
+                                              //  print("datata ${ data}");
                                             return Column(
                                               children: [
                                                 GestureDetector(
@@ -103,7 +104,7 @@ class _PracticeSubjectPagePhoneState extends State<PracticeSubjectPagePhone> {
                                                     self.selfAssessmntcat =
                                                         ePrv.practiceSubjectList[
                                                             index]; 
-                                                            print("-------${self.selfAssessmntcat}--------");
+                                                            print("-------${  ePrv.subCategoryName }--------");
                                                     ePrv.SelectedIndex = index;
                                                     ePrv.notifyListeners();
                                                     if (AppPreference()

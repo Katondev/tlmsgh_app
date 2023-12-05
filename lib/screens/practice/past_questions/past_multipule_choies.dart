@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:katon/utils/constants.dart';
+import 'package:katon/widgets/no_data_found.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/app_colors.dart';
 import '../../../widgets/loader.dart';
@@ -22,10 +24,13 @@ class PastMultipleQuestionsProvider extends ChangeNotifier {
 
     try {
       final response = await http.get(Uri.parse(
-          "https://user.api.tlmsghdev.in/api/v1/student/all-Questions/getAll?pp_id=$ppId"));
+          "https://user.api.tlmsghdev.in/api/v1/student/all-Questions/getAll?pp_id=${ppId.toString()}"));
+          // print(ppId);
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
+
+        print(ppId);
 
         final List<dynamic> questionList = data['data']['assignmentQuestions'];
         questions = questionList.map((json) => AssignmentQuestion.fromJson(json)).toList();
@@ -210,9 +215,20 @@ class _PastMultipleQuestionsState extends State<PastMultipleQuestions> {
               ? Center(child: Loader(message: "loading_wait".tr))
               : SingleChildScrollView(
                   child: Column(
+                    
                     children: <Widget>[
+                       if (provider.questions.isEmpty)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          h102,
+                          NoDataFound(message: 'No questions found.',),
+                        ],
+                      )
+                      else
                       for (int i = 0; i < provider.questions.length; i++)
-                        ListView(
+                      ListView(
                           scrollDirection: Axis.vertical,
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
@@ -270,7 +286,7 @@ class _PastMultipleQuestionsState extends State<PastMultipleQuestions> {
                         ),
                     provider.viewResult
                         ? Text("")
-                        : ElevatedButton(
+                        :  provider.questions.isEmpty?Text(""):ElevatedButton(
                             onPressed: () {
                               provider.submitAnswers(context);
                             },

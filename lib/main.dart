@@ -29,13 +29,13 @@ import 'package:provider/provider.dart';
 // import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 Future<void> main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  await AppPreference().initialAppPreference();
-  await AppPreference().setString('pdfId', '');
-  await AppPreference().setString('videoId', '');
-  await AppPreference().setString('epubId', '');
-  // WidgetsFlutterBinding.ensureInitialized();
-  await GlobalSingleton().getApppath();
+    WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+    await AppPreference().initialAppPreference();
+    await AppPreference().setString('pdfId', '');
+    await AppPreference().setString('videoId', '');
+    await AppPreference().setString('epubId', '');
+    // WidgetsFlutterBinding.ensureInitialized();
+    await GlobalSingleton().getApppath();
   // SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: []);
 
   // await Firebase.initializeApp();

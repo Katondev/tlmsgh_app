@@ -2,7 +2,9 @@
 class AppAssets {
   static const String about_us = "assets/images/about_us.png";
   static const String aboutUs = "assets/svgs/aboutUs.svg";
-  static const String arrowRight = "assets/svgs/arrowRight.svg";
+  static const String arrowRight = "assets/svgs/arrowRight.svg"; 
+  static const String bookvideosdownload = "assets/images/book_videos_download_ic.gif";
+ 
 
   static const String bell = "assets/images/bell.png";
   static const String blank_profile = "assets/images/blank_profile.png";

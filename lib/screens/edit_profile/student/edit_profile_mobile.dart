@@ -111,11 +111,23 @@ class _EditProfileMobilePageState extends State<EditProfileMobilePage> {
                                       alignment: Alignment.center,
                                       child: Stack(
                                         children: [
+                                            cnt.image1 != null
+                                              ? ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          100),
+                                                  child: Image.file(
+                                                      height: 80,
+                                                      width: 80,
+                                                      fit: BoxFit.cover,
+                                                      File(cnt.image1!.path)),
+                                                )
+                                              :
                                           NetworkImageWidget(
                                             height: 80,
                                             width: 80,
                                             imageUrl:
-                                                "${ApiRoutes.imageURL}${cnt.image!.value}",
+                                                "${ApiRoutes.imageURL+cnt.image!.value}",
                                             borderRadius:
                                                 BorderRadius.circular(100),
                                           ),
@@ -124,7 +136,7 @@ class _EditProfileMobilePageState extends State<EditProfileMobilePage> {
                                             right: 0,
                                             child: GestureDetector(
                                               onTap: () {
-                                                cnt.getFromGallery();
+                                                  cnt.getImage();
                                               },
                                               child: Container(
                                                 height: 27,

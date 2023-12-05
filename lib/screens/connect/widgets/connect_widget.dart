@@ -37,8 +37,9 @@ class _ConnectWidgetState extends State<ConnectWidget> {
             onFirstButtonTap: () async {
               blgCnt.blogId.value = widget.blogData!.blId!;
               print("tapping--------${widget.blogData?.blId}");
+               Get.back();
               await blgCnt.deleteBlog();
-              Get.back();
+             
             },
             // child: Container(
             //   height: 100,

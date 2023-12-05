@@ -8,7 +8,6 @@ import 'package:katon/screens/group_page/screens/group_details/group_details_pag
 import 'package:katon/screens/library_page/book_detail/book_detail_page.dart';
 import 'package:katon/screens/library_page/library_page.dart';
 import 'package:katon/screens/library_page/videos/library_video_screen.dart';
-import 'package:katon/screens/library_page/videos/library_video_tablet.dart';
 import 'package:katon/screens/live_class/live_class_page.dart';
 import 'package:katon/screens/my_library/library_book_detail/library_book_detail_page.dart';
 import 'package:katon/screens/my_library/my_library_page.dart';
@@ -37,8 +36,6 @@ import '../../screens/group_page/screens/group_page.dart';
 import '../../screens/library_page/ebook/library_ebook_screen.dart';
 import '../../screens/library_page/library_select/library_select_page.dart';
 import '../../screens/live_class/live_class_details/live_class_details_page.dart';
-import '../../screens/my_library/widgets/video_and_book_related_questions.dart';
-import '../../screens/practice/self_assessment/self_assessment_screen.dart';
 import '../../screens/setting_page/change_password/change_password.dart';
 
 class StudentPageRoute {

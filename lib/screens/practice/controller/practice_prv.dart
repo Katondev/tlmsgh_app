@@ -337,11 +337,11 @@ class PracticePrv extends ChangeNotifier {
         ApiRoutes.pastQuestions,
         // + "?st_id=${id}"
         queryParameters: {
-          "pp_subcategory": subCategoryName,
+          "pp_subcategory": subCategoryName.toString(),
         },
       ).then((value) {
         pastPaperModel = PastPaperModel.fromJson(value.data);
-        print("-------${pastPaperModel?.toJson()}");
+        print("---datataag----${subCategoryName}");
       });
       _setLoading(false);
     } on Exception catch (e) {

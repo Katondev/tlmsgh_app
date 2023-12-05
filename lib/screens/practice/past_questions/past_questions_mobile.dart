@@ -96,6 +96,8 @@ class _PastQuestionsMobileState extends State<PastQuestionsMobile> {
                                         itemBuilder: (context, i) {
                                           var data = ePrv.pastPaperModel!.data!
                                               .pastPaper![i];
+                                              print(ePrv.pastPaperModel!.data!
+                                              .pastPaper![i].ppId);
                                           return Container(
                                             // height: 200,
                                             decoration: BoxDecoration(
@@ -136,7 +138,7 @@ class _PastQuestionsMobileState extends State<PastQuestionsMobile> {
                                                             ppId: data.ppId,
                                                                
                                                              ));
-                                                            
+                                                            // print(data.ppId);
                                                               // PdfViewerScreen(
                                                               //   filename: data
                                                               //       .ppWrittenPdf!,

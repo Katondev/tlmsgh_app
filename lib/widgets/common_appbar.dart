@@ -329,13 +329,11 @@ class CommonAppBar2 extends StatelessWidget {
       {super.key, this.title, this.description, this.isshowback = false});
 
   @override
-
-
   @override
   Widget build(BuildContext context) {
-    final ePrv = Provider.of<SelfAssessmentController>(context,listen: false);
-    if( title == "Self Assessment"){
-       //ePrv!.getSelectPapar();
+    final ePrv = Provider.of<SelfAssessmentController>(context, listen: false);
+    if (title == "Self Assessment") {
+      //ePrv!.getSelectPapar();
     }
     return (Responsive.isMobilenew(context))
         ? Column(
@@ -377,20 +375,18 @@ class CommonAppBar2 extends StatelessWidget {
                       // h4,
                       (description != null)
                           ? SizedBox(
-
-                            width: MediaQuery.of(context).size.width-100,
-                            child: Text(
-                            maxLines:5,
+                              width: MediaQuery.of(context).size.width - 100,
+                              child: Text(
+                                maxLines: 5,
                                 "$description",
                                 style: AppTextStyle.normalRegular15.copyWith(
                                   color: AppColors.textgrey,
                                 ),
                               ),
-                          )
+                            )
                           : SizedBox(),
                     ],
                   ),
-                  
                 ],
               ),
             ],
@@ -399,7 +395,7 @@ class CommonAppBar2 extends StatelessWidget {
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   (isshowback!)
                       ? GestureDetector(
@@ -443,9 +439,9 @@ class CommonAppBar2 extends StatelessWidget {
                           : SizedBox(),
                     ],
                   ),
-                  SizedBox(width: 40,),
-                  
-                            
+                  SizedBox(
+                    width: 40,
+                  ),
                 ],
               ),
             ],

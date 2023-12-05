@@ -600,9 +600,9 @@ class LoginCnt extends GetxController {
         await AppPreference()
             .setString(PreferencesKey.region, signInM.data!.student!.stRegion!);
         await AppPreference().setString(
-            PreferencesKey.student_level, signInM.data!.student!.stLevel!);
+            PreferencesKey.student_level,'JHS');
         await AppPreference()
-            .setString(PreferencesKey.level, signInM.data!.student!.stLevel!);
+            .setString(PreferencesKey.level, 'JHS');
         await AppPreference().setString(
             PreferencesKey.district, signInM.data!.student!.stDistrict!);
         log("uType" + AppPreference().getString(PreferencesKey.uType));

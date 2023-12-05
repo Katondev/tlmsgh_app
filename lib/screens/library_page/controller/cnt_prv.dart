@@ -624,7 +624,7 @@ class ELearningProvider extends ChangeNotifier {
       }
       connections = false;
       await ApiService.instance.get("${ApiRoutes.bookWithSearch}?", queryParameters: {
-        "bk_mainCategory":bkCategory ?? "JHS",
+        "bk_mainCategory":bkCategory ?? "SHS",
         "bk_subCategory": bkSubCategory,
         "bk_isFree":"",
         "bk_resource":0,
@@ -636,6 +636,7 @@ class ELearningProvider extends ChangeNotifier {
       }).then((book) {
         log("--------------------HH------------------------");
         bookData = BooksM.fromJson(book.data);
+        print("kjdkdjfj");
 
         booksM.add(bookData!);
         // books.add(bookData.data);
@@ -731,10 +732,11 @@ class ELearningProvider extends ChangeNotifier {
           "${ApiRoutes.subjectList}?",
           queryParameters: {
             "subject":AppPreference().getString(PreferencesKey.level),
-           "ltype":selectsubjectype.toString()
+            "ltype":selectsubjectype.toString()
           });
          
       subjectData = SubjectModel.fromJson(book.data);
+     // print(" level is${AppPreference().getString(PreferencesKey.level)}");
 
       if (book.statusCode == 200) {
         subjectList1.addAll(subjectData.data!);

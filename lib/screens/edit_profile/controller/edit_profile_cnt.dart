@@ -313,31 +313,57 @@ class EditProfileCnt extends GetxController {
     loading.value = false;
   }
 
+  XFile? image1;
+  double uploadProgress = 0.0;
+
+  Future<void> getImage() async {
+    final picker = ImagePicker();
+    final XFile? pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+     update();
+      
+      image1 = pickedImage;
+      print("mddj");
+    await  updateProfilePic();
+    
+  }
+
   Future updateProfilePic() async {
     String token = AppPreference().getString(PreferencesKey.token);
     try {
-      // CustomLoadingIndicator.instance.show();
+      CustomLoadingIndicator.instance.show();
       loading.value = true;
       connection.value = true;
+      if (image1 != null) {
       var imageUpload = formData.FormData.fromMap({
         "st_profilePic": await formData.MultipartFile.fromFile(
-          imageFile!.path,
-          filename: image?.value,
-          contentType: MediaType("image", 'jpg'),
+          image1!.path,
+          filename: "cafeteria.png",
+          // contentType: MediaType("image", 'jpg'),
         ),
       });
       await ApiService.instance
           .putHTTP(
-        url: "${ApiRoutes.updateProfilePic}${student.value.stId}",
+        url: "${ApiRoutes.updateProfilePic}${student.value.stId}?from=studentApp&key=xsv321sa2ds4235reuy354FE4rsd",
         headers: {
           'Authorization': 'Bearer $token',
           'Content-Type': "application/json"
         },
+    
         body: imageUpload,
       )
           .then((value) {
+             CustomLoadingIndicator.instance.hide();
+            print(value.data['data']);
+            SnackBarService().showSnackBar(
+          message: "profile_updated_successfully".tr,
+          type: SnackBarType.success);
+           getStudentInfo();
+            
         students = Student.fromJson(value.data["data"]['student'][1][0]);
+        
       });
+      }
       Map<String, dynamic> userData =
           jsonDecode(AppPreference().getString(PreferencesKey.studentData));
 
@@ -362,7 +388,7 @@ class EditProfileCnt extends GetxController {
       }
       SnackBarService()
           .showSnackBar(message: e.toString(), type: SnackBarType.error);
-      // CustomLoadingIndicator.instance.hide();
+       CustomLoadingIndicator.instance.hide();
       loading.value = false;
     }
   }

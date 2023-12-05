@@ -116,7 +116,7 @@ class BlogRow {
         grpId: json["grp_id"],
         blTitle: json["bl_title"],
         blDesc: json["bl_desc"],
-        blImage: json["bl_image"],
+        blImage: json["bl_image"] ,
         blCreationType: json["bl_creation_type"],
         blCreatorId: json["bl_creatorId"],
         blLikeCount: json["bl_likeCount"],
