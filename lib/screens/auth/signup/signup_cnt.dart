@@ -338,13 +338,16 @@ class SignupCnt extends GetxController {
           });
         }
         if (classList.isEmpty) {
-          staticdataModel.value.data?.classes?.forEach((element) {
+          staticdataModel.value.data?.classes?.forEach((element) { 
+             staticdataModel.value.data?.classes?.clear();
             classList.add(DropdownClasses(label: element.label, enable: false));
             element.options?.forEach((element) {
-              classList
-                  .add(DropdownClasses(label: element.label, enable: true));
+                staticdataModel.value.data?.classes?.clear();
+              classList.add(DropdownClasses(label: element.label, enable: true));
             });
-            log("classes---${element.label}");
+            print("classes---${  staticdataModel.value.data?.classes}");
+
+            
           });
         }
       });

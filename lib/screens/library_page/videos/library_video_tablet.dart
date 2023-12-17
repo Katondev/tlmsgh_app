@@ -165,6 +165,13 @@ class _LibraryVideoTabletState extends State<LibraryVideoTablet> {
                                                                     ));
                                                                   }
                                                                 : () {
+                                                                    Get.to(
+                                                                        Video(
+                                                                      internet:
+                                                                          ePrv.connection,
+                                                                      title: data
+                                                                          ?.bkVideo,
+                                                                    ));
                                                                     eLearningPrv
                                                                             ?.currentlabelIndex =
                                                                         horizontalIndex;
@@ -176,14 +183,22 @@ class _LibraryVideoTabletState extends State<LibraryVideoTablet> {
                                                                             e ==
                                                                             data?.bkId))
                                                                     ? () {
-                                                                        log("message");
                                                                         Get.to(
                                                                             Video(
+                                                                          internet:
+                                                                              ePrv.connection,
                                                                           title:
                                                                               data?.bkVideo,
                                                                         ));
                                                                       }
                                                                     : () {
+                                                                        Get.to(
+                                                                            Video(
+                                                                          internet:
+                                                                              ePrv.connection,
+                                                                          title:
+                                                                              data?.bkVideo,
+                                                                        ));
                                                                         log("message---1");
 
                                                                         eLearningPrv
@@ -288,14 +303,25 @@ class _LibraryVideoTabletState extends State<LibraryVideoTablet> {
                                                                             "${GlobalSingleton().Dirpath}/${data?.bkVideo?.split("/").last}")
                                                                         .existsSync())
                                                                     ? () {
+                                                                        print(
+                                                                            "hello");
                                                                         log("message");
                                                                         Get.to(
                                                                             Video(
+                                                                          internet:
+                                                                              ePrv.connection,
                                                                           title:
                                                                               data?.bkVideo,
                                                                         ));
                                                                       }
                                                                     : () {
+                                                                        Get.to(
+                                                                            Video(
+                                                                          internet:
+                                                                              ePrv.connection,
+                                                                          title:
+                                                                              data?.bkVideo,
+                                                                        ));
                                                                         eLearningPrv?.currentlabelIndex =
                                                                             horizontalIndex;
                                                                       },
@@ -308,7 +334,8 @@ class _LibraryVideoTabletState extends State<LibraryVideoTablet> {
                                                                         ? () {
                                                                             log("message");
                                                                             Get.to(Video(
-                                                                              title: data.bkVideo,
+                                                                              internet: ePrv.connection,
+                                                                              title: data?.bkVideo,
                                                                             ));
                                                                           }
                                                                         : () {

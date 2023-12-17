@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:katon/components/app_text_style.dart';
 import 'package:katon/models/book_info_model.dart';
 import 'package:katon/res.dart';
+import 'package:katon/screens/library_page/book_detail/widget/e_pub.dart';
 import 'package:katon/utils/app_colors.dart';
 import 'package:katon/utils/config.dart';
 import 'package:katon/widgets/responsive.dart';
@@ -296,9 +297,12 @@ class _LibraryEbookWidgetState extends State<LibraryEbookWidget> {
                                     if (widget.book!.bkEpub!.isNotEmpty &&
                                         File("${GlobalSingleton().Dirpath}/${widget.book!.bkEpub!.split("/").last}")
                                             .existsSync()) {
-                                      VocsyEpub.open(
-                                        "${GlobalSingleton().Dirpath}/${widget.book!.bkEpub!.split("/").last}",
+                                         VocsyEpub.open(
+                                        "${GlobalSingleton().Dirpath}/${widget.book!.bkEpub!.split("./").last}",
                                       );
+                                    }else{
+                                      // print("not found");
+                                      log("Not found");
                                     }
                                   },
                                   child: Image.asset(
@@ -488,7 +492,7 @@ class _LibraryEbookWidgetState extends State<LibraryEbookWidget> {
                                           filename: "${widget.book!.bkPdf}",
                                           filetype: "Pdf",
                                           isdownloaded: File(
-                                          "${GlobalSingleton().Dirpath}/${widget.book?.bkPdf?.split("/").last}")
+                                                  "${GlobalSingleton().Dirpath}/${widget.book?.bkPdf?.split("/").last}")
                                               .existsSync(),
                                         ));
                                   },

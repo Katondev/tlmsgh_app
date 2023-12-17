@@ -57,9 +57,9 @@ class _LibraryPageState extends State<LibraryPage> with WidgetsBindingObserver {
   void init() async {
     log("ssds-------------");
     await eLearningPrv?.getAllCategoryInfo();
-    await eLearningPrv?.getAllSubjects();
-    await eLearningPrv?.getSubject();
-     await eLearningPrv?.resetOnTap();
+     await eLearningPrv?.getAllSubjects();
+     await eLearningPrv?.getSubject();
+      await eLearningPrv?.resetOnTap();
     if (!AppPreference().isTeacherLogin) {
       Map<String, dynamic> userData =
           jsonDecode(AppPreference().getString(PreferencesKey.studentData));

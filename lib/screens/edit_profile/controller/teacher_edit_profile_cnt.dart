@@ -162,6 +162,7 @@ class TeacherEditProfileCnt extends GetxController {
       });
       levelList.value = teacherProfileModel.data!.levels!;
       selectedLevelVal.value = levelList.firstWhere((element) {
+       
         return element.value == teacher.value.tcLevel.toString();
       });
       languageList.value = teacherProfileModel.data!.languages!;
@@ -187,21 +188,23 @@ class TeacherEditProfileCnt extends GetxController {
     loading.value = false;
   }
 
-  void getFromGallery() async {
-    loading.value = true;
-    XFile? pickedFile = await pick.pickImage(
-      source: ImageSource.gallery,
-    );
-    if (pickedFile != null) {
-      imageFile = pickedFile;
-      image?.value = imageFile!.path;
-      image?.value = imageFile!.path.split('/').last;
-    }
-    loading.value = false;
-    // print("object${image?.value}");
-  }
-
+  // void getFromGallery() async {
+  //   loading.value = true;
+  //   XFile? pickedFile = await pick.pickImage(
+  //     source: ImageSource.gallery,
+  //   );
+  //   if (pickedFile != null) {
+  //     imageFile = pickedFile;
+  //     image?.value = imageFile!.path;
+  //     image?.value = imageFile!.path.split('/').last;
+  //   }
+  //   loading.value = false;
+  //   // print("object${image?.value}");
+  // }
+   int tId = AppPreference().getInt(PreferencesKey.uId);
   Future teacherUpdateProfile() async {
+  
+    print(tId);
     try {
       CustomLoadingIndicator.instance.show();
       loading.value = true;
@@ -209,7 +212,7 @@ class TeacherEditProfileCnt extends GetxController {
       // log("id---" + int.parse(mobileNumber.toString()).toString());
       await TeacherProfileUpdateServices()
           .updateTeacherProfile(
-        tcId: 50,
+        tcId: tId,
         fullName: fullName.value.text,
         emailId: emailCnt.value.text,
         altEmail: altemailCnt.value.text,
@@ -268,6 +271,9 @@ class TeacherEditProfileCnt extends GetxController {
       init("teacher_profile".tr);
       log("Edit success----${teacher}");
       CustomLoadingIndicator.instance.hide();
+       await AppPreference().setString(PreferencesKey.level, teacher.value.tcLevel!);
+      AppPreference().initialAppPreference();
+
       loading.value = false;
       SnackBarService().showSnackBar(
           message: "teacher_updated_successfully".tr,
@@ -281,33 +287,57 @@ class TeacherEditProfileCnt extends GetxController {
       loading.value = false;
     }
   }
+  
+ XFile? image1;
+  double uploadProgress = 0.0;
 
+  Future<void> getImage() async {
+    final picker = ImagePicker();
+    final XFile? pickedImage =
+        await picker.pickImage(source: ImageSource.gallery);
+    update();
+    image1 = pickedImage;
+    await updateProfilePic();
+    appbarCnt.getTeacherInfo();
+    update();
+  }
   Future updateProfilePic() async {
+    print("${ApiRoutes.updateProfilePicTeacher}");
     String token = AppPreference().getString(PreferencesKey.token);
     try {
-      // CustomLoadingIndicator.instance.show();
+       CustomLoadingIndicator.instance.show();
       loading.value = true;
       connection.value = true;
-      var imageUpload = formData.FormData.fromMap({
-        "tc_profilePic": await formData.MultipartFile.fromFile(
-          imageFile!.path,
-          filename: image?.value,
-          contentType: MediaType("image", 'jpg'),
-        ),
-      });
+        var imageUpload = formData.FormData.fromMap({
+          "tc_profilePic": await formData.MultipartFile.fromFile(
+            image1!.path,
+            filename: "cafeteria.png",
+            // contentType: MediaType("image", 'jpg'),
+          ),
+        });
       await ApiService.instance.putHTTP(
-        url: "${ApiRoutes.updateProfilePicTeacher}${AppPreference().uId}",
+        url: "https://dashboard.api.lmsgh.net/api/v1/admin/teacher/180692?from=studentApp&key=xsv321sa2ds4235reuy354FE4rsd",
         headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': "application/json"
-        },
+            'Authorization': 'Bearer $token',
+            'Content-Type': "application/json"
+          }, 
         body: imageUpload,
-      );
-      //     .then((value) {
-      //   teacher.value = Teacher.fromJson(value.data["data"]['teacher']);
-      // });
+      )
+          .then((value) async{
+              print(value.data['data']);
+          SnackBarService().showSnackBar(
+              message: "Photo updated successfully".tr,
+              type: SnackBarType.success);
+          appbarCnt.getTeacherInfo();
+               CustomLoadingIndicator.instance.hide();
+                appbarCnt.getTeacherInfo();
+                 update();
+       // teacher.value = Teacher.fromJson(value.data["data"]['teacher']);
+        
+      });
       Map<String, dynamic> userData =
           jsonDecode(AppPreference().getString(PreferencesKey.teacherData));
+          update();
 
       final signIn = TeacherSignInModel.fromJson(userData);
       final updatedData = TeacherSignInModel(
@@ -328,6 +358,7 @@ class TeacherEditProfileCnt extends GetxController {
 
       String teacherData = jsonEncode(updatedData);
       await AppPreference().setString(PreferencesKey.teacherData, teacherData);
+      update();
     } catch (e) {
       print("error ${e}");
       if (e == "No Internet") {
@@ -335,7 +366,7 @@ class TeacherEditProfileCnt extends GetxController {
       }
       SnackBarService()
           .showSnackBar(message: e.toString(), type: SnackBarType.error);
-      // CustomLoadingIndicator.instance.hide();
+       CustomLoadingIndicator.instance.hide();
       loading.value = false;
     }
   }

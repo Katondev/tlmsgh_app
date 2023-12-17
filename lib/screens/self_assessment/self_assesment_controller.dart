@@ -50,10 +50,10 @@ class SelfAssessmentController extends ChangeNotifier {
   List<SubCategoryModel> subCategoryList = <SubCategoryModel>[];
   List<SubCategoryModel> subCategoryListFilter = <SubCategoryModel>[];
   List<Topics> topicListFilter = <Topics>[];
-    List<DataTopic> subjectList1 = <DataTopic>[];
+  List<DataTopic> subjectList1 = <DataTopic>[];
   List<Class> classGrade = <Class>[];
   List<Subjectt> subjects = <Subjectt>[];
-   List<SubjectTopic> topics = <SubjectTopic>[];
+  List<SubjectTopic> topics = <SubjectTopic>[];
   List<Class> classListFilter = <Class>[];
   List<Topics> topicList = <Topics>[];
   List<SubCategoryTopic> topicListNew = <SubCategoryTopic>[];
@@ -65,8 +65,8 @@ class SelfAssessmentController extends ChangeNotifier {
   Rx<Subject> selectedSubject = Subject().obs;
   Rx<DataTopic> selected = DataTopic().obs;
   Rx<Class> classSelect = Class().obs;
-   Rx<Subjectt> selectTopic = Subjectt().obs;
-   Rx<SubjectTopic> selecttopics = SubjectTopic().obs;
+  Rx<Subjectt> selectTopic = Subjectt().obs;
+  Rx<SubjectTopic> selecttopics = SubjectTopic().obs;
 
   /// Select Main Category Drop down
   ///
@@ -89,19 +89,13 @@ class SelfAssessmentController extends ChangeNotifier {
     notifyListeners();
   }
 
-
   DropDownList? subjectData;
- String st_lavel = AppPreference().getString(PreferencesKey.student_level);
-
-
-
- 
+  String st_lavel = AppPreference().getString(PreferencesKey.student_level);
 
   Future getSelectPapar({
     String? subject,
   }) async {
     try {
-     
       //  print("-----type jfkjf ${selectsubjectype}");
       // isLoadingStarted = true;
       notifyListeners();
@@ -116,10 +110,13 @@ class SelfAssessmentController extends ChangeNotifier {
       subjectData = DropDownList.fromJson(book.data);
 
       if (book.statusCode == 200) {
+        subjectList1.clear();
+        // classGrade.clear();
+        topicFilt.clear();
         subjectList1.addAll(subjectData!.data.topics);
         var a = getClasses(st_lavel);
         classGrade.addAll(a!);
-        
+
         print("---------$st_lavel ------------");
 
         // print("books--------${subjectData1.classes!}");
@@ -177,27 +174,40 @@ class SelfAssessmentController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearFormData() {
+    // Reset or clear your data here
+    subjectData = null;
+    st_lavel = '';
+    subjectList1.clear();
+    classGrade.clear();
+    topicFilt.clear();
+    // ... clear other data as needed
+  }
+
   void selectSubject({DataTopic? value}) {
     classGrade.clear();
     // Notify listeners to update the UI
     notifyListeners();
   }
 
-  
   List<Class>? getClasses(String levelName) {
     final levelItem = subjectData!.data.topics.firstWhere(
       (item) => item.level == levelName,
       orElse: () => DataTopic(level: levelName, classes: []),
     );
+    subjectList1.clear();
+
     return levelItem?.classes ?? null;
   }
 
-  List<Subjectt> getSubjects( levelName,  className) {
+  List<Subjectt> getSubjects(levelName, className) {
     for (final levelItem in subjectData!.data.topics) {
       if (levelName == null || levelItem.level == levelName) {
         for (final classItem in levelItem.classes!) {
           if (className == null || classItem.classClass == className) {
-            if (classItem.subjects == null || classItem.subjects!.isEmpty) continue;
+            if (classItem.subjects == null || classItem.subjects!.isEmpty)
+              continue;
+            subjectList1.clear();
             subjects.addAll(classItem.subjects!);
           }
         }
@@ -205,18 +215,20 @@ class SelfAssessmentController extends ChangeNotifier {
     }
     return subjects;
   }
+
   void selectSubject1({Class? value}) {
-  classSelect.value= value!;
-   subjects.clear(); 
-  var b =  getSubjects(st_lavel, value.classClass,);
-  
- 
-  print(b[0].subjectId);
+    classSelect.value = value!;
+    subjects.clear();
+    var b = getSubjects(
+      st_lavel,
+      value.classClass,
+    );
+
+    print(b[0].subjectId);
     notifyListeners();
+  }
 
-  } 
-
-   List<SubjectTopic> getTopics(String levelName,  className,  subjectName) {
+  List<SubjectTopic> getTopics(String levelName, className, subjectName) {
     for (final levelItem in subjectData!.data.topics) {
       if (levelItem.level == levelName) {
         for (final classItem in levelItem.classes!) {
@@ -224,37 +236,37 @@ class SelfAssessmentController extends ChangeNotifier {
             for (final subjectItem in classItem.subjects!) {
               if (subjectItem.subject == subjectName) {
                 print(subjectItem.topics![0].topic);
-                return subjectItem.topics! ;
+                return subjectItem.topics!;
               }
             }
           }
         }
       }
     }
-notifyListeners();
+    notifyListeners();
     return [];
-    
   }
 
   void selctTopic({Subjectt? value}) {
-    selectTopic.value= value!; 
-  var b =  getSubjects(st_lavel, subjects,);
-  var  topic = getTopics(st_lavel, classSelect.value.classClass,value.subject);
- topics.clear();
-   topics.addAll(topic!); 
+    selectTopic.value = value!;
+    var b = getSubjects(
+      st_lavel,
+      subjects,
+    );
+    var topic =
+        getTopics(st_lavel, classSelect.value.classClass, value.subject);
+    topics.clear();
+    topics.addAll(topic!);
     notifyListeners();
-
-  } 
-   void selctTopics({SubjectTopic? value}) {
-    selecttopics.value= value!; 
-  // var b =  getSubjects('SHS', value!.subject,);
-  //getTopics(st_lavel, value!.classClass,value.subject);
-
-    notifyListeners();
-
   }
 
-  
+  void selctTopics({SubjectTopic? value}) {
+    selecttopics.value = value!;
+    // var b =  getSubjects('SHS', value!.subject,);
+    //getTopics(st_lavel, value!.classClass,value.subject);
+
+    notifyListeners();
+  }
 
   Future generatePaperApi(context) async {
     try {
@@ -265,34 +277,36 @@ notifyListeners();
         "sa_category": classSelect.value.classClass,
         "sa_subCategory": selectTopic.value.subject,
         "sa_topic": selecttopics.value.topic,
-      
+
         // "sa_topic": topic!.topicName
       };
-      
+
       print(classSelect.value.classClass);
-        print(selectTopic.value.subject);
-         print(selecttopics.value.topic);
+      print(selectTopic.value.subject);
+      print(selecttopics.value.topic);
 
       //  classGrade.clear();
       //  subjects.clear();
       //  topics.clear();
 
       print(
-          "url- daayaya-------${ApiRoutes.createSelfAssessment +"st_id=${id}"}");
-          
-      await ApiService.instance
-          .postHTTP(
-              url: ApiRoutes.createSelfAssessment + "st_id=${id}", body: params, headers: {
-        'Authorization': 'Bearer ${AppPreference().getString(PreferencesKey.token)}',
-        'Content-Type': "application/json"
-      })
-          .then((value) async {
+          "url- daayaya-------${ApiRoutes.createSelfAssessment + "st_id=${id}"}");
+
+      await ApiService.instance.postHTTP(
+          url: ApiRoutes.createSelfAssessment + "st_id=${id}",
+          body: params,
+          headers: {
+            'Authorization':
+                'Bearer ${AppPreference().getString(PreferencesKey.token)}',
+            'Content-Type': "application/json"
+          }).then((value) async {
         log("--paper------${value}");
         await getAllSelfAssessmentList();
         selectedMainCat.value = FilterCategoryModel();
         selectedSubject.value = Subject();
+        // clearFormData();
       });
-      
+
       _setLoading(false);
     } on Exception catch (e) {
       if (e.toString() == "No Internet") {

@@ -127,7 +127,7 @@ class _EditProfileTabletPageState extends State<EditProfileTabletPage> {
                                                   height: 80,
                                                   width: 80,
                                                   imageUrl:
-                                                      "${ApiRoutes.imageURL}${cnt.image!.value}",
+                                                      "${ApiRoutes.imageURL+cnt.image!.value}",
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           100),
@@ -137,7 +137,8 @@ class _EditProfileTabletPageState extends State<EditProfileTabletPage> {
                                                   right: 0,
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      cnt.getFromGallery();
+                                                      log("${ApiRoutes.imageURL}${cnt.image!.value}");
+                                                      cnt.getImage();
                                                     },
                                                     child: Container(
                                                       height: 27,
@@ -283,7 +284,6 @@ class _EditProfileTabletPageState extends State<EditProfileTabletPage> {
                                                     DropDownCustom<
                                                         DropdownClasses>(
                                                       onChange: (value) {
-                                                        
                                                         cnt.classValue.value =
                                                             value!;
                                                         if (!cnt.textChanged
@@ -607,6 +607,30 @@ class _EditProfileTabletPageState extends State<EditProfileTabletPage> {
                                             ],
                                           ),
                                           h48,
+                                          // if (cnt.uploadProgress > 0.0 &&
+                                          //     cnt.uploadProgress < 1.0)
+                                          //   CircularProgressIndicator(
+                                          //     value: cnt.uploadProgress,
+                                          //     backgroundColor: Colors.grey[300],
+                                          //     strokeWidth: 10.0,
+                                          //   ),
+                                          // SizedBox(height: 8.0),
+                                          // InkWell(
+                                          //   onTap: (){
+                                          //     setState(() {
+                                          //       (cnt.uploadProgress * 100).toStringAsFixed(1);
+                                          //     });
+                                          //     cnt.updateProfilePic();
+                                          //   },
+                                          //   child: Text(
+                                          //     "${(cnt.uploadProgress * 100).toStringAsFixed(1)}%",
+                                          //     style: TextStyle(
+                                          //       color: Colors.black,
+                                          //       fontWeight: FontWeight.bold,
+                                          //     ),
+                                          //   ),
+                                          // ),
+
                                         ],
                                       ),
                                     ),

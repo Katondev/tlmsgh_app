@@ -18,9 +18,10 @@ import 'package:video_player/video_player.dart';
 import '../../home_page.dart';
 
 class Video extends StatefulWidget {
-  const Video({Key? key, this.title}) : super(key: key);
+  const Video({Key? key, this.title, this.internet}) : super(key: key);
 
-  final String? title;
+  final String? title; 
+ final internet;
 
   @override
   _VideoState createState() => _VideoState();
@@ -66,12 +67,12 @@ class _VideoState extends State<Video> {
 
     // videoPlayerController = VideoPlayerController.file(File(widget.title!));
 
-    
-videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(
+      widget.internet  ? videoPlayerController = VideoPlayerController.file(
+        File("${GlobalSingleton().Dirpath}/${widget.title?.split("/").last}")): videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(
         '${ApiRoutes.imageURL}${widget.title!}'));
+
    
-//  videoPlayerController = VideoPlayerController.file(
-//         File("${GlobalSingleton().Dirpath}/${widget.title?.split("/").last}"));
+
     
    
       

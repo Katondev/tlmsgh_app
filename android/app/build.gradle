@@ -78,7 +78,7 @@ android {
        release {
            keyAlias 'com.katon.student'
            keyPassword 'com.katon.student'
-           storeFile file('/G:/Katon-app-new/tlmsgh_app/android/app/com.katon.student')
+           storeFile file('E:/New folder/tlmsgh_app/android/app/com.katon.student')
            storePassword 'com.katon.student'
        }
 
@@ -86,8 +86,8 @@ android {
     }
     buildTypes {
         release {
-            // minifyEnabled false //keeps unused methods instead of removing them
-            // shrinkResources false
+            minifyEnabled false //keeps unused methods instead of removing them
+            shrinkResources false
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release

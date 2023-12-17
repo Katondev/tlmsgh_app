@@ -146,11 +146,15 @@ class SaveChangesButton extends StatelessWidget {
           height: height,
           onPressed: (cnt.checkColor())
               ? () async {
+                //await cnt.updateProfilePic();
                   if (cnt.formKey.currentState!.validate()) {
                    
-                      await cnt.updateProfilePic();
-                    
+                      // await cnt.updateProfilePic();
+                     
+
                     cnt.updateProfile().then((value) {
+                       
+                    
                       if (AppPreference()
                               .getInt(PreferencesKey.isLoggedInFirstTimeSt) !=
                           1) {

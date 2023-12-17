@@ -92,7 +92,7 @@ class ELearningProvider extends ChangeNotifier {
    List<Map<String, dynamic>> practiceStudentList = [
     {
       "image": AppAssets.e_book,
-      "title": "E-BOOK",
+      "title": "E-books",
     },
     {
       "image": AppAssets.labrary_videos,
@@ -496,10 +496,10 @@ class ELearningProvider extends ChangeNotifier {
       var res = await ApiService.instance.get(
         ApiRoutes.videobookWithSearch,
         queryParameters: {
-          "level": AppPreference().getString(PreferencesKey.level),
+           "level": AppPreference().getString(PreferencesKey.level),
            "userType": AppPreference().getString(PreferencesKey.uType),
            "bk_subCategory": bkSubCategory,
-          "search":""
+           "search":""
           
          
           
@@ -624,7 +624,7 @@ class ELearningProvider extends ChangeNotifier {
       }
       connections = false;
       await ApiService.instance.get("${ApiRoutes.bookWithSearch}?", queryParameters: {
-        "bk_mainCategory":bkCategory ?? "SHS",
+        "bk_mainCategory":bkCategory,
         "bk_subCategory": bkSubCategory,
         "bk_isFree":"",
         "bk_resource":0,
@@ -711,10 +711,14 @@ class ELearningProvider extends ChangeNotifier {
   //!
   RxList<SubjectDataModel> subjectList1 = <SubjectDataModel>[].obs;
   Future getAllSubjects({
+    
     String? subject,
   }) async {
     try {
-       print("-----type jfkjf ${selectsubjectype}");
+        
+   
+    
+      
       // isLoadingStarted = true;
       subjectList1.clear();
       
@@ -808,8 +812,9 @@ class ELearningProvider extends ChangeNotifier {
         notifyListeners();
       }
       connections = false;
+      
       await ApiService.instance.get("${ApiRoutes.bookWithSearch}?", queryParameters: {
-        "bk_mainCategory":'SHS - Business',
+        "bk_mainCategory":AppPreference().getString(PreferencesKey.level),
         "bk_subCategory": subCategoryName,
         "bk_isFree":"",
         "bk_resource":0,
@@ -820,7 +825,7 @@ class ELearningProvider extends ChangeNotifier {
         "search":""
         
       }).then((book) {
-        print("--------------------HH------------------------${book.data}");
+        print("---xx-----------------HH------------------------${subCategoryName }");
         bookData = BooksM.fromJson(book.data);
 
         booksM.add(bookData!);

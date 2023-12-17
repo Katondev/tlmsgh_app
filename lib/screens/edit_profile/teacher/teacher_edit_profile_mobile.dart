@@ -126,22 +126,32 @@ class _TeacherEditProfileMobileState extends State<TeacherEditProfileMobile> {
                                           //     color: AppColors.avatarColor,
                                           //   ),
                                           //   child:
-                                          NetworkImageWidget(
-                                            height: 80,
-                                            width: 80,
-                                            borderRadius:
-                                                BorderRadius.circular(100),
-                                            imageUrl:
-                                                "${ApiRoutes.imageURL}${cnt.image!.value}",
-                                            fit: BoxFit.cover,
-                                          ),
-                                          // ),
+                                           cnt.image1 != null
+                                              ? ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          100),
+                                                  child: Image.file(
+                                                      height: 80,
+                                                      width: 80,
+                                                      fit: BoxFit.cover,
+                                                      File(cnt.image1!.path)),
+                                                )
+                                              : NetworkImageWidget(
+                                                  height: 80,
+                                                  width: 80,
+                                                  imageUrl:
+                                                      "${ApiRoutes.imageURL+cnt.image!.value}",
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          100),
+                                                ),
                                           Positioned(
                                             bottom: 0,
                                             right: 0,
                                             child: GestureDetector(
                                               onTap: () {
-                                                cnt.getFromGallery();
+                                                cnt.getImage();
                                               },
                                               child: Container(
                                                 height: 27,

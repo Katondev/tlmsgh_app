@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart' as formData;
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -93,7 +94,7 @@ class EditProfileCnt extends GetxController {
 
   ImagePicker pick = ImagePicker();
 
-  XFile? imageFile;
+  // XFile? imageFile;
 
   RxString? image = "".obs;
   // 'https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?cs=srgb&dl=pexels-pixabay-301920.jpg&fm=jpg'
@@ -189,13 +190,16 @@ class EditProfileCnt extends GetxController {
             bloodGroups: signIn.data?.bloodGroups,
             divisions: signIn.data?.divisions,
             categories: signIn.data?.categories,
+            levelsList: signIn.data?.levelsList,
           ));
       String studentData = jsonEncode(updatedData);
       await AppPreference().setString(PreferencesKey.studentData, studentData);
+     await AppPreference().setString(PreferencesKey.level,  classValue.value.level.toString(),);
+    AppPreference().initialAppPreference();
       getStudentInfo();
       CustomLoadingIndicator.instance.hide();
       SnackBarService().showSnackBar(
-          message: "student_updated_successfully".tr,
+          message: "Student updated successfully".tr,
           type: SnackBarType.success);
       appbarCnt.getStudentInfo();
     } catch (e) {
@@ -243,7 +247,7 @@ class EditProfileCnt extends GetxController {
           });
         });
       }
-      classValue.value = classList[1];
+      classValue.value = classList[25];
       // classValue.value =
       //     DropdownClasses(label: signIn.data?.student?.stClass, enable: true);
 
@@ -300,32 +304,29 @@ class EditProfileCnt extends GetxController {
     }
   }
 
-  void getFromGallery() async {
-    loading.value = true;
-    XFile? pickedFile = await pick.pickImage(
-      source: ImageSource.gallery,
-    );
-    if (pickedFile != null) {
-      imageFile = pickedFile;
-      image?.value = imageFile!.path;
-      image?.value = imageFile!.path.split('/').last;
-    }
-    loading.value = false;
-  }
+  // void getFromGallery() async {
+  //   loading.value = true;
+  //   XFile? pickedFile = await pick.pickImage(
+  //     source: ImageSource.gallery,
+  //   );
+  //   if (pickedFile != null) {
+  //     imageFile = pickedFile;
+  //     image?.value = imageFile!.path;
+  //     image?.value = imageFile!.path.split('/').last;
+  //   }
+  //   loading.value = false;
+  // }
 
   XFile? image1;
   double uploadProgress = 0.0;
 
   Future<void> getImage() async {
     final picker = ImagePicker();
-    final XFile? pickedImage = await picker.pickImage(source: ImageSource.gallery);
-
-     update();
-      
-      image1 = pickedImage;
-      print("mddj");
-    await  updateProfilePic();
-    
+    final XFile? pickedImage =
+        await picker.pickImage(source: ImageSource.gallery);
+    update();
+    image1 = pickedImage;
+    await updateProfilePic();
   }
 
   Future updateProfilePic() async {
@@ -335,34 +336,34 @@ class EditProfileCnt extends GetxController {
       loading.value = true;
       connection.value = true;
       if (image1 != null) {
-      var imageUpload = formData.FormData.fromMap({
-        "st_profilePic": await formData.MultipartFile.fromFile(
-          image1!.path,
-          filename: "cafeteria.png",
-          // contentType: MediaType("image", 'jpg'),
-        ),
-      });
-      await ApiService.instance
-          .putHTTP(
-        url: "${ApiRoutes.updateProfilePic}${student.value.stId}?from=studentApp&key=xsv321sa2ds4235reuy354FE4rsd",
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': "application/json"
-        },
-    
-        body: imageUpload,
-      )
-          .then((value) {
-             CustomLoadingIndicator.instance.hide();
-            print(value.data['data']);
-            SnackBarService().showSnackBar(
-          message: "profile_updated_successfully".tr,
-          type: SnackBarType.success);
-           getStudentInfo();
-            
-        students = Student.fromJson(value.data["data"]['student'][1][0]);
-        
-      });
+        var imageUpload = formData.FormData.fromMap({
+          "st_profilePic": await formData.MultipartFile.fromFile(
+            image1!.path,
+            filename: "cafeteria.png",
+            // contentType: MediaType("image", 'jpg'),
+          ),
+        });
+        await ApiService.instance
+            .putHTTP(
+          url:
+              "${ApiRoutes.updateProfilePic}${student.value.stId}?from=studentApp&key=xsv321sa2ds4235reuy354FE4rsd",
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': "application/json"
+          },
+          body: imageUpload,
+        )
+            .then((value) {
+          CustomLoadingIndicator.instance.hide();
+          print(value.data['data']);
+          SnackBarService().showSnackBar(
+              message: "Photo updated successfully".tr,
+              type: SnackBarType.success);
+          getStudentInfo();
+         
+
+          students = Student.fromJson(value.data["data"]['student'][1][0]);
+        });
       }
       Map<String, dynamic> userData =
           jsonDecode(AppPreference().getString(PreferencesKey.studentData));
@@ -388,7 +389,7 @@ class EditProfileCnt extends GetxController {
       }
       SnackBarService()
           .showSnackBar(message: e.toString(), type: SnackBarType.error);
-       CustomLoadingIndicator.instance.hide();
+      CustomLoadingIndicator.instance.hide();
       loading.value = false;
     }
   }

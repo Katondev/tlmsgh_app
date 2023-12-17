@@ -142,9 +142,11 @@ class _LibraryVideoMobileState extends State<LibraryVideoMobile> {
                                                               ? () {
                                                                   log("message");
                                                                   Get.to(Video(
+                                                                    internet: ePrv.connection,
                                                                     title: data
                                                                         ?.bkVideo,
                                                                   ));
+                                                                    // ePrv.connection  ? print('inter net no') : print('inter net yes');
                                                                 }
                                                               : () {
                                                                   eLearningPrv
@@ -157,9 +159,9 @@ class _LibraryVideoMobileState extends State<LibraryVideoMobile> {
                                                                 },
                                                       onTapDownload: () {
                                                         log("message");
-                                                        Get.to(Video(
-                                                          title: data?.bkVideo,
-                                                        ));
+                                                        // Get.to(Video(
+                                                        //   title: data?.bkVideo,
+                                                        // ));
                                                       },
                                                       book: data,
                                                       booksList: dd.data,
@@ -232,12 +234,18 @@ class _LibraryVideoMobileState extends State<LibraryVideoMobile> {
                                                                       log("message");
                                                                       Get.to(
                                                                           Video(
+                                                                            // internet: ,
                                                                         title: data
                                                                             ?.bkVideo,
                                                                       ));
                                                                     }
-                                                                  : () {
+                                                                  : () { 
+  // ePrv.connection  ? print('inter net no') : print('inter net yes');
+                                                                    
+
+
                                                             Get.to(Video(
+                                                              internet: ePrv.connection,
                                                           title: data?.bkVideo,
                                                         ));
                                                                       eLearningPrv
@@ -263,9 +271,9 @@ class _LibraryVideoMobileState extends State<LibraryVideoMobile> {
                                                                     }
                                                                   : () {
                                                                       log("message---1");
-                                                        Get.to(Video(
-                                                          title: data?.bkVideo,
-                                                        ));
+                                                        // Get.to(Video(
+                                                        //   title: data?.bkVideo,
+                                                        // ));
                                                                       eLearningPrv
                                                                           ?.currentlabelIndex = i;
                                                                       eLearningPrv

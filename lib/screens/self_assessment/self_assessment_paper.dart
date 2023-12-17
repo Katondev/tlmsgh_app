@@ -36,15 +36,16 @@ class _GeneratePaperState extends State<GeneratePaper> {
   void initState() {
     // TODO: implement initState
     super.initState();
-      
+          init();
     eLearningPrv =
         Provider.of<SelfAssessmentController>(context, listen: false);
-    init();
+    // init();
   }
 
   void init() async {
+    await eLearningPrv?.getSelectPapar();
     await eLearningPrv?.getAllCategoryInfo();
-   await eLearningPrv?.getSelectPapar();
+  //  await eLearningPrv?.getSelectPapar();
 
   }
 
@@ -179,7 +180,7 @@ class _GeneratePaperState extends State<GeneratePaper> {
                                         style: AppTextStyle.normalRegular12)))
                                 .toList(),
                             hint: Text(
-                              "Select Subject",
+                              "Select Topic",
                               style: AppTextStyle.normalRegular12,
                             ),
                           ),
