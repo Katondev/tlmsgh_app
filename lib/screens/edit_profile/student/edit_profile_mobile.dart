@@ -148,78 +148,78 @@ class _EditProfileMobilePageState extends State<EditProfileMobilePage> {
                                     CustomTextFiledS(),
                                     h12,
 
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          width: 100,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              h5,
-                                              Text(
-                                                'country_code'.tr,
-                                                style: AppTextStyle.normalBold12
-                                                    .copyWith(
-                                                  color: AppColors.primaryBlack,
-                                                ),
-                                              ),
-                                              h10,
-                                              DropDown(
-                                                dropDowns: cnt.countryCodeList,
-                                                selectedValue: cnt.countrycode
-                                                        .value.isEmpty
-                                                    ? null
-                                                    : cnt.countrycode.value,
-                                                onChange: (value) {
-                                                  cnt.countrycode.value =
-                                                      value ?? "";
-                                                  if (!cnt.textChanged.value) {
-                                                    cnt.textChanged.value =
-                                                        true;
-                                                  }
-                                                  cnt.checkColor();
-                                                },
-                                                hint: Text(
-                                                  "Select country code",
-                                                  style: AppTextStyle
-                                                      .normalRegular12,
-                                                ),
-                                                // validator: (value) {
-                                                //   if (value!.isEmpty) {
-                                                //     return "require_division"
-                                                //         .tr;
-                                                //   }
-                                                //   return null;
-                                                // },
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        w20,
-                                        Expanded(
-                                          child: TextfieldwithTitle(
-                                              onChanged: (value) {
-                                                if (!cnt.textChanged.value) {
-                                                  cnt.textChanged.value = true;
-                                                }
-                                                cnt.checkColor();
-                                              },
-                                              validator: (value) =>
-                                                  Validators.validateMobile(
-                                                      value),
-                                              hint: "Mobile_number".tr,
-                                              title: 'Mobile_number'.tr,
-                                              isrequired: true,
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              controller:
-                                                  cnt.mobileNumber.value),
-                                        ),
-                                      ],
-                                    ),
+                                    // Row(
+                                    //   crossAxisAlignment:
+                                    //       CrossAxisAlignment.start,
+                                    //   children: [
+                                    //     SizedBox(
+                                    //       width: 100,
+                                    //       child: Column(
+                                    //         crossAxisAlignment:
+                                    //             CrossAxisAlignment.start,
+                                    //         children: [
+                                    //           h5,
+                                    //           Text(
+                                    //             'country_code'.tr,
+                                    //             style: AppTextStyle.normalBold12
+                                    //                 .copyWith(
+                                    //               color: AppColors.primaryBlack,
+                                    //             ),
+                                    //           ),
+                                    //           h10,
+                                    //           DropDown(
+                                    //             dropDowns: cnt.countryCodeList,
+                                    //             selectedValue: cnt.countrycode
+                                    //                     .value.isEmpty
+                                    //                 ? null
+                                    //                 : cnt.countrycode.value,
+                                    //             onChange: (value) {
+                                    //               cnt.countrycode.value =
+                                    //                   value ?? "";
+                                    //               if (!cnt.textChanged.value) {
+                                    //                 cnt.textChanged.value =
+                                    //                     true;
+                                    //               }
+                                    //               cnt.checkColor();
+                                    //             },
+                                    //             hint: Text(
+                                    //               "Select country code",
+                                    //               style: AppTextStyle
+                                    //                   .normalRegular12,
+                                    //             ),
+                                    //             // validator: (value) {
+                                    //             //   if (value!.isEmpty) {
+                                    //             //     return "require_division"
+                                    //             //         .tr;
+                                    //             //   }
+                                    //             //   return null;
+                                    //             // },
+                                    //           ),
+                                    //         ],
+                                    //       ),
+                                    //     ),
+                                    //     w20,
+                                    //     Expanded(
+                                    //       child: TextfieldwithTitle(
+                                    //           onChanged: (value) {
+                                    //             if (!cnt.textChanged.value) {
+                                    //               cnt.textChanged.value = true;
+                                    //             }
+                                    //             cnt.checkColor();
+                                    //           },
+                                    //           validator: (value) =>
+                                    //               Validators.validateMobile(
+                                    //                   value),
+                                    //           hint: "Mobile_number".tr,
+                                    //           title: 'Mobile_number'.tr,
+                                    //           isrequired: true,
+                                    //           keyboardType:
+                                    //               TextInputType.number,
+                                    //           controller:
+                                    //               cnt.mobileNumber.value),
+                                    //     ),
+                                    //   ],
+                                    // ),
                                     h12,
                                     Row(
                                       crossAxisAlignment:
